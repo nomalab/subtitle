@@ -28,7 +28,7 @@ public class SubtitleStyle {
         FONT_WEIGHT,
         TEXT_DECORATION;
     }
-
+    
     // Direction
     public enum Direction {
         LTR,

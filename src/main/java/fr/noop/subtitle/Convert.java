@@ -28,7 +28,9 @@ public class Convert {
         SAMI(new String[] {"smi"}),
         VTT(new String[] {"vtt"}),
         SRT(new String[] {"srt"}),
-        STL(new String[] {"stl"});
+        STL(new String[] {"stl"}),
+        STT_XML(new String[] {"sttxml"}),
+        ASS(new String[] {"ass"});
 
         private String[] availableExtensions;
 
@@ -53,7 +55,8 @@ public class Convert {
         SAMI(ConvertFormat.SAMI, "fr.noop.subtitle.sami.SamiParser", true),
         VTT(ConvertFormat.VTT, "fr.noop.subtitle.vtt.VttParser", true),
         SRT(ConvertFormat.SRT, "fr.noop.subtitle.srt.SrtParser", true),
-        STL(ConvertFormat.STL, "fr.noop.subtitle.stl.StlParser", false);
+        STL(ConvertFormat.STL, "fr.noop.subtitle.stl.StlParser", false),
+        STT_XML(ConvertFormat.STT_XML, "fr.noop.subtitle.sttxml.SttXmlParser", true);
 
         private ConvertFormat format;
         private String className;
@@ -93,7 +96,8 @@ public class Convert {
         SAMI(ConvertFormat.SAMI, "fr.noop.subtitle.sami.SamiWriter", true),
         VTT(ConvertFormat.VTT, "fr.noop.subtitle.vtt.VttWriter", true),
         SRT(ConvertFormat.SRT, "fr.noop.subtitle.srt.SrtWriter", true),
-        TTML(ConvertFormat.TTML, "fr.noop.subtitle.ttml.TtmlWriter", false);
+        TTML(ConvertFormat.TTML, "fr.noop.subtitle.ttml.TtmlWriter", false),
+        ASS(ConvertFormat.ASS, "fr.noop.subtitle.ass.AssWriter", true);
 
         private ConvertFormat format;
         private String className;

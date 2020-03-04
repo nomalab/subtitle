@@ -1,0 +1,1003 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sst xml:space="preserve">
+    <header charset="0" languageid="1036" fontname="Teletext" fontsize="29" programtitle="Test title" episodetitle="37" destination="Ceefax" client="client" filmformat="1.77" aspectratio="16:9" reel="12/04" spottingdate="2020" originallanguage="French" translator="Michel" translationdate="2023-04-27">
+        <timecode fps="25" sourcefps="25" startmark="00:00:00:00" firstframe="10:00:00:00" lastframe="10:07:14:24" firstcutin="00:00:00:00" secondcutin="00:00:00:00" thirdcutin="00:00:00:00" openingcreditsstart="00:00:00:00" openingcreditsend="00:00:00:00" closingcreditsstart="00:00:00:00" closingcreditsend="00:00:00:00"/>
+        <ebu numberofblocs="152" numberofsubtitles="152" numberofgroups="1" codepage="850" displaystandard="undefined" charactertable="latin" languagecode="french" maxnumberoflines="23" maxnumberofcharacterperline="40" timecodestatus="used" timecodefirstin="00:00:00:00" creationdate="2012-04-27" revisiondate="2012-04-27" revisionnumber="01" numberofdisks="0" diskid="0" country="FRA" publisher="publisher test" editor="test editor" editordetails="editor details"/>
+        <palette white="FFFFFF" black="000000" red="0000FF" lime="00FF00" yellow="00FFFF" blue="FF0000" fuchsia="FF00FF" aqua="FFFF00"/>
+        <media filename="test_file.mpg" starttimecode="09:59:35:03"/>
+    </header>
+    <bloc uid="dddddddd-f29b-48d1-9dd3-2b0556a7cb8e" id="1" groupid="1" timecodein="10:00:00:12" timecodeout="10:00:02:10" force_centered="true" checked="true">
+        <row hoffset="200" voffset="335" zoffset="0" justification="left">
+            <style color="aqua">test text </style>
+        </row>
+    </bloc>
+    <bloc uid="dddddddd-5719-4a5e-b1e9-dedd02d91a19" id="2" groupid="1" timecodein="10:00:02:16" timecodeout="10:00:04:22" checked="true">
+        <row hoffset="0" voffset="510" zoffset="0" justification="center">
+            <style color="aqua">test text </style>
+        </row>
+        <row hoffset="0" voffset="440" zoffset="0" justification="center">
+            <style color="aqua">test text </style>
+        </row>
+    </bloc>
+    <bloc groupid="1" timecodein="10:00:05:03" timecodeout="10:00:07:10" id="3" uid="dddddddd-a41f-4e9d-b859-bb38c9109499" checked="true">
+        <row hoffset="-110" zoffset="0" justification="right" voffset="125">
+            <style color="white">test text </style>
+        </row>
+    </bloc>
+    <bloc groupid="1" timecodein="10:00:07:16" timecodeout="10:00:09:24" id="4" uid="dddddddd-e649-472a-a1e5-cdb6e2530a39" checked="true">
+        <row hoffset="0" zoffset="0" justification="center" voffset="195">
+            <style color="aqua">test text </style>
+        </row>
+        <row hoffset="0" zoffset="0" justification="center" voffset="125">
+            <style color="aqua">test text </style>
+        </row>
+    </bloc>
+    <bloc groupid="1" timecodein="10:00:10:05" timecodeout="10:00:11:15" id="5" uid="dddddddd-cb47-42de-9b0a-e42ae1f80f5d" checked="true">
+        <row hoffset="0" zoffset="0" justification="center" voffset="125">
+            <style color="aqua">test text </style>
+        </row>
+    </bloc>
+    <bloc groupid="1" timecodein="10:00:11:21" timecodeout="10:00:13:23" id="6" uid="dddddddd-5d67-4ad6-a034-33799bc6beda" force_centered="true" checked="true">
+        <row zoffset="0" hoffset="266" justification="left" voffset="265">
+            <style color="white">test text </style>
+        </row>
+        <row zoffset="0" hoffset="266" justification="left" voffset="125">
+            <style color="white">test text </style>
+        </row>
+    </bloc>
+    <bloc groupid="1" timecodein="10:00:14:04" timecodeout="10:00:15:24" id="7" uid="dddddddd-c631-4087-b9fc-f88dc1a1101b" checked="true">
+        <row hoffset="0" zoffset="0" justification="center" voffset="195">
+            <style color="white">test text </style>
+        </row>
+        <row hoffset="0" zoffset="0" justification="center" voffset="125">
+            <style color="white">test text </style>
+        </row>
+    </bloc>
+    <bloc groupid="1" timecodein="10:00:16:05" timecodeout="10:00:18:05" id="8" uid="dddddddd-9257-4c8e-b5f8-862956bd2abe" force_centered="true" checked="true">
+        <row zoffset="0" hoffset="312" justification="left" voffset="440">
+            <style color="white">test text </style>
+        </row>
+        <row zoffset="0" hoffset="312" justification="left" voffset="300">
+            <style color="white">test text </style>
+        </row>
+    </bloc>
+    <bloc groupid="1" timecodein="10:00:18:11" timecodeout="10:00:20:22" id="9" uid="dddddddd-d8ac-4582-bb11-ca48395bb89c" force_centered="true" checked="true">
+        <row zoffset="0" hoffset="219" justification="left" voffset="125">
+            <style color="white">test text </style>
+        </row>
+    </bloc>
+    <bloc groupid="1" timecodein="10:00:21:03" timecodeout="10:00:22:02" id="10" uid="dddddddd-8be0-4768-b99b-1228d55ad5ef" checked="true">
+        <row hoffset="0" zoffset="0" justification="center" voffset="125">
+            <style color="red">test text </style>
+        </row>
+    </bloc>
+    <bloc uid="dddddddd-ff35-4275-9bb5-132682bcc80f" id="11" groupid="1" timecodein="10:00:22:08" timecodeout="10:00:24:12" checked="true">
+        <row hoffset="318" voffset="265" zoffset="0" justification="left">
+            <style color="aqua">test text </style>
+        </row>
+    </bloc>
+    <bloc uid="dddddddd-b145-490e-b6fc-59bd9d027f2d" id="12" groupid="1" timecodein="10:00:25:02" timecodeout="10:00:28:01" cutin="true" checked="true">
+        <row hoffset="0" voffset="195" zoffset="0" justification="center">
+            <style color="yellow">test text </style>
+        </row>
+        <row hoffset="0" voffset="125" zoffset="0" justification="center">
+            <style color="yellow">test text </style>
+        </row>
+    </bloc>
+    <bloc uid="dddddddd-092c-4838-8fd4-0cd435c5e216" id="13" groupid="1" timecodein="10:00:28:07" timecodeout="10:00:31:07" checked="true">
+        <row hoffset="0" voffset="195" zoffset="0" justification="center">
+            <style color="yellow">test text </style>
+        </row>
+        <row hoffset="0" voffset="125" zoffset="0" justification="center">
+            <style color="yellow">test text </style>
+        </row>
+    </bloc>
+    <bloc uid="dddddddd-1bda-4ef9-9fa5-8c9ef67fe706" id="14" groupid="1" timecodein="10:00:31:13" timecodeout="10:00:33:12" checked="true">
+        <row hoffset="0" voffset="125" zoffset="0" justification="center">
+            <style color="yellow">test text </style>
+        </row>
+    </bloc>
+    <bloc uid="dddddddd-91bc-4780-8795-e02fc855c039" id="15" groupid="1" timecodein="10:00:33:18" timecodeout="10:00:36:08" checked="true">
+        <row hoffset="0" voffset="195" zoffset="0" justification="center">
+            <style color="yellow">test text </style>
+        </row>
+        <row hoffset="0" voffset="125" zoffset="0" justification="center">
+            <style color="yellow">test text </style>
+        </row>
+    </bloc>
+    <bloc uid="dddddddd-ce46-4a6c-a5ba-603eb91c8238" id="16" groupid="1" timecodein="10:00:36:14" timecodeout="10:00:40:04" checked="true">
+        <row hoffset="0" voffset="195" zoffset="0" justification="center">
+            <style color="yellow">test text </style>
+        </row>
+        <row hoffset="0" voffset="125" zoffset="0" justification="center">
+            <style color="yellow">test text </style>
+        </row>
+    </bloc>
+    <bloc uid="dddddddd-1bf3-44f9-93ac-c23b9f5c1a3a" id="17" groupid="1" timecodein="10:00:40:10" timecodeout="10:00:43:16" checked="true">
+        <row hoffset="-110" voffset="195" zoffset="0" justification="right">
+            <style color="white">test text </style>
+        </row>
+        <row hoffset="-110" voffset="125" zoffset="0" justification="right">
+            <style color="white">test text </style>
+        </row>
+    </bloc>
+    <bloc uid="dddddddd-c1e4-4988-bc90-4f101541decb" id="18" groupid="1" timecodein="10:00:43:22" timecodeout="10:00:46:15" cutout="true" checked="true">
+        <row hoffset="0" voffset="195" zoffset="0" justification="center">
+            <style color="white">test text </style>
+        </row>
+        <row hoffset="0" voffset="125" zoffset="0" justification="center">
+            <style color="white">test text </style>
+        </row>
+    </bloc>
+    <bloc uid="dddddddd-9ce4-4821-9d9c-790bdf91ac64" id="19" groupid="1" timecodein="10:00:47:04" timecodeout="10:00:48:15" force_centered="true" checked="true">
+        <row hoffset="273" voffset="125" zoffset="0" justification="left">
+            <style color="white">test text </style>
+        </row>
+    </bloc>
+    <bloc uid="dddddddd-fec0-4460-82e7-c82ae55de10a" id="20" groupid="1" timecodein="10:00:48:21" timecodeout="10:00:52:20" checked="true">
+        <row hoffset="-110" voffset="195" zoffset="0" justification="right">
+            <style color="white">test text </style>
+        </row>
+        <row hoffset="-110" voffset="125" zoffset="0" justification="right">
+            <style color="white">test text </style>
+        </row>
+    </bloc>
+    <bloc uid="dddddddd-f666-4198-a38b-e30d61f780f9" id="21" groupid="1" timecodein="10:00:53:01" timecodeout="10:00:56:04" checked="true">
+        <row hoffset="0" voffset="195" zoffset="0" justification="center">
+            <style color="white">test text </style>
+        </row>
+        <row hoffset="0" voffset="125" zoffset="0" justification="center">
+            <style color="white">test text </style>
+        </row>
+    </bloc>
+    <bloc uid="dddddddd-2974-4283-89d8-dd2f441b1397" id="22" groupid="1" timecodein="10:00:56:10" timecodeout="10:00:59:01" checked="true">
+        <row hoffset="203" voffset="265" zoffset="0" justification="left">
+            <style color="white">test text </style>
+        </row>
+        <row hoffset="603" voffset="125" zoffset="0" justification="left">
+            <style color="white">test text </style>
+        </row>
+    </bloc>
+    <bloc uid="dddddddd-a382-423d-a0f5-46499022b9ce" id="23" groupid="1" timecodein="10:00:59:07" timecodeout="10:01:00:23" force_centered="true" checked="true">
+        <row hoffset="243" voffset="125" zoffset="0" justification="left">
+            <style color="yellow">test text </style>
+        </row>
+    </bloc>
+    <bloc uid="dddddddd-4c03-439c-a66a-c3846486a1e6" id="24" groupid="1" timecodein="10:01:01:04" timecodeout="10:01:03:13" checked="true">
+        <row hoffset="0" voffset="265" zoffset="0" justification="center">
+            <style color="yellow">test text </style>
+        </row>
+        <row hoffset="0" voffset="125" zoffset="0" justification="center">
+            <style color="yellow">test text </style>
+        </row>
+    </bloc>
+    <bloc uid="dddddddd-44d9-4803-949d-10e599561784" id="25" groupid="1" timecodein="10:01:03:19" timecodeout="10:01:06:11" checked="true">
+        <row hoffset="204" voffset="265" zoffset="0" justification="left">
+            <style color="white">test text </style>
+        </row>
+        <row hoffset="554" voffset="125" zoffset="0" justification="left">
+            <style color="white">test text </style>
+        </row>
+    </bloc>
+    <bloc uid="dddddddd-431f-4d74-a53b-a49da95fc3e0" id="26" groupid="1" timecodein="10:01:06:17" timecodeout="10:01:10:02" checked="true">
+        <row hoffset="195" voffset="195" zoffset="0" justification="left">
+            <style color="white">test text </style>
+        </row>
+        <row hoffset="195" voffset="125" zoffset="0" justification="left">
+            <style color="white">test text </style>
+        </row>
+    </bloc>
+    <bloc uid="dddddddd-90b4-4dd5-aefe-e7aead4e4460" id="27" groupid="1" timecodein="10:01:10:08" timecodeout="10:01:13:14" checked="true">
+        <row hoffset="-110" voffset="195" zoffset="0" justification="right">
+            <style color="white">test text </style>
+        </row>
+        <row hoffset="-110" voffset="125" zoffset="0" justification="right">
+            <style color="white">test text </style>
+        </row>
+    </bloc>
+    <bloc uid="dddddddd-0349-4de6-8083-ad879f553ce5" id="28" groupid="1" timecodein="10:01:13:20" timecodeout="10:01:15:23" checked="true">
+        <row hoffset="0" voffset="195" zoffset="0" justification="center">
+            <style color="white">test text </style>
+        </row>
+        <row hoffset="0" voffset="125" zoffset="0" justification="center">
+            <style color="white">test text </style>
+        </row>
+    </bloc>
+    <bloc uid="dddddddd-8465-4cb7-a3ca-5f1c51999eea" id="29" groupid="1" timecodein="10:01:19:06" timecodeout="10:01:22:00" cutin="true" checked="true">
+        <row hoffset="195" voffset="195" zoffset="0" justification="left">
+            <style color="white">test text </style>
+        </row>
+        <row hoffset="195" voffset="125" zoffset="0" justification="left">
+            <style color="white">test text </style>
+        </row>
+    </bloc>
+    <bloc uid="dddddddd-d5cd-4852-a5bc-c6c903fcf94a" id="30" groupid="1" timecodein="10:01:22:06" timecodeout="10:01:23:14" checked="true">
+        <row hoffset="195" voffset="195" zoffset="0" justification="left">
+            <style color="white">test text </style>
+        </row>
+        <row hoffset="195" voffset="125" zoffset="0" justification="left">
+            <style color="white">test text </style>
+        </row>
+    </bloc>
+    <bloc uid="dddddddd-fa58-4204-9781-a639901e5bac" id="31" groupid="1" timecodein="10:01:23:20" timecodeout="10:01:25:16" checked="true">
+        <row hoffset="195" voffset="265" zoffset="0" justification="center">
+            <style color="white">test text </style>
+        </row>
+        <row hoffset="0" voffset="125" zoffset="0" justification="center">
+            <style color="white">test text </style>
+        </row>
+    </bloc>
+    <bloc uid="dddddddd-78e4-4153-a79b-233fc771b8cc" id="32" groupid="1" timecodein="10:01:25:22" timecodeout="10:01:29:01" checked="true">
+        <row hoffset="0" voffset="195" zoffset="0" justification="center">
+            <style color="white">test text </style>
+        </row>
+        <row hoffset="0" voffset="125" zoffset="0" justification="center">
+            <style color="white">test text </style>
+        </row>
+    </bloc>
+    <bloc uid="dddddddd-adcc-436b-b18b-2ec4a004d0e6" id="33" groupid="1" timecodein="10:01:30:03" timecodeout="10:01:31:24" checked="true">
+        <row hoffset="0" voffset="125" zoffset="0" justification="center">
+            <style color="yellow">test text </style>
+        </row>
+    </bloc>
+    <bloc uid="dddddddd-b362-4071-b88d-efe24b1eab3f" id="34" groupid="1" timecodein="10:01:32:05" timecodeout="10:01:33:16" checked="true">
+        <row hoffset="0" voffset="125" zoffset="0" justification="center">
+            <style color="yellow">test text </style>
+        </row>
+    </bloc>
+    <bloc uid="dddddddd-d8a5-4984-8c99-5a4a1f254e01" id="35" groupid="1" timecodein="10:01:33:22" timecodeout="10:01:36:05" checked="true">
+        <row hoffset="0" voffset="195" zoffset="0" justification="center">
+            <style color="white">test text </style>
+        </row>
+        <row hoffset="0" voffset="125" zoffset="0" justification="center">
+            <style color="white">test text </style>
+        </row>
+    </bloc>
+    <bloc uid="dddddddd-795f-4632-aef4-7543ae1dbb6d" id="36" groupid="1" timecodein="10:01:36:11" timecodeout="10:01:40:05" checked="true">
+        <row hoffset="0" voffset="195" zoffset="0" justification="center">
+            <style color="yellow">test text </style>
+        </row>
+        <row hoffset="0" voffset="125" zoffset="0" justification="center">
+            <style color="yellow">test text </style>
+        </row>
+    </bloc>
+    <bloc uid="dddddddd-15d2-462f-aaf0-cb01b723f4f0" id="37" groupid="1" timecodein="10:01:41:06" timecodeout="10:01:43:01" cutin="true" checked="true">
+        <row hoffset="203" voffset="265" zoffset="0" justification="left">
+            <style color="white">test text </style>
+        </row>
+        <row hoffset="603" voffset="125" zoffset="0" justification="left">
+            <style color="white">test text </style>
+        </row>
+    </bloc>
+    <bloc uid="dddddddd-a2b6-40d0-985b-711e949c5642" id="38" groupid="1" timecodein="10:01:43:07" timecodeout="10:01:45:20" checked="true">
+        <row hoffset="0" voffset="195" zoffset="0" justification="center">
+            <style color="yellow">test text </style>
+        </row>
+        <row hoffset="0" voffset="125" zoffset="0" justification="center">
+            <style color="yellow">test text </style>
+        </row>
+    </bloc>
+    <bloc uid="dddddddd-ca97-4626-bdce-6beeb71238d2" id="39" groupid="1" timecodein="10:01:46:01" timecodeout="10:01:47:24" checked="true">
+        <row hoffset="-110" voffset="195" zoffset="0" justification="right">
+            <style color="white">test text </style>
+        </row>
+        <row hoffset="-110" voffset="125" zoffset="0" justification="right">
+            <style color="white">test text </style>
+        </row>
+    </bloc>
+    <bloc uid="dddddddd-0547-41bd-8686-9b007d4c78be" id="40" groupid="1" timecodein="10:01:48:05" timecodeout="10:01:49:11" checked="true">
+        <row hoffset="243" voffset="125" zoffset="0" justification="left">
+            <style color="white">test text </style>
+        </row>
+    </bloc>
+    <bloc uid="dddddddd-a022-4254-923c-1ef72ffae6fa" id="41" groupid="1" timecodein="10:01:49:17" timecodeout="10:01:52:06" checked="true">
+        <row hoffset="-110" voffset="195" zoffset="0" justification="right">
+            <style color="white">test text </style>
+        </row>
+        <row hoffset="-110" voffset="125" zoffset="0" justification="right">
+            <style color="white">test text </style>
+        </row>
+    </bloc>
+    <bloc uid="dddddddd-8e0a-4640-b0fb-e48a300b59d4" id="42" groupid="1" timecodein="10:01:52:12" timecodeout="10:01:54:14" checked="true">
+        <row hoffset="0" voffset="195" zoffset="0" justification="center">
+            <style color="white">test text </style>
+        </row>
+        <row hoffset="0" voffset="125" zoffset="0" justification="center">
+            <style color="white">test text </style>
+        </row>
+    </bloc>
+    <bloc uid="dddddddd-1ecb-4723-b47d-6a5f211874a1" id="43" groupid="1" timecodein="10:01:54:20" timecodeout="10:01:56:02" force_centered="true" checked="true">
+        <row hoffset="283" voffset="125" zoffset="0" justification="left">
+            <style color="white">test text </style>
+        </row>
+    </bloc>
+    <bloc uid="dddddddd-d8fc-4d93-b523-2ecc14c5f38f" id="44" groupid="1" timecodein="10:01:56:08" timecodeout="10:02:00:10" checked="true">
+        <row hoffset="195" voffset="195" zoffset="0" justification="left">
+            <style color="white">test text </style>
+        </row>
+        <row hoffset="195" voffset="125" zoffset="0" justification="left">
+            <style color="white">test text </style>
+        </row>
+    </bloc>
+    <bloc uid="dddddddd-545f-492e-93dd-1e59995391fa" id="45" groupid="1" timecodein="10:02:01:00" timecodeout="10:02:02:01" force_centered="true" checked="true">
+        <row hoffset="431" voffset="125" zoffset="0" justification="left">
+            <style color="white">test text </style>
+        </row>
+    </bloc>
+    <bloc uid="dddddddd-261c-4a79-aa36-147eaffadac7" id="46" groupid="1" timecodein="10:02:02:18" timecodeout="10:02:04:13" checked="true">
+        <row hoffset="-120" voffset="265" zoffset="0" justification="right">
+            <style color="white">test text </style>
+        </row>
+        <row hoffset="-410" voffset="125" zoffset="0" justification="right">
+            <style color="white">test text </style>
+        </row>
+    </bloc>
+    <bloc uid="dddddddd-1262-4c49-96a8-286e2a71b353" id="47" groupid="1" timecodein="10:02:04:19" timecodeout="10:02:07:22" checked="true">
+        <row hoffset="197" voffset="265" zoffset="0" justification="left">
+            <style color="white">test text </style>
+        </row>
+        <row hoffset="547" voffset="125" zoffset="0" justification="left">
+            <style color="white">test text </style>
+        </row>
+    </bloc>
+    <bloc uid="dddddddd-626f-48ab-b06b-dca85303828c" id="48" groupid="1" timecodein="10:02:08:03" timecodeout="10:02:10:10" checked="true">
+        <row hoffset="0" voffset="125" zoffset="0" justification="center">
+            <style color="fuchsia">test text </style>
+        </row>
+    </bloc>
+    <bloc uid="dddddddd-98e2-4245-8ae2-bc80fb82512c" id="49" groupid="1" timecodein="10:02:10:16" timecodeout="10:02:12:09" checked="true">
+        <row hoffset="195" voffset="265" zoffset="0" justification="left">
+            <style color="fuchsia">test text </style>
+        </row>
+        <row hoffset="345" voffset="125" zoffset="0" justification="left">
+            <style color="white">test text </style>
+        </row>
+    </bloc>
+    <bloc uid="dddddddd-d576-4db0-b7cb-f329fc7710af" id="50" groupid="1" timecodein="10:02:12:15" timecodeout="10:02:15:02" checked="true">
+        <row hoffset="195" voffset="125" zoffset="0" justification="left">
+            <style color="fuchsia">test text </style>
+        </row>
+    </bloc>
+    <bloc uid="dddddddd-a458-4eef-98c9-0d21aa297053" id="51" groupid="1" timecodein="10:02:15:08" timecodeout="10:02:20:14" checked="true">
+        <row hoffset="-300" voffset="265" zoffset="0" justification="center">
+            <style color="fuchsia">test text </style>
+        </row>
+        <row hoffset="0" voffset="125" zoffset="0" justification="center">
+            <style color="red">test text </style>
+        </row>
+    </bloc>
+    <bloc uid="dddddddd-a8bb-486b-8258-7f90671b6776" id="52" groupid="1" timecodein="10:02:20:20" timecodeout="10:02:24:06" force_centered="true" checked="true">
+        <row hoffset="164" voffset="265" zoffset="0" justification="left">
+            <style color="yellow">test text </style>
+        </row>
+        <row hoffset="164" voffset="125" zoffset="0" justification="left">
+            <style color="yellow">test text </style>
+        </row>
+    </bloc>
+    <bloc uid="dddddddd-a5c8-4ec7-8417-c2db729766ab" id="53" groupid="1" timecodein="10:02:24:12" timecodeout="10:02:26:04" checked="true">
+        <row hoffset="0" voffset="125" zoffset="0" justification="center">
+            <style color="fuchsia">test text </style>
+        </row>
+    </bloc>
+    <bloc uid="dddddddd-88c7-404f-983f-5c407543604d" id="54" groupid="1" timecodein="10:02:26:10" timecodeout="10:02:28:06" checked="true">
+        <row hoffset="0" voffset="195" zoffset="0" justification="center">
+            <style color="white">test text </style>
+        </row>
+        <row hoffset="0" voffset="125" zoffset="0" justification="center">
+            <style color="white">test text </style>
+        </row>
+    </bloc>
+    <bloc uid="dddddddd-a81a-45e7-9d22-eec056ef2167" id="55" groupid="1" timecodein="10:02:28:12" timecodeout="10:02:30:20" checked="true">
+        <row hoffset="0" voffset="195" zoffset="0" justification="center">
+            <style color="white">test text </style>
+        </row>
+        <row hoffset="0" voffset="125" zoffset="0" justification="center">
+            <style color="white">test text </style>
+        </row>
+    </bloc>
+    <bloc uid="dddddddd-ed77-4c32-8c0d-57af3f7e631b" id="56" groupid="1" timecodein="10:02:31:01" timecodeout="10:02:33:10" checked="true">
+        <row hoffset="213" voffset="265" zoffset="0" justification="left">
+            <style color="white">test text </style>
+        </row>
+        <row hoffset="613" voffset="125" zoffset="0" justification="left">
+            <style color="yellow">test text </style>
+        </row>
+    </bloc>
+    <bloc uid="dddddddd-911e-4036-b29d-600f5dd13590" id="57" groupid="1" timecodein="10:02:33:16" timecodeout="10:02:34:19" cutout="true" checked="true">
+        <row hoffset="-110" voffset="125" zoffset="0" justification="right">
+            <style color="white">test text </style>
+        </row>
+    </bloc>
+    <bloc uid="dddddddd-4259-450d-bdd4-797c72f7642a" id="58" groupid="1" timecodein="10:02:38:00" timecodeout="10:02:39:16" checked="true">
+        <row hoffset="195" voffset="195" zoffset="0" justification="left">
+            <style color="white">test text </style>
+        </row>
+        <row hoffset="195" voffset="125" zoffset="0" justification="left">
+            <style color="white">test text </style>
+        </row>
+    </bloc>
+    <bloc uid="dddddddd-32e4-4ae4-b9f6-b49df6f80ece" id="59" groupid="1" timecodein="10:02:39:22" timecodeout="10:02:40:22" cutout="true" checked="true">
+        <row hoffset="-110" voffset="125" zoffset="0" justification="right">
+            <style color="white">test text </style>
+        </row>
+    </bloc>
+    <bloc uid="dddddddd-e877-43f6-aa24-03407c786b05" id="60" groupid="1" timecodein="10:02:41:14" timecodeout="10:02:42:15" checked="true">
+        <row hoffset="-110" voffset="125" zoffset="0" justification="right">
+            <style color="yellow">test text </style>
+        </row>
+    </bloc>
+    <bloc uid="dddddddd-22a3-4384-83b0-b557392e8b04" id="61" groupid="1" timecodein="10:02:42:21" timecodeout="10:02:44:09" checked="true">
+        <row hoffset="0" voffset="125" zoffset="0" justification="center">
+            <style color="white">test text </style>
+        </row>
+    </bloc>
+    <bloc uid="dddddddd-4ba2-4624-b212-aa26e97785c2" id="62" groupid="1" timecodein="10:02:45:17" timecodeout="10:02:47:20" cutin="true" checked="true">
+        <row hoffset="-110" voffset="195" zoffset="0" justification="right">
+            <style color="white">test text </style>
+        </row>
+        <row hoffset="-110" voffset="125" zoffset="0" justification="right">
+            <style color="white">test text </style>
+        </row>
+    </bloc>
+    <bloc uid="dddddddd-a548-493a-8af1-6b20f30ff21b" id="63" groupid="1" timecodein="10:02:48:01" timecodeout="10:02:51:02" checked="true">
+        <row hoffset="195" voffset="195" zoffset="0" justification="left">
+            <style color="white">test text </style>
+        </row>
+        <row hoffset="195" voffset="125" zoffset="0" justification="left">
+            <style color="white">test text </style>
+        </row>
+    </bloc>
+    <bloc uid="dddddddd-b609-4b1b-8ada-1767435f7304" id="64" groupid="1" timecodein="10:02:52:01" timecodeout="10:02:53:12" cutin="true" checked="true">
+        <row hoffset="0" voffset="125" zoffset="0" justification="center">
+            <style color="fuchsia">test text </style>
+        </row>
+    </bloc>
+    <bloc uid="dddddddd-59d3-4886-bf47-69709bdef44a" id="65" groupid="1" timecodein="10:02:54:03" timecodeout="10:02:56:24" checked="true">
+        <row hoffset="0" voffset="195" zoffset="0" justification="center">
+            <style color="white">test text </style>
+        </row>
+        <row hoffset="0" voffset="125" zoffset="0" justification="center">
+            <style color="white">test text </style>
+        </row>
+    </bloc>
+    <bloc uid="dddddddd-577a-4930-9249-7b6dd3620844" id="66" groupid="1" timecodein="10:02:57:05" timecodeout="10:02:58:17" checked="true">
+        <row hoffset="195" voffset="265" zoffset="0" justification="left">
+            <style color="fuchsia">test text </style>
+        </row>
+        <row hoffset="445" voffset="125" zoffset="0" justification="left">
+            <style color="red">test text </style>
+        </row>
+    </bloc>
+    <bloc uid="dddddddd-db9e-44f2-821d-aa60604c38e4" id="67" groupid="1" timecodein="10:02:58:23" timecodeout="10:03:04:01" checked="true">
+        <row hoffset="195" voffset="125" zoffset="0" justification="left">
+            <style color="fuchsia">test text </style>
+        </row>
+    </bloc>
+    <bloc uid="dddddddd-595b-4176-a75c-c39ba27577ec" id="68" groupid="1" timecodein="10:03:04:07" timecodeout="10:03:07:17" cutout="true" checked="true">
+        <row hoffset="0" voffset="265" zoffset="0" justification="center">
+            <style color="red">test text </style>
+        </row>
+        <row hoffset="0" voffset="125" zoffset="0" justification="center">
+            <style color="yellow">test text </style>
+        </row>
+    </bloc>
+    <bloc uid="dddddddd-38bc-4746-bee5-96dda409c911" id="69" groupid="1" timecodein="10:03:10:00" timecodeout="10:03:10:22" checked="true">
+        <row hoffset="0" voffset="125" zoffset="0" justification="center">
+            <style color="red">test text </style>
+        </row>
+    </bloc>
+    <bloc uid="dddddddd-7b31-4d0c-b9cd-522bdf060415" id="70" groupid="1" timecodein="10:03:14:09" timecodeout="10:03:17:02" checked="true">
+        <row hoffset="50" voffset="195" zoffset="0" justification="center">
+            <style color="white">test text </style>
+        </row>
+        <row hoffset="50" voffset="125" zoffset="0" justification="center">
+            <style color="white">test text </style>
+        </row>
+    </bloc>
+    <bloc uid="dddddddd-9ae7-4ac0-b73f-94f88ce7d951" id="71" groupid="1" timecodein="10:03:17:08" timecodeout="10:03:19:16" checked="true">
+        <row hoffset="195" voffset="195" zoffset="0" justification="left">
+            <style color="white">test text </style>
+        </row>
+        <row hoffset="195" voffset="125" zoffset="0" justification="left">
+            <style color="white">test text </style>
+        </row>
+    </bloc>
+    <bloc uid="dddddddd-0511-43c0-8227-d9898680648d" id="72" groupid="1" timecodein="10:03:20:15" timecodeout="10:03:21:06" cutin="true" cutout="true" checked="true">
+        <row hoffset="0" voffset="125" zoffset="0" justification="center">
+            <style color="white">test text </style>
+        </row>
+    </bloc>
+    <bloc uid="dddddddd-af18-4c3a-80d7-03ec0d2400d0" id="73" groupid="1" timecodein="10:03:21:22" timecodeout="10:03:23:01" checked="true">
+        <row hoffset="0" voffset="125" zoffset="0" justification="center">
+            <style color="red">test text </style>
+        </row>
+    </bloc>
+    <bloc uid="dddddddd-14e7-4f95-9fd3-a8f48e1f566f" id="74" groupid="1" timecodein="10:03:23:07" timecodeout="10:03:26:06" cutout="true" checked="true">
+        <row hoffset="212" voffset="265" zoffset="0" justification="left">
+            <style color="red">test text </style>
+        </row>
+        <row hoffset="412" voffset="125" zoffset="0" justification="left">
+            <style color="fuchsia">test text </style>
+        </row>
+    </bloc>
+    <bloc uid="dddddddd-ce6b-4368-9f44-ff5791044333" id="75" groupid="1" timecodein="10:03:27:09" timecodeout="10:03:29:07" checked="true">
+        <row hoffset="195" voffset="125" zoffset="0" justification="left">
+            <style color="white">test text </style>
+        </row>
+    </bloc>
+    <bloc uid="dddddddd-b844-4fba-b6c8-f4e3368b11c6" id="76" groupid="1" timecodein="10:03:29:13" timecodeout="10:03:31:03" checked="true">
+        <row hoffset="-110" voffset="125" zoffset="0" justification="right">
+            <style color="white">test text </style>
+        </row>
+    </bloc>
+    <bloc uid="dddddddd-d50b-4b81-931b-ef76aa5952f4" id="77" groupid="1" timecodein="10:03:31:09" timecodeout="10:03:33:16" checked="true">
+        <row hoffset="195" voffset="195" zoffset="0" justification="left">
+            <style color="white">test text </style>
+        </row>
+        <row hoffset="195" voffset="125" zoffset="0" justification="left">
+            <style color="white">test text </style>
+        </row>
+    </bloc>
+    <bloc uid="dddddddd-5523-4150-8839-a68bdcf3b50d" id="78" groupid="1" timecodein="10:03:33:22" timecodeout="10:03:41:01" force_centered="true" checked="true">
+        <row hoffset="472" voffset="125" zoffset="0" justification="left">
+            <style color="fuchsia">test text </style>
+        </row>
+    </bloc>
+    <bloc uid="dddddddd-d3be-43c7-a9b9-eb3abdef878e" id="79" groupid="1" timecodein="10:03:41:07" timecodeout="10:03:42:10" cutout="true" checked="true">
+        <row hoffset="0" voffset="125" zoffset="0" justification="center">
+            <style color="red">test text </style>
+        </row>
+    </bloc>
+    <bloc uid="dddddddd-fb02-4c81-9f30-631f8da85b31" id="80" groupid="1" timecodein="10:03:44:23" timecodeout="10:03:47:01" force_centered="true" checked="true">
+        <row hoffset="263" voffset="125" zoffset="0" justification="left">
+            <style color="white">test text </style>
+        </row>
+    </bloc>
+    <bloc uid="dddddddd-f5dc-4d4b-a0ad-0fa7111f65ae" id="81" groupid="1" timecodein="10:03:47:07" timecodeout="10:03:48:11" checked="true">
+        <row hoffset="195" voffset="125" zoffset="0" justification="left">
+            <style color="white">test text </style>
+        </row>
+    </bloc>
+    <bloc uid="dddddddd-df7b-4762-9708-c7549407106a" id="82" groupid="1" timecodein="10:03:48:17" timecodeout="10:03:51:08" checked="true">
+        <row hoffset="0" voffset="125" zoffset="0" justification="center">
+            <style color="fuchsia">test text </style>
+        </row>
+    </bloc>
+    <bloc uid="dddddddd-61f1-4847-ba53-0b47c259b5f9" id="83" groupid="1" timecodein="10:03:51:14" timecodeout="10:03:54:21" checked="true">
+        <row hoffset="195" voffset="125" zoffset="0" justification="left">
+            <style color="fuchsia">test text </style>
+        </row>
+    </bloc>
+    <bloc uid="dddddddd-d232-43d9-9e46-6b1b5157dd13" id="84" groupid="1" timecodein="10:03:55:02" timecodeout="10:03:56:08" checked="true">
+        <row hoffset="195" voffset="125" zoffset="0" justification="left">
+            <style color="white">test text </style>
+        </row>
+    </bloc>
+    <bloc uid="dddddddd-0496-4866-bbb8-434c887a6602" id="85" groupid="1" timecodein="10:03:56:14" timecodeout="10:03:58:16" checked="true">
+        <row hoffset="0" voffset="195" zoffset="0" justification="center">
+            <style color="white">test text </style>
+        </row>
+        <row hoffset="0" voffset="125" zoffset="0" justification="center">
+            <style color="white">test text </style>
+        </row>
+    </bloc>
+    <bloc uid="dddddddd-c35d-466e-9332-c865c0181e00" id="86" groupid="1" timecodein="10:03:58:22" timecodeout="10:04:01:15" cutout="true" checked="true">
+        <row hoffset="0" voffset="195" zoffset="0" justification="center">
+            <style color="white">test text </style>
+        </row>
+        <row hoffset="0" voffset="125" zoffset="0" justification="center">
+            <style color="white">test text </style>
+        </row>
+    </bloc>
+    <bloc uid="dddddddd-6af0-46f0-b6c3-b8ff2faa6e8c" id="87" groupid="1" timecodein="10:04:02:08" timecodeout="10:04:03:10" checked="true">
+        <row hoffset="321" voffset="125" zoffset="0" justification="left">
+            <style color="white">test text </style>
+        </row>
+    </bloc>
+    <bloc uid="dddddddd-89ca-439a-a2c7-246201a55310" id="88" groupid="1" timecodein="10:04:10:04" timecodeout="10:04:13:22" checked="true">
+        <row hoffset="0" voffset="195" zoffset="0" justification="center">
+            <style color="white">test text </style>
+        </row>
+        <row hoffset="0" voffset="125" zoffset="0" justification="center">
+            <style color="white">test text </style>
+        </row>
+    </bloc>
+    <bloc uid="dddddddd-2bce-4b8b-90e3-bcb40c3a543f" id="89" groupid="1" timecodein="10:04:14:03" timecodeout="10:04:15:05" force_centered="true" checked="true">
+        <row hoffset="312" voffset="125" zoffset="0" justification="left">
+            <style color="white">test text </style>
+        </row>
+    </bloc>
+    <bloc uid="dddddddd-dfb7-47a3-b27d-87fe7177297e" id="90" groupid="1" timecodein="10:04:15:11" timecodeout="10:04:17:08" checked="true">
+        <row hoffset="0" voffset="125" zoffset="0" justification="center">
+            <style color="red">test text </style>
+        </row>
+    </bloc>
+    <bloc uid="dddddddd-a691-46d9-b3cb-08adedcd3764" id="91" groupid="1" timecodein="10:04:17:14" timecodeout="10:04:20:11" checked="true">
+        <row hoffset="195" voffset="195" zoffset="0" justification="left">
+            <style color="white">test text </style>
+        </row>
+        <row hoffset="195" voffset="125" zoffset="0" justification="left">
+            <style color="white">test text </style>
+        </row>
+    </bloc>
+    <bloc uid="dddddddd-7393-4e29-8448-3b7235c71b32" id="92" groupid="1" timecodein="10:04:20:17" timecodeout="10:04:23:11" checked="true">
+        <row hoffset="0" voffset="125" zoffset="0" justification="center">
+            <style color="red">test text </style>
+        </row>
+    </bloc>
+    <bloc uid="dddddddd-392f-4470-a453-4c2f5c83ec19" id="93" groupid="1" timecodein="10:04:23:17" timecodeout="10:04:26:12" checked="true">
+        <row hoffset="0" voffset="195" zoffset="0" justification="center">
+            <style color="fuchsia">test text </style>
+        </row>
+        <row hoffset="0" voffset="125" zoffset="0" justification="center">
+            <style color="fuchsia">test text </style>
+        </row>
+    </bloc>
+    <bloc uid="dddddddd-6012-4a0b-8b5a-1eacf9d2af28" id="94" groupid="1" timecodein="10:04:26:18" timecodeout="10:04:29:20" checked="true">
+        <row hoffset="224" voffset="265" zoffset="0" justification="left">
+            <style color="white">test text </style>
+        </row>
+        <row hoffset="224" voffset="125" zoffset="0" justification="left">
+            <style color="white">test text </style>
+        </row>
+    </bloc>
+    <bloc uid="dddddddd-9f41-4e0e-af91-6ade511306ac" id="95" groupid="1" timecodein="10:04:30:01" timecodeout="10:04:32:15" checked="true">
+        <row hoffset="195" voffset="265" zoffset="0" justification="left">
+            <style color="fuchsia">test text </style>
+        </row>
+        <row hoffset="195" voffset="125" zoffset="0" justification="left">
+            <style color="white">test text </style>
+        </row>
+    </bloc>
+    <bloc uid="dddddddd-5de8-4d49-bedd-01db49ad7946" id="96" groupid="1" timecodein="10:04:33:07" timecodeout="10:04:34:05" cutin="true" force_centered="true" checked="true">
+        <row hoffset="470" voffset="125" zoffset="0" justification="left">
+            <style color="fuchsia">test text </style>
+        </row>
+    </bloc>
+    <bloc uid="dddddddd-f683-418e-a01b-eebcf2419461" id="97" groupid="1" timecodein="10:04:34:11" timecodeout="10:04:35:14" checked="true">
+        <row hoffset="195" voffset="125" zoffset="0" justification="left">
+            <style color="white">test text </style>
+        </row>
+    </bloc>
+    <bloc uid="dddddddd-e59a-40ad-8c20-96bcfea3290f" id="98" groupid="1" timecodein="10:04:35:20" timecodeout="10:04:37:24" checked="true">
+        <row hoffset="-110" voffset="195" zoffset="0" justification="right">
+            <style color="white">test text </style>
+        </row>
+        <row hoffset="-110" voffset="125" zoffset="0" justification="right">
+            <style color="white">test text </style>
+        </row>
+    </bloc>
+    <bloc uid="dddddddd-541d-4f97-9120-173621f06d81" id="99" groupid="1" timecodein="10:04:38:05" timecodeout="10:04:40:23" checked="true">
+        <row hoffset="0" voffset="195" zoffset="0" justification="center">
+            <style color="white">test text </style>
+        </row>
+        <row hoffset="0" voffset="125" zoffset="0" justification="center">
+            <style color="white">test text </style>
+        </row>
+    </bloc>
+    <bloc uid="dddddddd-9ea6-4ba7-a117-fad66d70dc3b" id="100" groupid="1" timecodein="10:04:41:04" timecodeout="10:04:43:18" checked="true">
+        <row hoffset="0" voffset="195" zoffset="0" justification="center">
+            <style color="white">test text </style>
+        </row>
+        <row hoffset="0" voffset="125" zoffset="0" justification="center">
+            <style color="white">test text </style>
+        </row>
+    </bloc>
+    <bloc uid="dddddddd-c117-4d65-af55-98a2f3645b28" id="101" groupid="1" timecodein="10:04:43:24" timecodeout="10:04:46:07" checked="true">
+        <row hoffset="195" voffset="195" zoffset="0" justification="left">
+            <style color="white">test text </style>
+        </row>
+        <row hoffset="195" voffset="125" zoffset="0" justification="left">
+            <style color="white">test text </style>
+        </row>
+    </bloc>
+    <bloc uid="dddddddd-2bb9-46cb-9fce-fa2462f3706f" id="102" groupid="1" timecodein="10:04:48:15" timecodeout="10:04:50:06" cutin="true" checked="true">
+        <row hoffset="0" voffset="125" zoffset="0" justification="center">
+            <style color="red">test text </style>
+        </row>
+    </bloc>
+    <bloc uid="dddddddd-c9f1-4462-9a2c-448c0c65e006" id="103" groupid="1" timecodein="10:04:51:04" timecodeout="10:04:53:12" checked="true">
+        <row hoffset="0" voffset="195" zoffset="0" justification="center">
+            <style color="yellow">test text </style>
+        </row>
+        <row hoffset="0" voffset="125" zoffset="0" justification="center">
+            <style color="yellow">test text </style>
+        </row>
+    </bloc>
+    <bloc uid="dddddddd-bbec-4289-85f6-169ae3702e92" id="104" groupid="1" timecodein="10:04:53:24" timecodeout="10:04:57:02" checked="true">
+        <row hoffset="-110" voffset="125" zoffset="0" justification="right">
+            <style color="fuchsia">test text </style>
+        </row>
+    </bloc>
+    <bloc uid="dddddddd-4e93-458c-979f-13b2f4e5a537" id="105" groupid="1" timecodein="10:04:57:08" timecodeout="10:05:00:05" checked="true">
+        <row hoffset="-100" voffset="195" zoffset="0" justification="center">
+            <style color="white">test text </style>
+        </row>
+        <row hoffset="-100" voffset="125" zoffset="0" justification="center">
+            <style color="white">test text </style>
+        </row>
+    </bloc>
+    <bloc uid="dddddddd-92ac-460f-8baa-3415fc90e4bd" id="106" groupid="1" timecodein="10:05:00:11" timecodeout="10:05:02:06" checked="true">
+        <row hoffset="195" voffset="125" zoffset="0" justification="left">
+            <style color="white">test text </style>
+        </row>
+    </bloc>
+    <bloc uid="dddddddd-2834-4292-a368-bb1dcce4a4f6" id="107" groupid="1" timecodein="10:05:02:12" timecodeout="10:05:05:19" checked="true">
+        <row hoffset="-110" voffset="195" zoffset="0" justification="right">
+            <style color="white">test text </style>
+        </row>
+        <row hoffset="-110" voffset="125" zoffset="0" justification="right">
+            <style color="white">test text </style>
+        </row>
+    </bloc>
+    <bloc uid="dddddddd-3481-4343-afc3-0e0fa3d7dd19" id="108" groupid="1" timecodein="10:05:06:00" timecodeout="10:05:07:00" checked="true">
+        <row hoffset="195" voffset="125" zoffset="0" justification="left">
+            <style color="white">test text </style>
+        </row>
+    </bloc>
+    <bloc uid="dddddddd-3fed-4c29-8775-83e4012f3634" id="109" groupid="1" timecodein="10:05:07:06" timecodeout="10:05:09:12" checked="true">
+        <row hoffset="0" voffset="125" zoffset="0" justification="center">
+            <style color="red">test text </style>
+        </row>
+    </bloc>
+    <bloc uid="dddddddd-0a4a-4074-b85e-2c5a1ab939fd" id="110" groupid="1" timecodein="10:05:09:18" timecodeout="10:05:10:21" force_centered="true" checked="true">
+        <row hoffset="342" voffset="125" zoffset="0" justification="left">
+            <style color="white">test text </style>
+        </row>
+    </bloc>
+    <bloc uid="dddddddd-6cd8-4c6a-95ca-9a10140de5f0" id="111" groupid="1" timecodein="10:05:11:02" timecodeout="10:05:13:22" checked="true">
+        <row hoffset="664" voffset="265" zoffset="0" justification="left">
+            <style color="red">test text </style>
+        </row>
+        <row hoffset="214" voffset="125" zoffset="0" justification="left">
+            <style color="white">test text </style>
+        </row>
+    </bloc>
+    <bloc uid="dddddddd-04f7-4748-989a-800993e99ceb" id="112" groupid="1" timecodein="10:05:14:03" timecodeout="10:05:16:18" checked="true">
+        <row hoffset="90" voffset="265" zoffset="0" justification="center">
+            <style color="white">test text </style>
+        </row>
+        <row hoffset="-250" voffset="125" zoffset="0" justification="center">
+            <style color="white">test text </style>
+        </row>
+    </bloc>
+    <bloc uid="dddddddd-59c3-4152-ac57-4675118cb69e" id="113" groupid="1" timecodein="10:05:16:24" timecodeout="10:05:20:15" checked="true">
+        <row hoffset="-110" voffset="195" zoffset="0" justification="right">
+            <style color="white">test text </style>
+        </row>
+        <row hoffset="-110" voffset="125" zoffset="0" justification="right">
+            <style color="white">test text </style>
+        </row>
+    </bloc>
+    <bloc uid="dddddddd-f8d9-4001-a33b-f52cc104d7a5" id="114" groupid="1" timecodein="10:05:20:21" timecodeout="10:05:22:05" checked="true">
+        <row hoffset="195" voffset="125" zoffset="0" justification="left">
+            <style color="red">test text </style>
+        </row>
+    </bloc>
+    <bloc uid="dddddddd-6225-455b-8ca5-2a7bca78711b" id="115" groupid="1" timecodein="10:05:23:18" timecodeout="10:05:24:18" checked="true">
+        <row hoffset="670" voffset="125" zoffset="0" justification="left">
+            <style color="red">test text </style>
+        </row>
+    </bloc>
+    <bloc uid="dddddddd-7ad4-446c-9c84-31c1d1a3d356" id="116" groupid="1" timecodein="10:05:24:24" timecodeout="10:05:26:07" cutout="true" checked="true">
+        <row hoffset="-110" voffset="125" zoffset="0" justification="right">
+            <style color="white">test text </style>
+        </row>
+    </bloc>
+    <bloc uid="dddddddd-d5bf-4a0e-8056-f9263d43ae46" id="117" groupid="1" timecodein="10:05:26:23" timecodeout="10:05:28:13" checked="true">
+        <row hoffset="-150" voffset="195" zoffset="0" justification="center">
+            <style color="white">test text </style>
+        </row>
+        <row hoffset="-150" voffset="125" zoffset="0" justification="center">
+            <style color="white">test text </style>
+        </row>
+    </bloc>
+    <bloc uid="dddddddd-398c-4e92-8635-5e94805d7fa7" id="118" groupid="1" timecodein="10:05:30:20" timecodeout="10:05:32:04" cutin="true" checked="true">
+        <row hoffset="195" voffset="265" zoffset="0" justification="left">
+            <style color="red">test text </style>
+        </row>
+        <row hoffset="195" voffset="125" zoffset="0" justification="left">
+            <style color="yellow">test text </style>
+        </row>
+    </bloc>
+    <bloc uid="dddddddd-ad6f-4b9d-8344-eddc114887b8" id="119" groupid="1" timecodein="10:05:32:10" timecodeout="10:05:33:10" checked="true">
+        <row hoffset="0" voffset="125" zoffset="0" justification="center">
+            <style color="white">test text </style>
+        </row>
+    </bloc>
+    <bloc uid="dddddddd-475b-4c7c-9f4e-3ef0fa96f09e" id="120" groupid="1" timecodein="10:05:33:16" timecodeout="10:05:35:07" checked="true">
+        <row hoffset="195" voffset="125" zoffset="0" justification="left">
+            <style color="red">test text </style>
+        </row>
+    </bloc>
+    <bloc uid="dddddddd-1ecd-439f-ba4f-38f47b6b87a6" id="121" groupid="1" timecodein="10:05:36:22" timecodeout="10:05:38:10" checked="true">
+        <row hoffset="670" voffset="125" zoffset="0" justification="left">
+            <style color="red">test text </style>
+        </row>
+    </bloc>
+    <bloc uid="dddddddd-b21d-4151-bc27-59996ec426e8" id="122" groupid="1" timecodein="10:05:40:02" timecodeout="10:05:41:12" cutin="true" cutout="true" checked="true">
+        <row hoffset="0" voffset="125" zoffset="0" justification="center">
+            <style color="white">test text </style>
+        </row>
+    </bloc>
+    <bloc uid="dddddddd-4d25-426f-8303-71da9bc66560" id="123" groupid="1" timecodein="10:05:43:23" timecodeout="10:05:44:12" cutin="true" cutout="true" checked="true">
+        <row hoffset="-150" voffset="125" zoffset="0" justification="center">
+            <style color="white">test text </style>
+        </row>
+    </bloc>
+    <bloc uid="dddddddd-14ac-41b6-8505-051ed971e613" id="124" groupid="1" timecodein="10:05:46:21" timecodeout="10:05:48:07" cutin="true" cutout="true" checked="true">
+        <row hoffset="-100" voffset="125" zoffset="0" justification="center">
+            <style color="white">test text </style>
+        </row>
+    </bloc>
+    <bloc uid="dddddddd-33ab-47f4-9436-05db30e2d200" id="125" groupid="1" timecodein="10:05:48:21" timecodeout="10:05:51:11" checked="true">
+        <row hoffset="-50" voffset="195" zoffset="0" justification="center">
+            <style color="white">test text </style>
+        </row>
+        <row hoffset="-50" voffset="125" zoffset="0" justification="center">
+            <style color="white">test text </style>
+        </row>
+    </bloc>
+    <bloc uid="dddddddd-917c-40c1-a596-e0e63b4c4137" id="126" groupid="1" timecodein="10:05:51:17" timecodeout="10:05:53:21" checked="true">
+        <row hoffset="0" voffset="125" zoffset="0" justification="center">
+            <style color="fuchsia">test text </style>
+        </row>
+    </bloc>
+    <bloc uid="dddddddd-a0da-43e1-80e2-dcbb083fe2b0" id="127" groupid="1" timecodein="10:05:54:02" timecodeout="10:05:55:19" checked="true">
+        <row hoffset="0" voffset="125" zoffset="0" justification="center">
+            <style color="red">test text </style>
+        </row>
+    </bloc>
+    <bloc uid="dddddddd-1314-4d97-9f68-93cb6b4a8bed" id="128" groupid="1" timecodein="10:05:56:00" timecodeout="10:05:59:13" checked="true">
+        <row hoffset="0" voffset="195" zoffset="0" justification="center">
+            <style color="white">test text </style>
+        </row>
+        <row hoffset="0" voffset="125" zoffset="0" justification="center">
+            <style color="white">test text </style>
+        </row>
+    </bloc>
+    <bloc uid="dddddddd-7a78-4462-b528-42161625a7c2" id="129" groupid="1" timecodein="10:05:59:19" timecodeout="10:06:01:20" checked="true">
+        <row hoffset="0" voffset="125" zoffset="0" justification="center">
+            <style color="white">test text </style>
+        </row>
+    </bloc>
+    <bloc uid="dddddddd-373b-4b53-a6d1-71077a2390d5" id="130" groupid="1" timecodein="10:06:02:01" timecodeout="10:06:03:20" cutout="true" checked="true">
+        <row hoffset="0" voffset="125" zoffset="0" justification="center">
+            <style color="yellow">test text </style>
+        </row>
+    </bloc>
+    <bloc uid="dddddddd-27e3-4a24-afe5-e5435a58ec38" id="131" groupid="1" timecodein="10:06:04:02" timecodeout="10:06:05:05" force_centered="true" checked="true">
+        <row hoffset="470" voffset="125" zoffset="0" justification="left">
+            <style color="red">test text </style>
+        </row>
+    </bloc>
+    <bloc uid="dddddddd-e077-4254-8818-7a7e10e08738" id="132" groupid="1" timecodein="10:06:05:11" timecodeout="10:06:08:02" checked="true">
+        <row hoffset="0" voffset="125" zoffset="0" justification="center">
+            <style color="fuchsia">test text </style>
+        </row>
+    </bloc>
+    <bloc uid="dddddddd-f2b3-468a-8fc9-57657c415e20" id="133" groupid="1" timecodein="10:06:08:08" timecodeout="10:06:14:23" checked="true">
+        <row hoffset="195" voffset="125" zoffset="0" justification="left">
+            <style color="fuchsia">test text </style>
+        </row>
+    </bloc>
+    <bloc uid="dddddddd-2254-4b2d-a962-ffba60b3f98f" id="134" groupid="1" timecodein="10:06:15:04" timecodeout="10:06:16:21" checked="true">
+        <row hoffset="-300" voffset="265" zoffset="0" justification="center">
+            <style color="fuchsia">test text </style>
+        </row>
+        <row hoffset="0" voffset="125" zoffset="0" justification="center">
+            <style color="red">test text </style>
+        </row>
+    </bloc>
+    <bloc uid="dddddddd-c8d9-43fd-b04c-e0ce5219cb12" id="135" groupid="1" timecodein="10:06:19:16" timecodeout="10:06:20:16" checked="true">
+        <row hoffset="352" voffset="125" zoffset="0" justification="left">
+            <style color="white">test text </style>
+        </row>
+    </bloc>
+    <bloc uid="dddddddd-c7da-4224-937e-d3398fd7ce58" id="136" groupid="1" timecodein="10:06:22:09" timecodeout="10:06:25:03" cutin="true" force_centered="true" checked="true">
+        <row hoffset="233" voffset="125" zoffset="0" justification="left">
+            <style color="fuchsia">test text </style>
+        </row>
+    </bloc>
+    <bloc uid="dddddddd-a47f-4fe5-871e-e8192d42726d" id="137" groupid="1" timecodein="10:06:25:09" timecodeout="10:06:27:00" checked="true">
+        <row hoffset="195" voffset="125" zoffset="0" justification="left">
+            <style color="fuchsia">test text </style>
+        </row>
+    </bloc>
+    <bloc uid="dddddddd-ff3c-48ba-bdb8-e1b0609be950" id="138" groupid="1" timecodein="10:06:27:06" timecodeout="10:06:28:06" checked="true">
+        <row hoffset="0" voffset="125" zoffset="0" justification="center">
+            <style color="red">test text </style>
+        </row>
+    </bloc>
+    <bloc uid="dddddddd-0121-4412-9af7-dd135f5d5665" id="139" groupid="1" timecodein="10:06:28:12" timecodeout="10:06:30:13" checked="true">
+        <row hoffset="0" voffset="125" zoffset="0" justification="center">
+            <style color="fuchsia">test text </style>
+        </row>
+    </bloc>
+    <bloc uid="dddddddd-f42c-4f6a-84d8-71db4dc1ff7a" id="140" groupid="1" timecodein="10:06:30:19" timecodeout="10:06:33:01" checked="true">
+        <row hoffset="-300" voffset="265" zoffset="0" justification="center">
+            <style color="fuchsia">test text </style>
+        </row>
+        <row hoffset="0" voffset="125" zoffset="0" justification="center">
+            <style color="red">test text </style>
+        </row>
+    </bloc>
+    <bloc uid="dddddddd-eabb-4167-92ff-5b34916f1b7e" id="141" groupid="1" timecodein="10:06:34:03" timecodeout="10:06:35:07" force_centered="true" checked="true">
+        <row hoffset="372" voffset="125" zoffset="0" justification="left">
+            <style color="white">test text </style>
+        </row>
+    </bloc>
+    <bloc uid="dddddddd-bf52-445b-b378-a350023022d2" id="142" groupid="1" timecodein="10:06:35:13" timecodeout="10:06:41:04" checked="true">
+        <row hoffset="195" voffset="125" zoffset="0" justification="left">
+            <style color="fuchsia">test text </style>
+        </row>
+    </bloc>
+    <bloc uid="dddddddd-4bd0-4b60-b418-389c9f130b02" id="143" groupid="1" timecodein="10:06:41:10" timecodeout="10:06:44:07" force_centered="true" checked="true">
+        <row hoffset="224" voffset="265" zoffset="0" justification="left">
+            <style color="fuchsia">test text </style>
+        </row>
+        <row hoffset="224" voffset="125" zoffset="0" justification="left">
+            <style color="white">test text </style>
+        </row>
+    </bloc>
+    <bloc uid="dddddddd-a06d-4621-9cf9-f51d40a0db5c" id="144" groupid="1" timecodein="10:06:44:13" timecodeout="10:06:46:24" checked="true">
+        <row hoffset="295" voffset="265" zoffset="0" justification="left">
+            <style color="white">test text </style>
+        </row>
+        <row hoffset="195" voffset="125" zoffset="0" justification="left">
+            <style color="fuchsia">test text </style>
+        </row>
+    </bloc>
+    <bloc uid="dddddddd-50fd-4eb4-9175-ab82c78df3e6" id="145" groupid="1" timecodein="10:06:48:04" timecodeout="10:06:51:00" checked="true">
+        <row hoffset="-300" voffset="265" zoffset="0" justification="center">
+            <style color="fuchsia">test text </style>
+        </row>
+        <row hoffset="0" voffset="125" zoffset="0" justification="center">
+            <style color="yellow">test text </style>
+        </row>
+    </bloc>
+    <bloc uid="dddddddd-048c-4ffa-9ca4-3ca6c7a9ba57" id="146" groupid="1" timecodein="10:06:51:21" timecodeout="10:06:53:13" cutin="true" checked="true">
+        <row hoffset="0" voffset="125" zoffset="0" justification="center">
+            <style color="fuchsia">test text </style>
+        </row>
+    </bloc>
+    <bloc uid="dddddddd-3f86-4eb8-a808-ba75de2668ed" id="147" groupid="1" timecodein="10:06:53:19" timecodeout="10:06:56:10" checked="true">
+        <row hoffset="0" voffset="195" zoffset="0" justification="center">
+            <style color="white">test text </style>
+        </row>
+        <row hoffset="0" voffset="125" zoffset="0" justification="center">
+            <style color="white">test text </style>
+        </row>
+    </bloc>
+    <bloc uid="dddddddd-0e01-49cd-893e-eefeb86d973b" id="148" groupid="1" timecodein="10:06:56:16" timecodeout="10:06:58:11" checked="true">
+        <row hoffset="195" voffset="195" zoffset="0" justification="left">
+            <style color="yellow">test text </style>
+        </row>
+        <row hoffset="195" voffset="125" zoffset="0" justification="left">
+            <style color="yellow">test text </style>
+        </row>
+    </bloc>
+    <bloc uid="dddddddd-48fe-4d58-850a-afa52a55b9e2" id="149" groupid="1" timecodein="10:06:58:21" timecodeout="10:07:00:01" force_centered="true" checked="true">
+        <row hoffset="293" voffset="125" zoffset="0" justification="left">
+            <style color="fuchsia">test text </style>
+        </row>
+    </bloc>
+    <bloc uid="dddddddd-1262-4e8f-8eda-001749dd6424" id="150" groupid="1" timecodein="10:07:00:07" timecodeout="10:07:04:20" cutout="true" checked="true">
+        <row hoffset="195" voffset="125" zoffset="0" justification="left">
+            <style color="fuchsia">test text </style>
+        </row>
+    </bloc>
+    <bloc uid="dddddddd-8f13-45f9-9cb5-d8b093003620" id="151" groupid="1" timecodein="10:07:05:15" timecodeout="10:07:07:01" checked="true">
+        <row hoffset="472" voffset="125" zoffset="0" justification="left">
+            <style color="white">test text </style>
+        </row>
+    </bloc>
+    <bloc uid="dddddddd-c09d-4454-9086-a2c7c65ff360" id="152" groupid="1" timecodein="10:07:07:18" timecodeout="10:07:09:21" checked="true">
+        <row hoffset="-110" voffset="195" zoffset="0" justification="right">
+            <style color="white">test text </style>
+        </row>
+        <row hoffset="-110" voffset="125" zoffset="0" justification="right">
+            <style color="white">test text </style>
+        </row>
+    </bloc>
+</sst>
