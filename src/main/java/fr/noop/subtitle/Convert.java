@@ -31,7 +31,7 @@ public class Convert {
     private Options options = new Options();
 
     private enum ConvertFormat {
-        TTML(new String[] {"xml"}),
+        TTML(new String[] {"ttml"}),
         SAMI(new String[] {"smi"}),
         VTT(new String[] {"vtt"}),
         SRT(new String[] {"srt"}),
@@ -58,6 +58,7 @@ public class Convert {
     }
 
     private enum ConvertParser {
+        TTML(ConvertFormat.TTML, "fr.noop.subtitle.ttml.TtmlParser", true),
         SAMI(ConvertFormat.SAMI, "fr.noop.subtitle.sami.SamiParser", true),
         VTT(ConvertFormat.VTT, "fr.noop.subtitle.vtt.VttParser", true),
         SRT(ConvertFormat.SRT, "fr.noop.subtitle.srt.SrtParser", true),
