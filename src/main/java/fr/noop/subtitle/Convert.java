@@ -31,7 +31,7 @@ public class Convert {
     private Options options = new Options();
 
     private enum ConvertFormat {
-        TTML(new String[] {"ttml"}),
+        TTML(new String[] {"ttml", "xml"}),
         SAMI(new String[] {"smi"}),
         VTT(new String[] {"vtt"}),
         SRT(new String[] {"srt"}),
