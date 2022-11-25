@@ -72,7 +72,6 @@ public class StlCue extends BaseSubtitleCue implements SubtitleRegionCue {
                 // Current char and current byte
                 char cc = tfPart.charAt(cIndex);
                 int cByte = (cc & 0xff); // get unsigned byte
-                cIndex++;
 
                 // If not defined, create new text with new style
                 if (text == null) {
@@ -107,6 +106,7 @@ public class StlCue extends BaseSubtitleCue implements SubtitleRegionCue {
                         (cByte >= 0x0b && cByte <= 0x0f) ||
                         (cByte >= 0x18 && cByte <= 0x1f) ||
                         (cByte >= 0x86 && cByte <= 0x8f)) {
+                    cIndex++;
                     continue;
                 }
 
@@ -122,6 +122,7 @@ public class StlCue extends BaseSubtitleCue implements SubtitleRegionCue {
                     if (cByte == StlTti.TextStyle.BOXING_ON.getValue()) {
                         textStyle.setEffect(Effect.BOX);
                     }
+                    cIndex++;
                     continue;
                 }
 
@@ -129,11 +130,7 @@ public class StlCue extends BaseSubtitleCue implements SubtitleRegionCue {
                 if ((cByte >= 0x00 && cByte <= 0x07) ||
                         (cByte >= 0x10 && cByte <= 0x17)) {
                     textStyle.setColor(StlTti.TextColor.getEnum(cByte).getColor());
-                    continue;
-                }
-
-                // Text has not been initialized
-                if (text == null) {
+                    cIndex++;
                     continue;
                 }
 
@@ -155,13 +152,33 @@ public class StlCue extends BaseSubtitleCue implements SubtitleRegionCue {
 
                     text = null;
                     textStyle = null;
+                    cIndex++;
                     continue;
                 }
 
                 // Readable char
                 if (startText) {
-                    text += cc;
+                    if (cByte == 0x26) {
+                        // Handle & character
+                        String ampText = "&amp;";
+                        String ampParsed = "";
+                        for (int i = cIndex; i < cIndex + ampText.length(); i++) {
+                            char ampCc = tfPart.charAt(i);
+                            ampParsed += ampCc;
+                        }
+                        if (!ampParsed.equals(ampText)) {
+                            for (int i = 0; i < ampText.length(); i++) {
+                                text += ampText.charAt(i);
+                            }
+                        } else {
+                            text += cc;
+                        }
+                    } else {
+                        text += cc;
+                    }
                 }
+
+                cIndex++;
             }
             // if line not added before; add it
             if (line.isEmpty() && text != null){
