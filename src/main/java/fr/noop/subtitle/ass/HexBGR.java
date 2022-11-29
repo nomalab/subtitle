@@ -28,10 +28,11 @@ public class HexBGR {
         }
 
         public static Color getEnumFromName(String colorName) {
-            for(Color v : values())
-                if(v.getColorName().equalsIgnoreCase(colorName)) return v;
+            for (Color v : values())
+                if (v.getColorName().equalsIgnoreCase(colorName))
+                    return v;
             throw new IllegalArgumentException();
         }
     }
-    
+
 }
