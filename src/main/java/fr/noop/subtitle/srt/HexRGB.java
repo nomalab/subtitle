@@ -33,5 +33,11 @@ public class HexRGB {
                 if(v.getHexValue().equalsIgnoreCase(hexCode)) return v;
             throw new IllegalArgumentException();
         }
+
+        public static Color getEnumFromName(String colorName) {
+            for(Color v : values())
+                if(v.getColorName().equalsIgnoreCase(colorName)) return v;
+            throw new IllegalArgumentException();
+        }
     }
 }

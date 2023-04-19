@@ -11,11 +11,19 @@
 package fr.noop.subtitle.srt;
 
 import fr.noop.subtitle.model.SubtitleCue;
+import fr.noop.subtitle.model.SubtitleLine;
 import fr.noop.subtitle.model.SubtitleObject;
+import fr.noop.subtitle.model.SubtitleStyled;
+import fr.noop.subtitle.model.SubtitleText;
 import fr.noop.subtitle.model.SubtitleWriterWithTimecode;
+import fr.noop.subtitle.srt.HexRGB.Color;
 import fr.noop.subtitle.model.SubtitleWriterWithFrameRate;
 import fr.noop.subtitle.model.SubtitleWriterWithOffset;
+import fr.noop.subtitle.util.SubtitleStyle;
 import fr.noop.subtitle.util.SubtitleTimeCode;
+import fr.noop.subtitle.util.SubtitleStyle.FontStyle;
+import fr.noop.subtitle.util.SubtitleStyle.FontWeight;
+import fr.noop.subtitle.util.SubtitleStyle.TextDecoration;
 
 import java.io.IOException;
 import java.io.OutputStream;
@@ -65,7 +73,30 @@ public class SrtWriter implements SubtitleWriterWithTimecode, SubtitleWriterWith
                 os.write(startToEnd.getBytes(this.charset));
 
                 // Write text
-                String text = String.format("%s\n", cue.getText());
+                String text = "";
+                for (SubtitleLine line : cue.getLines()) {
+                    for (SubtitleText inText : line.getTexts()) {
+                        String textString = inText.toString();
+                        if (inText instanceof SubtitleStyled) {
+                            SubtitleStyle style = ((SubtitleStyled)inText).getStyle();
+                            if (style.getFontStyle() == FontStyle.ITALIC || style.getFontStyle() == FontStyle.OBLIQUE) {
+                                textString = String.format("<i>%s</i>", textString);
+                            }
+                            if (style.getFontWeight() == FontWeight.BOLD) {
+                                textString = String.format("<b>%s</b>", textString);
+                            }
+                            if (style.getTextDecoration() == TextDecoration.UNDERLINE) {
+                                textString = String.format("<u>%s</u>", textString);
+                            }
+                            if (style.getColor() != null) {
+                                Color color = HexRGB.Color.getEnumFromName(style.getColor());
+                                textString = String.format("<font color=\"%s\">%s</font>", color.getHexValue(), textString);
+                            }
+                        }
+                        text += textString;
+                    }
+                    text += "\n";
+                }
                 os.write(text.getBytes(this.charset));
 
                 // Write emptyline
