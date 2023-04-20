@@ -133,8 +133,19 @@ public class VttParser implements SubtitleParser {
 
                 SubtitleRegion region = new SubtitleRegion(0, 0);
                 if (textLine.contains("line:")) {
-                    int position = Integer.parseInt(StringUtils.substringAfter(textLine, "line:"));
-                    if (position == 0) {
+                    String line = StringUtils.substringAfter(textLine, "line:").split(" ")[0];
+                    float positionPercent = 0;
+                    if (line.contains("%")) {
+                        line = line.replaceAll("%", "");
+                        positionPercent = Float.parseFloat(line);
+                    } else {
+                        if (Float.parseFloat(line) < 0) {
+                            positionPercent = (1080 + Float.parseFloat(line)) / 1080 * 100;
+                        } else {
+                            positionPercent = Float.parseFloat(line) / 1080 * 100;
+                        }
+                    }
+                    if (positionPercent <= 50) {
                         region.setVerticalAlign(SubtitleRegion.VerticalAlign.TOP);
                     }
                     cursorStatus = CursorStatus.CUE_POSITION;
@@ -202,6 +213,7 @@ public class VttParser implements SubtitleParser {
 
     private List<SubtitleLine> parseCueText(String cueText) {
         String text = "";
+        String color = null;
         List<String> tags = new ArrayList<>();
         List<SubtitleLine> cueLines = new ArrayList<>();
         VttLine cueLine = null; // Current cue line
@@ -306,8 +318,12 @@ public class VttParser implements SubtitleParser {
                     if (tagStatus == TagStatus.CLOSE && tag.equals("c") && !textEnd.equals("/c>")) {
                         // This is not a real close tag
                         // so push it again
+                        color = text;
                         text = "";
                         tags.add(tag);
+                    }
+                    if (color != null) {
+                        style.setColor(color);
                     }
 
                     continue;
