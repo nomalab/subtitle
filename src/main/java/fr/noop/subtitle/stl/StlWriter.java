@@ -14,6 +14,9 @@ import fr.noop.subtitle.stl.StlGsi.Dsc;
 import fr.noop.subtitle.util.SubtitleStyle;
 import fr.noop.subtitle.util.SubtitleTimeCode;
 import fr.noop.subtitle.util.SubtitleFrameRate.FrameRate;
+import fr.noop.subtitle.util.SubtitleStyle.Effect;
+import fr.noop.subtitle.util.SubtitleStyle.FontStyle;
+import fr.noop.subtitle.util.SubtitleStyle.TextDecoration;
 
 import java.io.IOException;
 import java.io.OutputStream;
@@ -419,6 +422,30 @@ public class StlWriter implements SubtitleWriterWithTimecode, SubtitleWriterWith
                         }
                         String colored = new StringBuilder().append(color).append(text).toString();
                         text = colored;
+                    }
+                    if (style.getFontStyle() == FontStyle.ITALIC || style.getFontStyle() == FontStyle.OBLIQUE) {
+                        byte[] italic_on = new byte[] {(byte) StlTti.TextStyle.ITALIC_ON.getValue()};
+                        byte[] italic_off = new byte[] {(byte) StlTti.TextStyle.ITALIC_OFF.getValue()};
+                        String italic_on_code = new String(italic_on, gsi.getCct().getCharset());
+                        String italic_off_code = new String(italic_off, gsi.getCct().getCharset());
+                        String styled = new StringBuilder().append(italic_on_code).append(text).append(italic_off_code).toString();
+                        text = styled;
+                    }
+                    if (style.getTextDecoration() == TextDecoration.UNDERLINE) {
+                        byte[] underline_on = new byte[] {(byte) StlTti.TextStyle.UNDERLINE_ON.getValue()};
+                        byte[] underline_off = new byte[] {(byte) StlTti.TextStyle.UNDERLINE_OFF.getValue()};
+                        String underline_on_code = new String(underline_on, gsi.getCct().getCharset());
+                        String underline_off_code = new String(underline_off, gsi.getCct().getCharset());
+                        String styled = new StringBuilder().append(underline_on_code).append(text).append(underline_off_code).toString();
+                        text = styled;
+                    }
+                    if (style.getEffect() == Effect.BOX) {
+                        byte[] box_on = new byte[] {(byte) StlTti.TextStyle.BOXING_ON.getValue()};
+                        byte[] box_off = new byte[] {(byte) StlTti.TextStyle.BOXING_OFF.getValue()};
+                        String box_on_code = new String(box_on, gsi.getCct().getCharset());
+                        String box_off_code = new String(box_off, gsi.getCct().getCharset());
+                        String styled = new StringBuilder().append(box_on_code).append(text).append(box_off_code).toString();
+                        text = styled;
                     }
                 }
                 if (cue.getLines().size() > 1 && countLine < cue.getLines().size()) {
