@@ -233,14 +233,21 @@ public class SrtParser implements SubtitleParser {
                     }
                 }
 
-                if (line.isEmpty()) {
+                if (textLine.contains("\\N")) {
+                    // Ignore \N
+                    textLine = textLine.replaceAll("\\\\N", "");
+                }
+
+                if (line.isEmpty() && !textLine.isEmpty()) {
                     if (textStyle.hasProperties()) {
                         line.addText(new SubtitleStyledText(textLine, textStyle));
                     } else {
                         line.addText(new SubtitlePlainText(textLine));
                     }
                 }
-                cue.addLine(line);
+                if (!line.isEmpty()) {
+                    cue.addLine(line);
+                }
                 cursorStatus = CursorStatus.CUE_TEXT;
                 continue;
             }
