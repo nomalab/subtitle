@@ -19,6 +19,7 @@ import java.util.regex.Pattern;
 
 import fr.noop.subtitle.model.SubtitleParser;
 import fr.noop.subtitle.model.SubtitleParsingException;
+import fr.noop.subtitle.srt.HexRGB.Color;
 import fr.noop.subtitle.util.SubtitlePlainText;
 import fr.noop.subtitle.util.SubtitleRegion;
 import fr.noop.subtitle.util.SubtitleStyle;
@@ -160,15 +161,18 @@ public class SrtParser implements SubtitleParser {
 
                 if (textLine.contains("<font color=")) {
                     color = true;
-                    Pattern pattern = Pattern.compile("#(?:[a-f\\d]{3}){1,2}\\b");
+                    Pattern pattern = Pattern.compile("#(?:[a-fA-F\\d]{3}){1,2}\\b");
                     Matcher matcher = pattern.matcher(textLine);
                     if (matcher.find()) {
                         hexCode = matcher.group();
                     }
-                    textLine = textLine.replaceAll("<font color=\"#(?:[a-f\\d]{3}){1,2}\\b\">", "");
+                    textLine = textLine.replaceAll("<font color=\"#(?:[a-fA-F\\d]{3}){1,2}\\b\">", "");
                 }
                 if (color && hexCode != null) {
-                    textStyle.setColor(HexRGB.Color.getEnumFromHexCode(hexCode).getColorName());
+                    Color c = Color.getEnumFromHexCode(hexCode);
+                    if (c != Color.WHITE) {
+                        textStyle.setColor(c.getColorName());
+                    }
                 }
                 if (textLine.contains("</font>")) {
                     color = false;
