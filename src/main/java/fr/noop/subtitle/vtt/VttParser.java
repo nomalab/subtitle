@@ -208,6 +208,12 @@ public class VttParser implements SubtitleParser {
         			"Unexpected line: %s", textLine));
         }
 
+        // Add last line
+        if (cursorStatus == CursorStatus.CUE_TEXT && !cueText.isEmpty()) {
+            cue.setLines(parseCueText(cueText));
+            vttObject.addCue(cue);
+        }
+
         return vttObject;
     }
 
@@ -277,7 +283,11 @@ public class VttParser implements SubtitleParser {
             }
 
             if (c != '\n' && text.isEmpty()) {
-                // No thing todo
+                if (cueLine != null && !cueLine.isEmpty()) {
+                    // Line is finished
+                    cueLines.add(cueLine);
+                    cueLine = null;
+                }
                 continue;
             }
 
