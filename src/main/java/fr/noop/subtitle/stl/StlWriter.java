@@ -374,17 +374,8 @@ public class StlWriter implements SubtitleWriterWithTimecode, SubtitleWriterWith
         for (SubtitleLine line : cue.getLines()) {
             String text = "";
             for (SubtitleText inText : line.getTexts()) {
-                text += inText.toString();
-                if (gsi.getDsc() == Dsc.TELETEXT_LEVEL_1 || gsi.getDsc() == Dsc.TELETEXT_LEVEL_2) {
-                    byte[] startBox = new byte[] {(byte) 0x0b, (byte) 0x0b};
-                    byte[] endBox = new byte[] {(byte) 0x0a, (byte) 0x0a};
-                    String startBoxString = new String(startBox, gsi.getCct().getCharset());
-                    String endBoxString = new String(endBox, gsi.getCct().getCharset());
-
-                    String concat = new StringBuilder().append(startBoxString).append(text).append(endBoxString).toString();
-                    text = concat;
-                }
                 if (inText instanceof SubtitleStyled) {
+                    boolean parsedText = false;
                     SubtitleStyle style = ((SubtitleStyled)inText).getStyle();
                     if (style.getColor() != null) {
                         String color = style.getColor();
@@ -428,32 +419,49 @@ public class StlWriter implements SubtitleWriterWithTimecode, SubtitleWriterWith
                         byte[] italic_off = new byte[] {(byte) StlTti.TextStyle.ITALIC_OFF.getValue()};
                         String italic_on_code = new String(italic_on, gsi.getCct().getCharset());
                         String italic_off_code = new String(italic_off, gsi.getCct().getCharset());
-                        String styled = new StringBuilder().append(italic_on_code).append(text).append(italic_off_code).toString();
-                        text = styled;
+                        String styled = new StringBuilder().append(italic_on_code).append(inText).append(italic_off_code).toString();
+                        parsedText = true;
+                        text += styled;
                     }
                     if (style.getTextDecoration() == TextDecoration.UNDERLINE) {
                         byte[] underline_on = new byte[] {(byte) StlTti.TextStyle.UNDERLINE_ON.getValue()};
                         byte[] underline_off = new byte[] {(byte) StlTti.TextStyle.UNDERLINE_OFF.getValue()};
                         String underline_on_code = new String(underline_on, gsi.getCct().getCharset());
                         String underline_off_code = new String(underline_off, gsi.getCct().getCharset());
-                        String styled = new StringBuilder().append(underline_on_code).append(text).append(underline_off_code).toString();
-                        text = styled;
+                        String styled = new StringBuilder().append(underline_on_code).append(inText).append(underline_off_code).toString();
+                        parsedText = true;
+                        text += styled;
                     }
                     if (style.getEffect() == Effect.BOX) {
                         byte[] box_on = new byte[] {(byte) StlTti.TextStyle.BOXING_ON.getValue()};
                         byte[] box_off = new byte[] {(byte) StlTti.TextStyle.BOXING_OFF.getValue()};
                         String box_on_code = new String(box_on, gsi.getCct().getCharset());
                         String box_off_code = new String(box_off, gsi.getCct().getCharset());
-                        String styled = new StringBuilder().append(box_on_code).append(text).append(box_off_code).toString();
-                        text = styled;
+                        String styled = new StringBuilder().append(box_on_code).append(inText).append(box_off_code).toString();
+                        parsedText = true;
+                        text += styled;
                     }
+                    if (!parsedText) {
+                        text += inText.toString();
+                    }
+                } else {
+                    text += inText.toString();
                 }
-                if (cue.getLines().size() > 1 && countLine < cue.getLines().size()) {
-                    countLine++;
-                    byte[] crlf = new byte[] {(byte) 0x8a};
-                    String crlfString = new String(crlf, gsi.getCct().getCharset());
-                    text += crlfString;
-                }
+            }
+            if (gsi.getDsc() == Dsc.TELETEXT_LEVEL_1 || gsi.getDsc() == Dsc.TELETEXT_LEVEL_2) {
+                byte[] startBox = new byte[] {(byte) 0x0b, (byte) 0x0b};
+                byte[] endBox = new byte[] {(byte) 0x0a, (byte) 0x0a};
+                String startBoxString = new String(startBox, gsi.getCct().getCharset());
+                String endBoxString = new String(endBox, gsi.getCct().getCharset());
+
+                String concat = new StringBuilder().append(startBoxString).append(text).append(endBoxString).toString();
+                text = concat;
+            }
+            if (cue.getLines().size() > 1 && countLine < cue.getLines().size()) {
+                countLine++;
+                byte[] crlf = new byte[] {(byte) 0x8a};
+                String crlfString = new String(crlf, gsi.getCct().getCharset());
+                text += crlfString;
             }
             textField += text;
         }
