@@ -77,18 +77,6 @@ public class StlCue extends BaseSubtitleCue implements SubtitleRegionCue {
                 // If not defined, create new text with new style
                 if (text == null) {
                     text = new String();
-                    if (textStyle == null) {
-                        textStyle = new SubtitleStyle();
-                        if (tti.getJc() == StlTti.Jc.CENTER) {
-                            textStyle.setTextAlign(TextAlign.CENTER);
-                        }
-                        if (tti.getJc() == StlTti.Jc.LEFT) {
-                            textStyle.setTextAlign(TextAlign.LEFT);
-                        }
-                        if (tti.getJc() == StlTti.Jc.RIGHT) {
-                            textStyle.setTextAlign(TextAlign.RIGHT);
-                        }
-                    }
                     if (dsc == StlGsi.Dsc.TELETEXT_LEVEL_1 || dsc == StlGsi.Dsc.TELETEXT_LEVEL_2){ // teletext case
                         if (tti.getJc() == StlTti.Jc.NONE) {
                             // Start ingesting text before start box directive (0x0b)
@@ -96,6 +84,19 @@ public class StlCue extends BaseSubtitleCue implements SubtitleRegionCue {
                         } else {
                             startText = false;
                         }
+                    }
+                }
+
+                if (textStyle == null) {
+                    textStyle = new SubtitleStyle();
+                    if (tti.getJc() == StlTti.Jc.CENTER) {
+                        textStyle.setTextAlign(TextAlign.CENTER);
+                    }
+                    if (tti.getJc() == StlTti.Jc.LEFT) {
+                        textStyle.setTextAlign(TextAlign.LEFT);
+                    }
+                    if (tti.getJc() == StlTti.Jc.RIGHT) {
+                        textStyle.setTextAlign(TextAlign.RIGHT);
                     }
                 }
 
@@ -115,6 +116,16 @@ public class StlCue extends BaseSubtitleCue implements SubtitleRegionCue {
                 // FIXME: Process text decoration
                 if (cByte == 0x80 || cByte == 0x82 || cByte == 0x84) {
                     startText = true;
+
+                    if (text != null && !text.isEmpty()) {
+                        if (!textStyle.hasProperties()) {
+                            line.addText(new SubtitlePlainText(text));
+                        } else {
+                            line.addText(new SubtitleStyledText(text, new SubtitleStyle(textStyle)));
+                        }
+                        text = new String();
+                    }
+
                     if (cByte == StlTti.TextStyle.ITALIC_ON.getValue()) {
                         textStyle.setFontStyle(FontStyle.ITALIC);
                     }
@@ -123,11 +134,6 @@ public class StlCue extends BaseSubtitleCue implements SubtitleRegionCue {
                     }
                     if (cByte == StlTti.TextStyle.BOXING_ON.getValue()) {
                         textStyle.setEffect(Effect.BOX);
-                    }
-
-                    if (text != null && !text.isEmpty()) {
-                        line.addText(new SubtitlePlainText(text));
-                        text = null;
                     }
 
                     continue;
@@ -156,7 +162,7 @@ public class StlCue extends BaseSubtitleCue implements SubtitleRegionCue {
                         }
                     }
 
-                    text = null;
+                    text = new String();
                     textStyle = null;
                     continue;
                 }
@@ -168,7 +174,7 @@ public class StlCue extends BaseSubtitleCue implements SubtitleRegionCue {
             }
             // if text not added before; add it
             if (text != null && !text.isEmpty()) {
-                if (textStyle == null) {
+                if (textStyle == null || !textStyle.hasProperties()) {
                     line.addText(new SubtitlePlainText(text));
                 } else {
                     line.addText(new SubtitleStyledText(text, textStyle));
