@@ -25,6 +25,7 @@ import fr.noop.subtitle.util.SubtitleStyle;
 import fr.noop.subtitle.util.SubtitleStyledText;
 import fr.noop.subtitle.util.SubtitleTextLine;
 import fr.noop.subtitle.util.SubtitleTimeCode;
+import fr.noop.subtitle.util.SubtitleStyle.TextAlign;
 
 /**
  * Created by clebeaupin on 21/09/15.
@@ -45,9 +46,9 @@ public class SrtParser implements SubtitleParser {
 
     @Override
     public SrtObject parse(InputStream is) throws IOException, SubtitleParsingException {
-    	return parse(is, true);
+        return parse(is, true);
     }
-    
+
     @Override
     public SrtObject parse(InputStream is, boolean strict) throws IOException, SubtitleParsingException {
         // Create srt object
@@ -106,14 +107,55 @@ public class SrtParser implements SubtitleParser {
             }
 
             // Following lines are the cue lines
-            if (!textLine.isEmpty() && (
-                    cursorStatus == CursorStatus.CUE_TIMECODE ||
-                    cursorStatus ==  CursorStatus.CUE_TEXT)) {
+            if (!textLine.isEmpty() && (cursorStatus == CursorStatus.CUE_TIMECODE ||
+                    cursorStatus == CursorStatus.CUE_TEXT)) {
                 SubtitleTextLine line = new SubtitleTextLine();
                 SubtitleStyle textStyle = new SubtitleStyle();
+
+                if (textLine.contains("{\\an1}")) {
+                    region.setVerticalAlign(SubtitleRegion.VerticalAlign.BOTTOM);
+                    textStyle.setTextAlign(TextAlign.LEFT);
+                    textLine = textLine.replaceAll("\\{\\\\an1\\}", "");
+                }
+                if (textLine.contains("{\\an2}")) {
+                    region.setVerticalAlign(SubtitleRegion.VerticalAlign.BOTTOM);
+                    textStyle.setTextAlign(TextAlign.CENTER);
+                    textLine = textLine.replaceAll("\\{\\\\an2\\}", "");
+                }
+                if (textLine.contains("{\\an3}")) {
+                    region.setVerticalAlign(SubtitleRegion.VerticalAlign.BOTTOM);
+                    textStyle.setTextAlign(TextAlign.RIGHT);
+                    textLine = textLine.replaceAll("\\{\\\\an3\\}", "");
+                }
+                if (textLine.contains("{\\an4}")) {
+                    region.setVerticalAlign(SubtitleRegion.VerticalAlign.MIDDLE);
+                    textStyle.setTextAlign(TextAlign.LEFT);
+                    textLine = textLine.replaceAll("\\{\\\\an4\\}", "");
+                }
+                if (textLine.contains("{\\an5}")) {
+                    region.setVerticalAlign(SubtitleRegion.VerticalAlign.MIDDLE);
+                    textStyle.setTextAlign(TextAlign.CENTER);
+                    textLine = textLine.replaceAll("\\{\\\\an5\\}", "");
+                }
+                if (textLine.contains("{\\an6}")) {
+                    region.setVerticalAlign(SubtitleRegion.VerticalAlign.MIDDLE);
+                    textStyle.setTextAlign(TextAlign.RIGHT);
+                    textLine = textLine.replaceAll("\\{\\\\an6\\}", "");
+                }
+                if (textLine.contains("{\\an7}")) {
+                    region.setVerticalAlign(SubtitleRegion.VerticalAlign.TOP);
+                    textStyle.setTextAlign(TextAlign.LEFT);
+                    textLine = textLine.replaceAll("\\{\\\\an7\\}", "");
+                }
                 if (textLine.contains("{\\an8}")) {
                     region.setVerticalAlign(SubtitleRegion.VerticalAlign.TOP);
+                    textStyle.setTextAlign(TextAlign.CENTER);
                     textLine = textLine.replaceAll("\\{\\\\an8\\}", "");
+                }
+                if (textLine.contains("{\\an9}")) {
+                    textStyle.setTextAlign(TextAlign.RIGHT);
+                    region.setVerticalAlign(SubtitleRegion.VerticalAlign.TOP);
+                    textLine = textLine.replaceAll("\\{\\\\an9\\}", "");
                 }
                 if (textLine.contains("<i>")) {
                     italic = true;
