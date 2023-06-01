@@ -92,7 +92,7 @@ public class SubtitleTimeCode implements Comparable<SubtitleTimeCode> {
             int hour = Integer.parseInt(timeCodeString.substring(0, 1));
             int minute = Integer.parseInt(timeCodeString.substring(2, 4));
             int second = Integer.parseInt(timeCodeString.substring(5, 7));
-            int millisecond = Integer.parseInt(timeCodeString.substring(8, 10));
+            int millisecond = Integer.parseInt(timeCodeString.substring(8, 10)) * 10;
             return new SubtitleTimeCode(hour, minute, second, millisecond);
         } catch (NumberFormatException e) {
             throw new SubtitleParsingException(String.format(

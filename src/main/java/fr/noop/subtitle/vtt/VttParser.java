@@ -133,8 +133,19 @@ public class VttParser implements SubtitleParser {
 
                 SubtitleRegion region = new SubtitleRegion(0, 0);
                 if (textLine.contains("line:")) {
-                    int position = Integer.parseInt(StringUtils.substringAfter(textLine, "line:"));
-                    if (position == 0) {
+                    String line = StringUtils.substringAfter(textLine, "line:").split(" ")[0];
+                    float positionPercent = 0;
+                    if (line.contains("%")) {
+                        line = line.replaceAll("%", "");
+                        positionPercent = Float.parseFloat(line);
+                    } else {
+                        if (Float.parseFloat(line) < 0) {
+                            positionPercent = (1080 + Float.parseFloat(line)) / 1080 * 100;
+                        } else {
+                            positionPercent = Float.parseFloat(line) / 1080 * 100;
+                        }
+                    }
+                    if (positionPercent <= 50) {
                         region.setVerticalAlign(SubtitleRegion.VerticalAlign.TOP);
                     }
                     cursorStatus = CursorStatus.CUE_POSITION;
@@ -197,11 +208,18 @@ public class VttParser implements SubtitleParser {
         			"Unexpected line: %s", textLine));
         }
 
+        // Add last line
+        if (cursorStatus == CursorStatus.CUE_TEXT && !cueText.isEmpty()) {
+            cue.setLines(parseCueText(cueText));
+            vttObject.addCue(cue);
+        }
+
         return vttObject;
     }
 
     private List<SubtitleLine> parseCueText(String cueText) {
         String text = "";
+        String color = null;
         List<String> tags = new ArrayList<>();
         List<SubtitleLine> cueLines = new ArrayList<>();
         VttLine cueLine = null; // Current cue line
@@ -234,6 +252,12 @@ public class VttParser implements SubtitleParser {
 
                 // Remove open tag from text
                 text = text.substring(0, text.length()-3);
+            } else if (textEnd.equals("<br")) {
+                tag = "br";
+                tagStatus = TagStatus.OPEN;
+                tags.add(tag);
+                text = text.substring(0, text.length()-3);
+                continue;
             } else if (c == '>') {
                 // Close tag
                 tagStatus = TagStatus.CLOSE;
@@ -244,8 +268,12 @@ public class VttParser implements SubtitleParser {
                 int closeTagLength = 1; // Size in chars of the close tag
 
                 if (textEnd.charAt(0) == '/') {
-                    // Real close tag: </u>, </c>, </b>, </i>
-                    closeTagLength = 4;
+                    if (tag == "br") {
+                        closeTagLength = 2;
+                    } else {
+                        // Real close tag: </u>, </c>, </b>, </i>
+                        closeTagLength = 4;
+                    }
                 }
 
                 // Remove close tag from text
@@ -255,7 +283,11 @@ public class VttParser implements SubtitleParser {
             }
 
             if (c != '\n' && text.isEmpty()) {
-                // No thing todo
+                if (cueLine != null && !cueLine.isEmpty()) {
+                    // Line is finished
+                    cueLines.add(cueLine);
+                    cueLine = null;
+                }
                 continue;
             }
 
@@ -306,8 +338,12 @@ public class VttParser implements SubtitleParser {
                     if (tagStatus == TagStatus.CLOSE && tag.equals("c") && !textEnd.equals("/c>")) {
                         // This is not a real close tag
                         // so push it again
+                        color = text;
                         text = "";
                         tags.add(tag);
+                    }
+                    if (color != null) {
+                        style.setColor(color);
                     }
 
                     continue;
@@ -322,7 +358,7 @@ public class VttParser implements SubtitleParser {
                 }
             }
 
-            if (c == '\n' || i == (cueText.length()-1)) {
+            if ((c == '\n' || i == (cueText.length()-1)) && !cueLine.isEmpty()) {
                 // Line is finished
                 cueLines.add(cueLine);
                 cueLine = null;

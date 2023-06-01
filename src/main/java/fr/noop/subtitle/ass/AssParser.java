@@ -126,7 +126,10 @@ public class AssParser implements SubtitleParser {
                         if (stylesFormat.contains("PrimaryColour")) {
                             int index = stylesFormat.indexOf("PrimaryColour");
                             HexBGR.Color color = HexBGR.Color.parseAlphaBGR(style.get(index));
-                            subtitleStyle.setColor(color.getColorName());
+                            //do not set color for white
+                            if (color != HexBGR.Color.WHITE) {
+                                subtitleStyle.setColor(color.getColorName());
+                            }
                         }
                         if (stylesFormat.contains("Bold")) {
                             int index = stylesFormat.indexOf("Bold");
@@ -242,11 +245,6 @@ public class AssParser implements SubtitleParser {
                         if (dialoguesFormat.contains("Text")) {
                             int index = dialoguesFormat.indexOf("Text");
                             String text = dialogue.get(index);
-                            boolean italic = false;
-                            boolean bold = false;
-                            boolean underline = false;
-                            boolean color = false;
-                            String hexCode = null;
 
                             for (String textPart: text.split("\\\\N")) {
                                 SubtitleTextLine textLine = new SubtitleTextLine();
@@ -278,56 +276,67 @@ public class AssParser implements SubtitleParser {
                                 }
 
                                 if (textPart.contains("{\\c")) {
-                                    color = true;
                                     Pattern pattern = Pattern.compile("&H(?:[A-F\\d]{3}){1,2}\\b&");
                                     Matcher matcher = pattern.matcher(textPart);
                                     if (matcher.find()) {
-                                        hexCode = matcher.group();
+                                        String hexCode = matcher.group();
+                                        textStyle.setColor(HexBGR.Color.getEnumFromHex(hexCode).getColorName());
                                     }
                                     textPart = textPart.replaceAll("\\{\\\\c&H(?:[A-F\\d]{3}){1,2}\\b&\\}", "");
                                 }
-                                if (color && hexCode != null) {
-                                    textStyle.setColor(HexBGR.Color.getEnumFromHex(hexCode).getColorName());
+
+                                if (textPart.contains("{\\i1}") || textPart.contains("{\\b1}") || textPart.contains("{\\u1}")) {
+                                    int cIndex = 0;
+                                    String newText = new String();
+                                    SubtitleStyle newStyle = new SubtitleStyle(textStyle);
+                                    while (cIndex < textPart.length()) {
+                                        char cc = textPart.charAt(cIndex);
+                                        if (cc == '{') {
+                                            String styleCode = textPart.substring(cIndex, cIndex+5);
+                                            if (!newText.isEmpty()) {
+                                                if (newStyle.hasProperties()) {
+                                                    textLine.addText(new SubtitleStyledText(newText, new SubtitleStyle(newStyle)));
+                                                } else {
+                                                    textLine.addText(new SubtitlePlainText(newText));
+                                                }
+                                            }
+                                            if (styleCode.contains("{\\i1}")) {
+                                                newStyle.setFontStyle(FontStyle.ITALIC);
+                                            } else if (styleCode.contains("{\\b1}")) {
+                                                newStyle.setFontWeight(FontWeight.BOLD);
+                                            } else if (styleCode.contains("{\\u1}")) {
+                                                newStyle.setTextDecoration(TextDecoration.UNDERLINE);
+                                            } else if (styleCode.contains("{\\i0}")) {
+                                                newStyle.setFontStyle(FontStyle.NORMAL);
+                                            } else if (styleCode.contains("{\\b0}")) {
+                                                newStyle.setFontWeight(FontWeight.NORMAL);
+                                            } else if (styleCode.contains("{\\u0}")) {
+                                                newStyle.setTextDecoration(TextDecoration.NONE);
+                                            } else {
+                                                System.err.println("Unknown style code");
+                                            }
+                                            newText = new String();
+                                            cIndex += 5;
+                                        } else {
+                                            newText += cc;
+                                            cIndex++;
+                                        }
+                                    }
+                                    if (!newText.isEmpty()) {
+                                        if (newStyle.hasProperties()) {
+                                            textLine.addText(new SubtitleStyledText(newText, newStyle));
+                                        } else {
+                                            textLine.addText(new SubtitlePlainText(newText));
+                                        }
+                                    }
                                 }
 
-                                if (textPart.contains("{\\i1}")) {
-                                    italic = true;
-                                    textPart = textPart.replaceAll("\\{\\\\i1\\}", "");
-                                }
-                                if (textPart.contains("{\\i0}")) {
-                                    italic = false;
-                                    textPart = textPart.replaceAll("\\{\\\\i0\\}", "");
-                                }
-                                if (italic) {
-                                    textStyle.setFontStyle(FontStyle.ITALIC);
-                                }
-                                if (textPart.contains("{\\b1}")) {
-                                    bold = true;
-                                    textPart = textPart.replaceAll("\\{\\\\b1\\}", "");
-                                }
-                                if (textPart.contains("{\\b0}")) {
-                                    bold = false;
-                                    textPart = textPart.replaceAll("\\{\\\\b0\\}", "");
-                                }
-                                if (bold) {
-                                    textStyle.setFontWeight(FontWeight.BOLD);
-                                }
-                                if (textPart.contains("{\\u1}")) {
-                                    underline = true;
-                                    textPart = textPart.replaceAll("\\{\\\\u1\\}", "");
-                                }
-                                if (textPart.contains("{\\u0}")) {
-                                    underline = false;
-                                    textPart = textPart.replaceAll("\\{\\\\u0\\}", "");
-                                }
-                                if (underline) {
-                                    textStyle.setTextDecoration(TextDecoration.UNDERLINE);
-                                }
-
-                                if (textStyle.hasProperties()) {
-                                    textLine.addText(new SubtitleStyledText(textPart, textStyle));
-                                } else {
-                                    textLine.addText(new SubtitlePlainText(textPart));
+                                if (textLine.isEmpty()) {
+                                    if (textStyle.hasProperties()) {
+                                        textLine.addText(new SubtitleStyledText(textPart, textStyle));
+                                    } else {
+                                        textLine.addText(new SubtitlePlainText(textPart));
+                                    }
                                 }
                                 cue.addLine(textLine);
                             }

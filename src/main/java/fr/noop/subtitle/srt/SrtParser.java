@@ -19,6 +19,7 @@ import java.util.regex.Pattern;
 
 import fr.noop.subtitle.model.SubtitleParser;
 import fr.noop.subtitle.model.SubtitleParsingException;
+import fr.noop.subtitle.srt.HexRGB.Color;
 import fr.noop.subtitle.util.SubtitlePlainText;
 import fr.noop.subtitle.util.SubtitleRegion;
 import fr.noop.subtitle.util.SubtitleStyle;
@@ -26,6 +27,9 @@ import fr.noop.subtitle.util.SubtitleStyledText;
 import fr.noop.subtitle.util.SubtitleTextLine;
 import fr.noop.subtitle.util.SubtitleTimeCode;
 import fr.noop.subtitle.util.SubtitleStyle.TextAlign;
+import fr.noop.subtitle.util.SubtitleStyle.FontStyle;
+import fr.noop.subtitle.util.SubtitleStyle.FontWeight;
+import fr.noop.subtitle.util.SubtitleStyle.TextDecoration;
 
 /**
  * Created by clebeaupin on 21/09/15.
@@ -60,9 +64,6 @@ public class SrtParser implements SubtitleParser {
         CursorStatus cursorStatus = CursorStatus.NONE;
         SrtCue cue = null;
         String hexCode = null;
-        boolean italic = false;
-        boolean bold = false;
-        boolean underline = false;
         boolean color = false;
         SubtitleRegion region = null;
 
@@ -157,62 +158,96 @@ public class SrtParser implements SubtitleParser {
                     region.setVerticalAlign(SubtitleRegion.VerticalAlign.TOP);
                     textLine = textLine.replaceAll("\\{\\\\an9\\}", "");
                 }
-                if (textLine.contains("<i>")) {
-                    italic = true;
-                    textLine = textLine.replaceAll("<i>", "");
-                }
-                if (italic) {
-                    textStyle.setFontStyle(SubtitleStyle.FontStyle.ITALIC);
-                }
-                if (textLine.contains("</i>")) {
-                    italic = false;
-                    textLine = textLine.replaceAll("</i>", "");
-                }
-                if (textLine.contains("<b>")) {
-                    bold = true;
-                    textLine = textLine.replaceAll("<b>", "");
-                }
-                if (bold) {
-                    textStyle.setFontWeight(SubtitleStyle.FontWeight.BOLD);
-                }
-                if (textLine.contains("</b>")) {
-                    bold = false;
-                    textLine = textLine.replaceAll("</b>", "");
-                }
-                if (textLine.contains("<u>")) {
-                    underline = true;
-                    textLine = textLine.replaceAll("<u>", "");
-                }
-                if (underline) {
-                    textStyle.setTextDecoration(SubtitleStyle.TextDecoration.UNDERLINE);
-                }
-                if (textLine.contains("</u>")) {
-                    underline = false;
-                    textLine = textLine.replaceAll("</u>", "");
-                }
+
                 if (textLine.contains("<font color=")) {
                     color = true;
-                    Pattern pattern = Pattern.compile("#(?:[a-f\\d]{3}){1,2}\\b");
+                    Pattern pattern = Pattern.compile("#(?:[a-fA-F\\d]{3}){1,2}\\b");
                     Matcher matcher = pattern.matcher(textLine);
                     if (matcher.find()) {
                         hexCode = matcher.group();
                     }
-                    textLine = textLine.replaceAll("<font color=\"#(?:[a-f\\d]{3}){1,2}\\b\">", "");
+                    textLine = textLine.replaceAll("<font color=\"#(?:[a-fA-F\\d]{3}){1,2}\\b\">", "");
                 }
                 if (color && hexCode != null) {
-                    textStyle.setColor(HexRGB.Color.getEnumFromHexCode(hexCode).getColorName());
+                    Color c = Color.getEnumFromHexCode(hexCode);
+                    if (c != Color.WHITE) {
+                        textStyle.setColor(c.getColorName());
+                    }
                 }
                 if (textLine.contains("</font>")) {
                     color = false;
                     textLine = textLine.replaceAll("</font>", "");
                 }
 
-                if (textStyle.hasProperties()) {
-                    line.addText(new SubtitleStyledText(textLine, textStyle));
-                } else {
-                    line.addText(new SubtitlePlainText(textLine));
+                if (textLine.contains("<i>") || textLine.contains("<b>") || textLine.contains("<u>")) {
+                    int cIndex = 0;
+                    String newText = new String();
+                    SubtitleStyle newStyle = new SubtitleStyle(textStyle);
+                    while (cIndex < textLine.length()) {
+                        char cc = textLine.charAt(cIndex);
+                        if (cc == '<') {
+                            int tagLength = 3;
+                            if (textLine.charAt(cIndex+1) == '/') {
+                                tagLength = 4;
+                            }
+                            String tag = textLine.substring(cIndex, cIndex+tagLength);
+                            if (!newText.isEmpty()) {
+                                if (newStyle.hasProperties()) {
+                                    line.addText(new SubtitleStyledText(newText, new SubtitleStyle(newStyle)));
+                                } else {
+                                    line.addText(new SubtitlePlainText(newText));
+                                }
+                            }
+                            if (tag.equals("<i>")) {
+                                newStyle.setFontStyle(FontStyle.ITALIC);
+                            }
+                            if (tag.equals("<b>")) {
+                                newStyle.setFontWeight(FontWeight.BOLD);
+                            }
+                            if (tag.equals("<u>")) {
+                                newStyle.setTextDecoration(TextDecoration.UNDERLINE);
+                            }
+                            if (tag.equals("</i>")) {
+                                newStyle.setFontStyle(FontStyle.NORMAL);
+                            }
+                            if (tag.equals("</b>")) {
+                                newStyle.setFontWeight(FontWeight.NORMAL);
+                            }
+                            if (tag.equals("</u>")) {
+                                newStyle.setTextDecoration(TextDecoration.NONE);
+                            }
+
+                            newText = new String();
+                            cIndex += tagLength;
+                        } else {
+                            newText += cc;
+                            cIndex++;
+                        }
+                    }
+                    if (!newText.isEmpty()) {
+                        if (newStyle.hasProperties()) {
+                            line.addText(new SubtitleStyledText(newText, newStyle));
+                        } else {
+                            line.addText(new SubtitlePlainText(newText));
+                        }
+                    }
                 }
-                cue.addLine(line);
+
+                if (textLine.contains("\\N")) {
+                    // Ignore \N
+                    textLine = textLine.replaceAll("\\\\N", "");
+                }
+
+                if (line.isEmpty() && !textLine.isEmpty()) {
+                    if (textStyle.hasProperties()) {
+                        line.addText(new SubtitleStyledText(textLine, textStyle));
+                    } else {
+                        line.addText(new SubtitlePlainText(textLine));
+                    }
+                }
+                if (!line.isEmpty()) {
+                    cue.addLine(line);
+                }
                 cursorStatus = CursorStatus.CUE_TEXT;
                 continue;
             }
