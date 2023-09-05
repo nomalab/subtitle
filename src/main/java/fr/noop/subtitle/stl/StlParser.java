@@ -56,12 +56,22 @@ public class StlParser implements SubtitleParser {
 
         // Iterate over all TTI blocks and parse them
         int subtitleIndex = 0;
+        SubtitleTimeCode previousIn = new SubtitleTimeCode(0);
+        SubtitleTimeCode previousOut = new SubtitleTimeCode(0);
 
         while (subtitleIndex++ < stl.getGsi().getTnb()) {
             StlTti tti;
 
             try {
                 tti = this.readTti(dis, stl.getGsi());
+                if (previousOut.compareTo(tti.getTci()) == 1) {
+                    float frameRate = stl.getGsi().getDfc().getFrameRate();
+                    System.out.printf("Subtitle from %s to %s overlaps previous subtitle (%s - %s)\n",
+                    tti.getTci().formatWithFramerate(frameRate), tti.getTco().formatWithFramerate(frameRate),
+                    previousIn.formatWithFramerate(frameRate), previousOut.formatWithFramerate(frameRate));
+                }
+                previousIn = tti.getTci();
+                previousOut = tti.getTco();
             } catch (IOException e) {
                 throw new SubtitleParsingException("Unable to parse tti block");
             }
