@@ -62,6 +62,8 @@ public class AssParser implements SubtitleParser {
         Map<String, SubtitleStyle> styles = new HashMap<>();
         int resX = 1920;
         int resY = 1080;
+        SubtitleTimeCode previousIn = new SubtitleTimeCode(0);
+        SubtitleTimeCode previousOut = new SubtitleTimeCode(0);
 
         while ((line = br.readLine()) != null) {
             line = line.trim();
@@ -217,18 +219,22 @@ public class AssParser implements SubtitleParser {
                     AssCue cue = new AssCue();
                     SubtitleRegion region = new SubtitleRegion(0, 0);
                     String nameFormat = null;
+                    SubtitleTimeCode startTime = new SubtitleTimeCode(0);
+                    SubtitleTimeCode endTime = new SubtitleTimeCode(0);
 
                     if (line.split(":").length > 1) {
                         List<String> dialogue = Arrays.asList(line.split(":", 2)[1].trim().split(",", dialoguesFormat.size()));
                         if (dialoguesFormat.contains("Start")) {
                             int index = dialoguesFormat.indexOf("Start");
                             String startTC = dialogue.get(index);
-                            cue.setStartTime(SubtitleTimeCode.parseSingleHourTimeCode(startTC));
+                            startTime = SubtitleTimeCode.parseSingleHourTimeCode(startTC);
+                            cue.setStartTime(startTime);
                         }
                         if (dialoguesFormat.contains("End")) {
                             int index = dialoguesFormat.indexOf("End");
                             String endTC = dialogue.get(index);
-                            cue.setEndTime(SubtitleTimeCode.parseSingleHourTimeCode(endTC));
+                            endTime = SubtitleTimeCode.parseSingleHourTimeCode(endTC);
+                            cue.setEndTime(endTime);
                         }
                         if (dialoguesFormat.contains("Style")) {
                             int index = dialoguesFormat.indexOf("Style");
@@ -347,6 +353,12 @@ public class AssParser implements SubtitleParser {
                         System.err.println("Unable to parse dialogue.");
                         System.exit(1);
                     }
+                    if (previousOut.compareTo(startTime) == 1) {
+                        System.out.printf("Subtitle from %s to %s overlaps previous subtitle (%s - %s)\n",
+                        startTime, endTime, previousIn, previousOut);
+                    }
+                    previousIn = startTime;
+                    previousOut = endTime;
                 }
                 continue;
             }

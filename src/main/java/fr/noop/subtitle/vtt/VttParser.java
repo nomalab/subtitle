@@ -72,6 +72,8 @@ public class VttParser implements SubtitleParser {
         CursorStatus cursorStatus = CursorStatus.NONE;
         VttCue cue = null;
         String cueText = ""; // Text of the cue
+        SubtitleTimeCode previousIn = new SubtitleTimeCode(0);
+        SubtitleTimeCode previousOut = new SubtitleTimeCode(0);
 
         while ((textLine = br.readLine()) != null) {
             textLine = textLine.trim();
@@ -127,8 +129,17 @@ public class VttParser implements SubtitleParser {
                             "Timecode textLine is badly formated: %s", textLine));
                 }
 
-                cue.setStartTime(SubtitleTimeCode.parseTimeCode(textLine.substring(0, 12)));
-                cue.setEndTime(SubtitleTimeCode.parseTimeCode(textLine.substring(17)));
+                SubtitleTimeCode startTime = SubtitleTimeCode.parseTimeCode(textLine.substring(0, 12));
+                SubtitleTimeCode endTime = SubtitleTimeCode.parseTimeCode(textLine.substring(17));
+                if (previousOut.compareTo(startTime) == 1) {
+                    System.out.printf("Subtitle from %s to %s overlaps previous subtitle (%s - %s)\n",
+                    startTime, endTime, previousIn, previousOut);
+                }
+                previousIn = startTime;
+                previousOut = endTime;
+
+                cue.setStartTime(startTime);
+                cue.setEndTime(endTime);
                 cursorStatus = CursorStatus.CUE_TIMECODE;
 
                 SubtitleRegion region = new SubtitleRegion(0, 0);
