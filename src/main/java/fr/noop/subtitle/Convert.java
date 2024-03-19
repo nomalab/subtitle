@@ -23,9 +23,12 @@ import fr.noop.subtitle.model.SubtitleWriterWithOffset;
 import org.apache.commons.cli.*;
 import org.apache.commons.io.input.BOMInputStream;
 import org.apache.commons.lang3.ArrayUtils;
+import org.json.JSONObject;
 
 import java.io.*;
 import java.nio.file.*;
+
+import com.google.gson.Gson;
 
 public class Convert {
     private Options options = new Options();
@@ -254,6 +257,14 @@ public class Convert {
                 .hasArg()
                 .desc("Output offset timecode")
                 .build());
+
+        // Output subtitle object to json file option
+        this.options.addOption(Option.builder("ojf")
+                .required(false)
+                .longOpt("output-json-file")
+                .hasArg()
+                .desc("Output subtitle object to json file")
+                .build());
     }
 
     public Convert() {
@@ -295,6 +306,7 @@ public class Convert {
             String outputFrameRate = line.getOptionValue("ofr");
             String outputDsc = line.getOptionValue("dsc");
             String outputOffset = line.getOptionValue("off");
+            String outputJsonFile = line.getOptionValue("ojf");
             boolean disableStrictMode = line.hasOption("disable-strict-mode");
 
             // Build parser for input file
@@ -366,6 +378,16 @@ public class Convert {
             // Write output file
             try {
                 writer.write(inputSubtitle, os);
+                if (outputJsonFile != null) {
+                    try (BufferedWriter jsonWriter = Files.newBufferedWriter(Paths.get(outputJsonFile))) {
+                        String subtitleString = new Gson().toJson(inputSubtitle);
+                        JSONObject subtitleJsonObject = new JSONObject(subtitleString);
+                        subtitleJsonObject.write(jsonWriter);
+                    } catch (IOException e) {
+                        System.err.println(String.format("Unable to write json output file %s: %s", outputJsonFile, e.getMessage()));
+                        System.exit(1);
+                    }
+                }
             } catch (IOException e) {
                 System.err.println(String.format("Unable to write output file %s: %s", outputFilePath, e.getMessage()));
                 System.exit(1);
