@@ -14,6 +14,7 @@ import fr.noop.subtitle.stl.StlGsi.Dsc;
 import fr.noop.subtitle.util.SubtitleStyle;
 import fr.noop.subtitle.util.SubtitleTimeCode;
 import fr.noop.subtitle.util.SubtitleFrameRate.FrameRate;
+import fr.noop.subtitle.util.SubtitleRegion.VerticalAlign;
 import fr.noop.subtitle.util.SubtitleStyle.Effect;
 import fr.noop.subtitle.util.SubtitleStyle.FontStyle;
 import fr.noop.subtitle.util.SubtitleStyle.TextDecoration;
@@ -344,6 +345,10 @@ public class StlWriter implements SubtitleWriterWithTimecode, SubtitleWriterWith
         int verticalPos = 21; // set default
         if (cue instanceof SubtitleRegionCue) {
             verticalPos = ((SubtitleRegionCue) cue).getRegion().getVerticalPosition();
+            if( verticalPos == 0 && ((SubtitleRegionCue) cue).getRegion().getVerticalAlign() == VerticalAlign.BOTTOM)
+            {
+                verticalPos = 21;
+            }
         }
         if (originalDisplayStandard != null) {
             if (originalDisplayStandard == Dsc.TELETEXT_LEVEL_1 || originalDisplayStandard == Dsc.TELETEXT_LEVEL_2) {
@@ -379,35 +384,35 @@ public class StlWriter implements SubtitleWriterWithTimecode, SubtitleWriterWith
                     SubtitleStyle style = ((SubtitleStyled)inText).getStyle();
                     if (style.getColor() != null) {
                         String color = style.getColor();
-                        if (color == "black") {
+                        if (color.equals("black")) {
                             byte[] black = new byte[] {(byte) StlTti.TextColor.ALPHA_BLACK.getValue()};
                             color = new String(black, gsi.getCct().getCharset());
                         }
-                        if (color == "red") {
+                        if (color.equals("red")) {
                             byte[] red = new byte[] {(byte) StlTti.TextColor.ALPHA_RED.getValue()};
                             color = new String(red, gsi.getCct().getCharset());
                         }
-                        if (color == "lime") {
+                        if (color.equals("lime")) {
                             byte[] green = new byte[] {(byte) StlTti.TextColor.ALPHA_GREEN.getValue()};
                             color = new String(green, gsi.getCct().getCharset());
                         }
-                        if (color == "yellow") {
+                        if (color.equals("yellow")) {
                             byte[] yellow = new byte[] {(byte) StlTti.TextColor.ALPHA_YELLOW.getValue()};
                             color = new String(yellow, gsi.getCct().getCharset());
                         }
-                        if (color == "blue") {
+                        if (color.equals("blue")) {
                             byte[] blue = new byte[] {(byte) StlTti.TextColor.ALPHA_BLUE.getValue()};
                             color = new String(blue, gsi.getCct().getCharset());
                         }
-                        if (color == "magenta") {
+                        if (color.equals("magenta")) {
                             byte[] magenta = new byte[] {(byte) StlTti.TextColor.ALPHA_MAGENTA.getValue()};
                             color = new String(magenta, gsi.getCct().getCharset());
                         }
-                        if (color == "cyan") {
+                        if (color.equals("cyan")) {
                             byte[] cyan = new byte[] {(byte) StlTti.TextColor.ALPHA_CYAN.getValue()};
                             color = new String(cyan, gsi.getCct().getCharset());
                         }
-                        if (color == "white") {
+                        if (color.equals("white")) {
                             byte[] white = new byte[] {(byte) StlTti.TextColor.ALPHA_WHITE.getValue()};
                             color = new String(white, gsi.getCct().getCharset());
                         }
