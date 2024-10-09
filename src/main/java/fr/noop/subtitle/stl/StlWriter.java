@@ -345,9 +345,12 @@ public class StlWriter implements SubtitleWriterWithTimecode, SubtitleWriterWith
         int verticalPos = 21; // set default
         if (cue instanceof SubtitleRegionCue) {
             verticalPos = ((SubtitleRegionCue) cue).getRegion().getVerticalPosition();
-            if( verticalPos == 0 && ((SubtitleRegionCue) cue).getRegion().getVerticalAlign() == VerticalAlign.BOTTOM)
-            {
-                verticalPos = 21;
+            VerticalAlign verticalAlign = ((SubtitleRegionCue) cue).getRegion().getVerticalAlign();
+            if (verticalPos == 0 && verticalAlign == VerticalAlign.BOTTOM) {
+                verticalPos = 21; //default bottom for region with default position
+            }
+            if (verticalPos == 0 && verticalAlign == VerticalAlign.TOP) {
+                verticalPos = 1; //default top for region with default position
             }
         }
         if (originalDisplayStandard != null) {
