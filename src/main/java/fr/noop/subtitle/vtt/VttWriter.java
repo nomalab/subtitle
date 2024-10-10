@@ -25,6 +25,8 @@ import fr.noop.subtitle.util.SubtitleStyle;
 import fr.noop.subtitle.util.SubtitleTimeCode;
 import fr.noop.subtitle.util.SubtitleRegion.VerticalAlign;
 import fr.noop.subtitle.util.SubtitleStyle.FontStyle;
+import fr.noop.subtitle.util.SubtitleStyle.FontWeight;
+import fr.noop.subtitle.util.SubtitleStyle.TextDecoration;
 
 import java.io.IOException;
 import java.io.OutputStream;
@@ -92,6 +94,12 @@ public class VttWriter implements SubtitleWriterWithHeader, SubtitleWriterWithTi
                             SubtitleStyle style = ((SubtitleStyled)inText).getStyle();
                             if (style.getFontStyle() == FontStyle.ITALIC || style.getFontStyle() == FontStyle.OBLIQUE) {
                                 textString = String.format("<i>%s</i>", textString);
+                            }
+                            if (style.getTextDecoration() == TextDecoration.UNDERLINE) {
+                                textString = String.format("<u>%s</u>", textString);
+                            }
+                            if (style.getFontWeight() == FontWeight.BOLD) {
+                                textString = String.format("<b>%s</b>", textString);
                             }
                             if (style.getColor() != null){
                                 textString = String.format("<c.%s>%s</c>", style.getColor(), textString);
