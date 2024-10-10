@@ -192,4 +192,6 @@ Update lib
 
 - update version in pom.xml
 - git tag vx.x.x && git push --tags
-- create release in github : https://github.com/nomalab/subtitle/releases
+- mvn test
+- mvn package
+- create release with jar with dependencies in github : https://github.com/nomalab/subtitle/releases
