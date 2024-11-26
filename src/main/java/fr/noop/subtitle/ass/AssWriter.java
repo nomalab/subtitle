@@ -8,6 +8,7 @@ import fr.noop.subtitle.model.SubtitleRegionCue;
 import fr.noop.subtitle.model.SubtitleStyled;
 import fr.noop.subtitle.model.SubtitleText;
 import fr.noop.subtitle.model.SubtitleWriterWithFrameRate;
+import fr.noop.subtitle.model.SubtitleWriterWithInputFrameRate;
 import fr.noop.subtitle.model.SubtitleWriterWithHeader;
 import fr.noop.subtitle.model.SubtitleWriterWithTimecode;
 import fr.noop.subtitle.util.SubtitleRegion;
@@ -23,10 +24,11 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
 
-public class AssWriter implements SubtitleWriterWithHeader, SubtitleWriterWithFrameRate, SubtitleWriterWithTimecode {
+public class AssWriter implements SubtitleWriterWithHeader, SubtitleWriterWithFrameRate, SubtitleWriterWithInputFrameRate, SubtitleWriterWithTimecode {
     private String charset; // Charset used to encode file
     private String headerText;
     private String newFrameRate;
+    private String inputFramerate;
     private String outputTimecode;
 
     public AssWriter(String charset) {
@@ -92,7 +94,9 @@ public class AssWriter implements SubtitleWriterWithHeader, SubtitleWriterWithFr
             startTimecode = (SubtitleTimeCode) subtitleObject.getProperty(SubtitleObject.Property.START_TIMECODE_PRE_ROLL);
         }
         float frameRate = 25;
-        if (subtitleObject.hasProperty(SubtitleObject.Property.FRAME_RATE)) {
+        if (this.inputFramerate != null) {
+            frameRate = Float.parseFloat(this.inputFramerate);
+        } else if (subtitleObject.hasProperty(SubtitleObject.Property.FRAME_RATE)) {
             frameRate = (float) subtitleObject.getProperty(SubtitleObject.Property.FRAME_RATE);
         }
         os.write(new String("[Events]\n").getBytes(this.charset));
@@ -210,6 +214,11 @@ public class AssWriter implements SubtitleWriterWithHeader, SubtitleWriterWithFr
     @Override
     public void setFrameRate(String frameRate) {
         this.newFrameRate = frameRate;
+    }
+
+    @Override
+    public void setInputFrameRate(String frameRate) {
+        this.inputFramerate = frameRate != null ? frameRate : null;
     }
 
     @Override

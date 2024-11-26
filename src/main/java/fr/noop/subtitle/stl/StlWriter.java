@@ -8,6 +8,7 @@ import fr.noop.subtitle.model.SubtitleStyled;
 import fr.noop.subtitle.model.SubtitleText;
 import fr.noop.subtitle.model.SubtitleWriterWithTimecode;
 import fr.noop.subtitle.model.SubtitleWriterWithFrameRate;
+import fr.noop.subtitle.model.SubtitleWriterWithInputFrameRate;
 import fr.noop.subtitle.model.SubtitleWriterWithDsc;
 import fr.noop.subtitle.model.SubtitleWriterWithOffset;
 import fr.noop.subtitle.stl.StlGsi.Dsc;
@@ -29,9 +30,10 @@ import java.util.Date;
 
 import org.apache.commons.lang3.StringUtils;
 
-public class StlWriter implements SubtitleWriterWithTimecode, SubtitleWriterWithFrameRate, SubtitleWriterWithDsc, SubtitleWriterWithOffset {
+public class StlWriter implements SubtitleWriterWithTimecode, SubtitleWriterWithFrameRate, SubtitleWriterWithInputFrameRate, SubtitleWriterWithDsc, SubtitleWriterWithOffset {
     private String outputTimecode;
     private String outputFrameRate;
+    private Float inputFrameRate;
     private String outputDsc;
     private String outputOffset;
 
@@ -53,8 +55,10 @@ public class StlWriter implements SubtitleWriterWithTimecode, SubtitleWriterWith
         if (subtitleObject.hasProperty(SubtitleObject.Property.MAX_ROWS)) {
             originalMaxRows = (int) subtitleObject.getProperty(SubtitleObject.Property.MAX_ROWS);
         }
-        float originalFrameRate = 25;
-        if (subtitleObject.hasProperty(SubtitleObject.Property.FRAME_RATE)) {
+        float originalFrameRate = 25; // Valeur par défaut
+        if (this.inputFrameRate != null) {
+            originalFrameRate = this.inputFrameRate;
+        } else if (subtitleObject.hasProperty(SubtitleObject.Property.FRAME_RATE)) {
             originalFrameRate = (float) subtitleObject.getProperty(SubtitleObject.Property.FRAME_RATE);
         }
         StlGsi gsi = this.writeGsi(subtitleObject, originalStartTimecode, originalFrameRate);
@@ -487,6 +491,11 @@ public class StlWriter implements SubtitleWriterWithTimecode, SubtitleWriterWith
     @Override
     public void setFrameRate(String frameRate) {
         this.outputFrameRate = frameRate;
+    }
+
+    @Override
+    public void setInputFrameRate(String frameRate) {
+        this.inputFrameRate = frameRate != null ? Float.valueOf(frameRate) : null;
     }
 
     @Override
