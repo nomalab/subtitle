@@ -218,7 +218,7 @@ public class AssWriter implements SubtitleWriterWithHeader, SubtitleWriterWithFr
 
     @Override
     public void setInputFrameRate(String frameRate) {
-        this.inputFramerate = frameRate != null ? frameRate : null;
+        this.inputFramerate = frameRate;
     }
 
     @Override

@@ -37,7 +37,7 @@ public class SrtWriter implements SubtitleWriterWithTimecode, SubtitleWriterWith
     private String charset; // Charset used to encode file
     private String outputTimecode;
     private String outputFrameRate;
-    private Float inputFrameRate;
+    private String inputFrameRate;
     private String outputOffset;
 
     public SrtWriter(String charset) {
@@ -55,7 +55,7 @@ public class SrtWriter implements SubtitleWriterWithTimecode, SubtitleWriterWith
                 startTimeCode = (SubtitleTimeCode) subtitleObject.getProperty(SubtitleObject.Property.START_TIMECODE_PRE_ROLL);
             }
             if (this.inputFrameRate != null) {
-                frameRate = this.inputFrameRate;
+                frameRate = Float.parseFloat(this.inputFrameRate);
             } else if (subtitleObject.hasProperty(SubtitleObject.Property.FRAME_RATE)) {
                 frameRate = (float) subtitleObject.getProperty(SubtitleObject.Property.FRAME_RATE);
             }
@@ -130,7 +130,7 @@ public class SrtWriter implements SubtitleWriterWithTimecode, SubtitleWriterWith
 
     @Override
     public void setInputFrameRate(String frameRate) {
-        this.inputFrameRate = frameRate != null ? Float.valueOf(frameRate) : null;
+        this.inputFrameRate = frameRate;
     }
 
     @Override

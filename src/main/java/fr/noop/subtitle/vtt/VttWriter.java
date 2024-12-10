@@ -40,7 +40,7 @@ public class VttWriter implements SubtitleWriterWithHeader, SubtitleWriterWithTi
     private String charset; // Charset used to encode file
     private String outputTimecode;
     private String outputFrameRate;
-    private Float inputFrameRate;
+    private String inputFrameRate;
     private String outputOffset;
     private String headerText; // header to append.
 
@@ -57,7 +57,7 @@ public class VttWriter implements SubtitleWriterWithHeader, SubtitleWriterWithTi
                 startTimeCode = (SubtitleTimeCode) subtitleObject.getProperty(SubtitleObject.Property.START_TIMECODE_PRE_ROLL);
             }
             if (this.inputFrameRate != null) {
-                frameRate = this.inputFrameRate;
+                frameRate = Float.parseFloat(this.inputFrameRate);
             } else if (subtitleObject.hasProperty(SubtitleObject.Property.FRAME_RATE)) {
                 frameRate = (float) subtitleObject.getProperty(SubtitleObject.Property.FRAME_RATE);
             }
@@ -159,7 +159,7 @@ public class VttWriter implements SubtitleWriterWithHeader, SubtitleWriterWithTi
 
     @Override
     public void setInputFrameRate(String frameRate) {
-        this.inputFrameRate = frameRate != null ? Float.valueOf(frameRate) : null;
+        this.inputFrameRate = frameRate;
     }
 
     @Override

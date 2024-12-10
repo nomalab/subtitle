@@ -33,7 +33,7 @@ import org.apache.commons.lang3.StringUtils;
 public class StlWriter implements SubtitleWriterWithTimecode, SubtitleWriterWithFrameRate, SubtitleWriterWithInputFrameRate, SubtitleWriterWithDsc, SubtitleWriterWithOffset {
     private String outputTimecode;
     private String outputFrameRate;
-    private Float inputFrameRate;
+    private String inputFrameRate;
     private String outputDsc;
     private String outputOffset;
 
@@ -55,9 +55,9 @@ public class StlWriter implements SubtitleWriterWithTimecode, SubtitleWriterWith
         if (subtitleObject.hasProperty(SubtitleObject.Property.MAX_ROWS)) {
             originalMaxRows = (int) subtitleObject.getProperty(SubtitleObject.Property.MAX_ROWS);
         }
-        float originalFrameRate = 25; // Valeur par défaut
+        float originalFrameRate = 25; // default value
         if (this.inputFrameRate != null) {
-            originalFrameRate = this.inputFrameRate;
+            originalFrameRate = Float.parseFloat(this.inputFrameRate);
         } else if (subtitleObject.hasProperty(SubtitleObject.Property.FRAME_RATE)) {
             originalFrameRate = (float) subtitleObject.getProperty(SubtitleObject.Property.FRAME_RATE);
         }
@@ -495,7 +495,7 @@ public class StlWriter implements SubtitleWriterWithTimecode, SubtitleWriterWith
 
     @Override
     public void setInputFrameRate(String frameRate) {
-        this.inputFrameRate = frameRate != null ? Float.valueOf(frameRate) : null;
+        this.inputFrameRate = frameRate;
     }
 
     @Override

@@ -107,7 +107,7 @@ public class Convert {
         VTT(ConvertFormat.VTT, "fr.noop.subtitle.vtt.VttWriter", true, true, true, true, true, false, true),
         SRT(ConvertFormat.SRT, "fr.noop.subtitle.srt.SrtWriter", true, false, true, true, true, false, true),
         TTML(ConvertFormat.TTML, "fr.noop.subtitle.ttml.TtmlWriter", false, false, false, false, false, false, false),
-        STL(ConvertFormat.STL, "fr.noop.subtitle.stl.StlWriter", false, false, true,true, true, true, true),
+        STL(ConvertFormat.STL, "fr.noop.subtitle.stl.StlWriter", false, false, true, true, true, true, true),
         ASS(ConvertFormat.ASS, "fr.noop.subtitle.ass.AssWriter", true, true, true, true, true, false, false);
 
         private ConvertFormat format;
@@ -375,7 +375,7 @@ public class Convert {
             SubtitleWriter writer = null;
 
             try {
-                writer = this.buildWriter(outputFilePath, outputCharset, headerText,inputFrameRate, outputFrameRate, outputTimecode, outputDsc, outputOffset);
+                writer = this.buildWriter(outputFilePath, outputCharset, headerText, inputFrameRate, outputFrameRate, outputTimecode, outputDsc, outputOffset);
             } catch(IOException e) {
                 System.err.println(String.format("Unable to build writer for file %s: %s", outputFilePath, e.getMessage()));
                 System.exit(1);
@@ -456,7 +456,7 @@ public class Convert {
                 ((SubtitleWriterWithFrameRate) instance).setFrameRate(frameRate);
             }
             if (convertWriter.withInputFrameRate()) {
-                ((SubtitleWriterWithInputFrameRate) instance).setInputFrameRate(frameRate);
+                ((SubtitleWriterWithInputFrameRate) instance).setInputFrameRate(inputFrameRate);
             }
             if (convertWriter.withTimecode()) {
                 ((SubtitleWriterWithTimecode) instance).setTimecode(timecode);
