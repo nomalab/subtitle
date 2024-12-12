@@ -18,6 +18,7 @@ import fr.noop.subtitle.model.SubtitleText;
 import fr.noop.subtitle.model.SubtitleWriterWithTimecode;
 import fr.noop.subtitle.srt.HexRGB.Color;
 import fr.noop.subtitle.model.SubtitleWriterWithFrameRate;
+import fr.noop.subtitle.model.SubtitleWriterWithInputFrameRate;
 import fr.noop.subtitle.model.SubtitleWriterWithOffset;
 import fr.noop.subtitle.util.SubtitleStyle;
 import fr.noop.subtitle.util.SubtitleTimeCode;
@@ -32,10 +33,11 @@ import java.io.UnsupportedEncodingException;
 /**
  * Created by clebeaupin on 02/10/15.
  */
-public class SrtWriter implements SubtitleWriterWithTimecode, SubtitleWriterWithFrameRate, SubtitleWriterWithOffset {
+public class SrtWriter implements SubtitleWriterWithTimecode, SubtitleWriterWithFrameRate, SubtitleWriterWithInputFrameRate, SubtitleWriterWithOffset {
     private String charset; // Charset used to encode file
     private String outputTimecode;
     private String outputFrameRate;
+    private String inputFrameRate;
     private String outputOffset;
 
     public SrtWriter(String charset) {
@@ -52,10 +54,11 @@ public class SrtWriter implements SubtitleWriterWithTimecode, SubtitleWriterWith
             if (subtitleObject.hasProperty(SubtitleObject.Property.START_TIMECODE_PRE_ROLL)){
                 startTimeCode = (SubtitleTimeCode) subtitleObject.getProperty(SubtitleObject.Property.START_TIMECODE_PRE_ROLL);
             }
-            if (subtitleObject.hasProperty(SubtitleObject.Property.FRAME_RATE)) {
+            if (this.inputFrameRate != null) {
+                frameRate = Float.parseFloat(this.inputFrameRate);
+            } else if (subtitleObject.hasProperty(SubtitleObject.Property.FRAME_RATE)) {
                 frameRate = (float) subtitleObject.getProperty(SubtitleObject.Property.FRAME_RATE);
             }
-
             for (SubtitleCue cue : subtitleObject.getCues()) {
                 subtitleIndex++;
 
@@ -123,6 +126,11 @@ public class SrtWriter implements SubtitleWriterWithTimecode, SubtitleWriterWith
     @Override
     public void setFrameRate(String frameRate) {
         this.outputFrameRate = frameRate;
+    }
+
+    @Override
+    public void setInputFrameRate(String frameRate) {
+        this.inputFrameRate = frameRate;
     }
 
     @Override
