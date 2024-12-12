@@ -8,9 +8,9 @@
  *
  */
 
- package fr.noop.subtitle.model;
+package fr.noop.subtitle.model;
 
 
- public interface SubtitleWriterWithInputFrameRate extends SubtitleWriter {
-     public void setInputFrameRate(String frameRate);
- }
+public interface SubtitleWriterWithInputFrameRate extends SubtitleWriter {
+    public void setInputFrameRate(String frameRate);
+}
