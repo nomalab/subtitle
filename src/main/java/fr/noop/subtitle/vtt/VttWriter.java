@@ -91,7 +91,7 @@ public class VttWriter implements SubtitleWriterWithHeader, SubtitleWriterWithTi
                 for (SubtitleLine line : cue.getLines()) {
                     for (SubtitleText inText : line.getTexts()) {
                         String textString = inText.toString();
-                        textString = textString.replace("&amp;", "&").replace("&", "&amp;"); // avoid writing "&amp;amp;" when replacing
+                        textString = textString.replace("amp;", "&lrm;amp;").replace("&", "&amp;"); // put lrm escape sequence between & and amp; to fully display "&amp;"
                         textString = textString.replace("<", "&lt;");
                         textString = textString.replace(">", "&gt;");
                         if (inText instanceof SubtitleStyled) {
