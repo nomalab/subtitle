@@ -1,8 +1,8 @@
 package fr.noop.subtitle.srt;
 
 import fr.noop.subtitle.model.SubtitleParsingException;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -16,6 +16,6 @@ public class SrtParserTest {
         FileInputStream is = new FileInputStream("src/test/resources/srt/no-eof-nl.srt");
         SrtObject srtObject = srtParser.parse(is);
 
-        Assert.assertEquals(2, srtObject.getCues().size());
+        Assertions.assertEquals(2, srtObject.getCues().size());
     }
 }

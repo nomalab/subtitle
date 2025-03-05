@@ -10,9 +10,9 @@
 
 package fr.noop.subtitle.util;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
 
-import org.junit.*;
+import org.junit.jupiter.api.Test;
 
 import java.security.InvalidParameterException;
 
@@ -33,14 +33,16 @@ public class SubtitleRegionTest {
         assertEquals(1250, (int) (tested.getX() * 100));
     }
 
-    @Test (expected = InvalidParameterException.class)
+    @Test
     public void testSetXException1() throws Exception {
-        tested.setX(-1);
+        Exception exception = assertThrows(InvalidParameterException.class, () -> tested.setX(-1));
+        assertEquals("X value must be defined in percentage between 0 and 100", exception.getMessage());
     }
 
-    @Test (expected = InvalidParameterException.class)
+    @Test
     public void testSetXException2() throws Exception {
-        tested.setX(101);
+        Exception exception = assertThrows(InvalidParameterException.class, () -> tested.setX(101));
+        assertEquals("X value must be defined in percentage between 0 and 100", exception.getMessage());
     }
 
     @Test
@@ -54,13 +56,15 @@ public class SubtitleRegionTest {
         assertEquals(2250, (int) (tested.getY() * 100));
     }
 
-    @Test (expected = InvalidParameterException.class)
+    @Test
     public void testSetYException1() throws Exception {
-        tested.setX(-1);
+        Exception exception = assertThrows(InvalidParameterException.class, () -> tested.setX(-1));
+        assertEquals("X value must be defined in percentage between 0 and 100", exception.getMessage());
     }
 
-    @Test (expected = InvalidParameterException.class)
+    @Test
     public void testSetYException2() throws Exception {
-        tested.setX(101);
+        Exception exception = assertThrows(InvalidParameterException.class, () -> tested.setX(101));
+        assertEquals("X value must be defined in percentage between 0 and 100", exception.getMessage());
     }
 }
