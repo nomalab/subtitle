@@ -3,8 +3,8 @@ package fr.noop.subtitle;
 import fr.noop.subtitle.stl.StlParser;
 import fr.noop.subtitle.model.SubtitleObject;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 import org.json.JSONObject;
 
@@ -21,8 +21,8 @@ public class AnalyseTest {
         Analyse analyse = new Analyse();
         JSONObject report = analyse.getProperties(stl);
 
-        Assert.assertEquals(25, report.get("frame_rate_numerator"));
-        Assert.assertEquals("10:00:00:00", report.get("start_timecode"));
-        Assert.assertEquals("10:00:06:08", report.get("first_cue"));
+        Assertions.assertEquals(25, report.get("frame_rate_numerator"));
+        Assertions.assertEquals("10:00:00:00", report.get("start_timecode"));
+        Assertions.assertEquals("10:00:06:08", report.get("first_cue"));
     }
 }

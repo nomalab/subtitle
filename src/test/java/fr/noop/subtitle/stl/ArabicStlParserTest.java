@@ -10,12 +10,13 @@
 
 package fr.noop.subtitle.stl;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 import fr.noop.subtitle.model.SubtitleCue;
 import fr.noop.subtitle.model.SubtitleLine;
 import fr.noop.subtitle.util.SubtitleStyledText;
-import org.junit.*;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.BeforeEach;
 
 import java.io.FileInputStream;
 import java.io.InputStream;
@@ -31,7 +32,7 @@ public class ArabicStlParserTest {
     private StlTti testedTti;
     private StlCue testedCue;
 
-    @Before
+    @BeforeEach
     public void setUp() throws Exception {
         InputStream is = new FileInputStream("src/test/resources/stl/test_arabic.stl");
         StlParser stlParser = new StlParser();

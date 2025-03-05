@@ -10,9 +10,10 @@
 
 package fr.noop.subtitle.util;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
 
-import org.junit.*;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.BeforeEach;
 
 /**
  * Created by clebeaupin on 08/10/15.
@@ -20,7 +21,7 @@ import org.junit.*;
 public class SubtitleStyleTest {
     private SubtitleStyle tested;
 
-    @Before
+    @BeforeEach
     public void setUp() throws Exception {
         tested = new SubtitleStyle();
         tested.setTextAlign(SubtitleStyle.TextAlign.CENTER);

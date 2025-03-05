@@ -5,8 +5,9 @@ import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
 
-import static org.junit.Assert.*;
-import org.junit.*;
+import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.BeforeEach;
 
 import fr.noop.subtitle.model.SubtitleWriterWithTimecode;
 import fr.noop.subtitle.model.SubtitleWriterWithDsc;
@@ -27,7 +28,7 @@ public class StlWriterTest {
     private SubtitleTimeCode newTimeCode;
     private SubtitleTimeCode firstTimeCode;
 
-    @Before
+    @BeforeEach
     public void setUp() throws Exception {
         InputStream is = new FileInputStream("src/test/resources/stl/test.stl");
         OutputStream os = new FileOutputStream("src/test/resources/stl/tested.stl");

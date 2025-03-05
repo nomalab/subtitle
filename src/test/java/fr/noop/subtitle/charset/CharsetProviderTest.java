@@ -14,8 +14,8 @@ import java.nio.charset.Charset;
 import java.util.HashSet;
 import java.util.Iterator;
 
-import static org.junit.Assert.*;
-import org.junit.*;
+import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.Test;
 
 /**
  * Created by clebeaupin on 28/09/15.
@@ -26,7 +26,7 @@ public class CharsetProviderTest {
     @Test
     public void testIso6937() throws Exception {
         Charset charset = tested.charsetForName("ISO-6937");
-        assertNotNull("charset not found", charset);
+        assertNotNull(charset, "charset not found");
         assertEquals(Iso6937Charset.class, charset.getClass());
         assertEquals(charset, tested.charsetForName("ISO-6937"));
         assertEquals(charset, tested.charsetForName("ISO-6937-2"));

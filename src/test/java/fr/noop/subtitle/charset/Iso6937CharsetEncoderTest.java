@@ -15,12 +15,13 @@ import java.nio.CharBuffer;
 import java.nio.charset.CharacterCodingException;
 import java.nio.charset.CharsetEncoder;
 import java.io.UnsupportedEncodingException;
-import javax.xml.bind.DatatypeConverter;
+import jakarta.xml.bind.DatatypeConverter;
 import java.nio.charset.Charset;
 import java.util.Arrays;
 
-import static org.junit.Assert.*;
-import org.junit.*;
+import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.BeforeEach;
 
 /**
  * Created by clebeaupin on 29/09/15.
@@ -28,7 +29,7 @@ import org.junit.*;
 public class Iso6937CharsetEncoderTest {
     public CharsetEncoder tested;
 
-    @Before
+    @BeforeEach
     public void setUp() throws Exception {
         Charset charset = new Iso6937Charset("ISO-6937", new String[] {});
         tested = charset.newEncoder();
