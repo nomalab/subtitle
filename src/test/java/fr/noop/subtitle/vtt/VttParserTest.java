@@ -1,8 +1,8 @@
 package fr.noop.subtitle.vtt;
 
 import fr.noop.subtitle.model.SubtitleParsingException;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -16,6 +16,6 @@ public class VttParserTest {
         FileInputStream is = new FileInputStream("src/test/resources/vtt/test.vtt");
         VttObject vttObject = vttParser.parse(is);
 
-        Assert.assertEquals(12, vttObject.getCues().size());
+        Assertions.assertEquals(12, vttObject.getCues().size());
     }
 }

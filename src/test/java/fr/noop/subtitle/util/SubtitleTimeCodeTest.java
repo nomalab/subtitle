@@ -10,9 +10,9 @@
 
 package fr.noop.subtitle.util;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
 
-import org.junit.*;
+import org.junit.jupiter.api.Test;
 
 import java.security.InvalidParameterException;
 
@@ -39,10 +39,11 @@ public class SubtitleTimeCodeTest  {
         assertEquals("01:23:12:02", tested.formatWithFramerate(frameRate));
     }
 
-    @Test (expected = InvalidParameterException.class)
+    @Test
     public void testSingleHourTimeToStringException() throws Exception {
         tested.setHour(10);
-        tested.singleHourTimeToString();
+        Exception exception = assertThrows(InvalidParameterException.class, () -> tested.singleHourTimeToString());
+        assertEquals("Hour value must be a single digit number", exception.getMessage());
     }
 
     @Test
@@ -54,18 +55,20 @@ public class SubtitleTimeCodeTest  {
         assertEquals(expected.getTime(), parsed.getTime());
     }
 
-    @Test (expected = InvalidParameterException.class)
+    @Test
     public void testFromStringException() throws Exception {
         String outputTimecode = "00:00:00:25";
         float frameRate = 25;
-        SubtitleTimeCode.fromStringWithFrames(outputTimecode, frameRate);
+        Exception exception = assertThrows(InvalidParameterException.class, () -> SubtitleTimeCode.fromStringWithFrames(outputTimecode, frameRate));
+        assertEquals("A Millisecond value must be between 0 and 999", exception.getMessage());
     }
 
-    @Test (expected = NumberFormatException.class)
+    @Test
     public void testFromStringException2() throws Exception {
         String outputTimecode = "hh:mm:ss:ff";
         float frameRate = 25;
-        SubtitleTimeCode.fromStringWithFrames(outputTimecode, frameRate);
+        Exception exception = assertThrows(NumberFormatException.class, () -> SubtitleTimeCode.fromStringWithFrames(outputTimecode, frameRate));
+        assertEquals("For input string: \"hh\"", exception.getMessage());
     }
 
     @Test
@@ -79,14 +82,16 @@ public class SubtitleTimeCodeTest  {
         assertEquals(2, tested.getHour());
     }
 
-    @Test (expected = InvalidParameterException.class)
+    @Test
     public void testSetHourException() throws Exception {
-        tested.setHour(-1);
+        Exception exception = assertThrows(InvalidParameterException.class, () -> tested.setHour(-1));
+        assertEquals("Hour value must be between 0 and 23", exception.getMessage());
     }
 
-    @Test (expected = InvalidParameterException.class)
+    @Test
     public void testSetHourException2() throws Exception {
-        tested.setHour(24);
+        Exception exception = assertThrows(InvalidParameterException.class, () -> tested.setHour(24));
+        assertEquals("Hour value must be between 0 and 23", exception.getMessage());
     }
 
     @Test
@@ -100,14 +105,16 @@ public class SubtitleTimeCodeTest  {
         assertEquals(50, tested.getMinute());
     }
 
-    @Test (expected = InvalidParameterException.class)
+    @Test
     public void testSetMinuteException1() throws Exception {
-        tested.setMinute(-1);
+        Exception exception = assertThrows(InvalidParameterException.class, () -> tested.setMinute(-1));
+        assertEquals("Minute value must be between 0 and 59", exception.getMessage());
     }
 
-    @Test (expected = InvalidParameterException.class)
+    @Test
     public void testSetMinuteException2() throws Exception {
-        tested.setMinute(60);
+        Exception exception = assertThrows(InvalidParameterException.class, () -> tested.setMinute(60));
+        assertEquals("Minute value must be between 0 and 59", exception.getMessage());
     }
 
     @Test
@@ -121,14 +128,16 @@ public class SubtitleTimeCodeTest  {
         assertEquals(50, tested.getSecond());
     }
 
-    @Test (expected = InvalidParameterException.class)
+    @Test
     public void testSetSecondException1() throws Exception {
-        tested.setSecond(-1);
+        Exception exception = assertThrows(InvalidParameterException.class, () -> tested.setSecond(-1));
+        assertEquals("A second value must be between 0 and 59", exception.getMessage());
     }
 
-    @Test (expected = InvalidParameterException.class)
+    @Test
     public void testSetSecondException2() throws Exception {
-        tested.setSecond(60);
+        Exception exception = assertThrows(InvalidParameterException.class, () -> tested.setSecond(60));
+        assertEquals("A second value must be between 0 and 59", exception.getMessage());
     }
 
     @Test
@@ -142,14 +151,16 @@ public class SubtitleTimeCodeTest  {
         assertEquals(50, tested.getMillisecond());
     }
 
-    @Test (expected = InvalidParameterException.class)
+    @Test
     public void testSetMillisecondException1() throws Exception {
-        tested.setMillisecond(-1);
+        Exception exception = assertThrows(InvalidParameterException.class, () -> tested.setMillisecond(-1));
+        assertEquals("A Millisecond value must be between 0 and 999", exception.getMessage());
     }
 
-    @Test (expected = InvalidParameterException.class)
+    @Test
     public void testSetMillisecondException2() throws Exception {
-        tested.setMillisecond(1000);
+        Exception exception = assertThrows(InvalidParameterException.class, () -> tested.setMillisecond(1000));
+        assertEquals("A Millisecond value must be between 0 and 999", exception.getMessage());
     }
 
     @Test
