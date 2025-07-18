@@ -89,6 +89,18 @@ public class VttParser implements SubtitleParser {
                 continue;
             }
 
+            // Optional NOTE COMMENT
+            if (textLine.startsWith("NOTE")) {
+                continue;
+            }
+
+            // Optional STYLE header
+            if (cursorStatus == CursorStatus.SIGNATURE && textLine.startsWith("STYLE")) {
+                cursorStatus = CursorStatus.HEADER;
+                // parse https://developer.mozilla.org/en-US/docs/Web/API/WebVTT_API/Web_Video_Text_Tracks_Format#style_blocks
+                continue;
+            }
+
             // Optional X-TIMESTAMP-MAP header (HLS)
             if (cursorStatus == CursorStatus.SIGNATURE && textLine.startsWith("X-TIMESTAMP-MAP")) {
                 cursorStatus = CursorStatus.HEADER;
