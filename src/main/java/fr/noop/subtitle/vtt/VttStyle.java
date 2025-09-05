@@ -1,5 +1,6 @@
 package fr.noop.subtitle.vtt;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -21,39 +22,39 @@ public class VttStyle extends SubtitleStyle {
         LANG;
     }
 
-    private Map<VttTextTag, Map<Property, String>> stylesBlock = new HashMap<>();
+    private Map<VttTextTag, List<Map<Property, String>>> styleBlocks = new HashMap<>();
 
-    public Map<VttTextTag, Map<Property, String>> getStylesBlock() {
-        return stylesBlock;
+    public Map<VttTextTag, List<Map<Property, String>>> getstyleBlocks() {
+        return styleBlocks;
     }
 
-    public void setStylesBlock(List<String> tagsList, List<String> cssList) {
+    public void setStyleBlocks(String styleBlock) {
+        String[] parts = styleBlock.split("\\{");
+
         // clean tag list
-        String tagsStr = String.join("", tagsList);
-        String[] tagsArr = tagsStr.substring(0, tagsStr.length() - 1).split(",");
-
+        String[] tagList = parts[0].split(",");
         // clean css list
-        String cssStr = String.join("", cssList);
-        String[] cssArr = cssStr.split(";");
+        String[] cssList = parts[1].trim().substring(0, parts[1].length() - 1).split(";");
 
-        for (String tag : tagsArr) {
+        for (String tag : tagList) {
+            // get each text tag
             tag = tag.trim();
             VttTextTag textTag = getVttTextTag(tag);
-            System.out.println("TEXTTAG: " + textTag);
-            for (String css : cssArr) {
-                // get property and value from css
+
+            for (String css : cssList) {
+                // get each css property and value
                 String[] cssParts = css.split(":");
                 String property = cssParts[0].trim();
                 String value = cssParts[1].trim();
 
-                // store property and value for the text tag
+                // save new styles for the text tag
                 Map<Property, String> prop = new HashMap<>();
                 prop.put(getProperty(property), value);
-                System.out.println("PROPERTY: " + prop);
-                stylesBlock.put(textTag, prop);
+                styleBlocks
+                        .computeIfAbsent(textTag, k -> new ArrayList<>())
+                        .add(prop);
             }
         }
-        System.out.println("STYLES BLOCK: " + stylesBlock + "\n");
     }
 
     private VttTextTag getVttTextTag(String tag) {

@@ -108,25 +108,14 @@ public class VttParser implements SubtitleParser {
 
             // Parse STYLE block
             if (cursorStatus == CursorStatus.STYLE) {
+                List<String> styleBLock = new ArrayList<>();
                 String nextLine = "";
-                List<String> tags = new ArrayList<>();
-                List<String> css = new ArrayList<>();
-                Boolean isCss = textLine.contains("{");
-                tags.add(textLine);
+                styleBLock.add(textLine);
                 while ((nextLine = br.readLine()) != null && !nextLine.trim().equals("}")) {
-                    // gather all lines of the style block then join them and send it to VttStyle
-                    // temboui se fera la bas
                     nextLine = nextLine.trim();
-                    if (isCss) {
-                        css.add(nextLine);
-                    } else {
-                        tags.add(nextLine);
-                    }
-                    if (nextLine.contains("{")) {
-                        isCss = true;
-                    }
+                    styleBLock.add(nextLine);
                 }
-                style.setStylesBlock(tags, css);
+                style.setStyleBlocks(String.join("", styleBLock));
                 cursorStatus = CursorStatus.EMPTY_LINE;
                 continue;
             }
