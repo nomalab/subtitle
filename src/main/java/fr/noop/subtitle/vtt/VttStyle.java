@@ -16,10 +16,7 @@ public class VttStyle extends SubtitleStyle {
         BOLD,
         UNDERLINE,
         CLASS,
-        RUBY,
-        RUBY_TEXT,
         VOICE,
-        LANG;
     }
 
     private Map<VttTextTag, List<Map<Property, Object>>> styleBlocks = new HashMap<>();
@@ -76,10 +73,7 @@ public class VttStyle extends SubtitleStyle {
             case "::cue(b)" -> VttTextTag.BOLD;
             case "::cue(u)" -> VttTextTag.UNDERLINE;
             case "::cue(c)" -> VttTextTag.CLASS;
-            case "::cue(ruby)" -> VttTextTag.RUBY;
-            case "::cue(rt)" -> VttTextTag.RUBY_TEXT;
             case "::cue(v)" -> VttTextTag.VOICE;
-            case "::cue(lang)" -> VttTextTag.LANG;
             case "::cue" -> VttTextTag.ALL;
             default -> throw new IllegalArgumentException(
                     "Unknown VTT text tag or not supported yet : " + tag);

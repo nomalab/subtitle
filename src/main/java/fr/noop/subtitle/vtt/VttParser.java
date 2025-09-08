@@ -287,9 +287,6 @@ public class VttParser implements SubtitleParser {
             Map<VttStyle.Property, Object> boldCuesStyle = styleBlocks.getStyleForTag(VttStyle.VttTextTag.BOLD);
             Map<VttStyle.Property, Object> classCuesStyle = styleBlocks.getStyleForTag(VttStyle.VttTextTag.CLASS);
             Map<VttStyle.Property, Object> italicCuesStyle = styleBlocks.getStyleForTag(VttStyle.VttTextTag.ITALIC);
-            Map<VttStyle.Property, Object> langCuesStyle = styleBlocks.getStyleForTag(VttStyle.VttTextTag.LANG);
-            Map<VttStyle.Property, Object> rubyCuesStyle = styleBlocks.getStyleForTag(VttStyle.VttTextTag.RUBY);
-            Map<VttStyle.Property, Object> rubyTextCuesStyle = styleBlocks.getStyleForTag(VttStyle.VttTextTag.RUBY_TEXT);
             Map<VttStyle.Property, Object> underlineCuesStyle = styleBlocks.getStyleForTag(VttStyle.VttTextTag.UNDERLINE);
             Map<VttStyle.Property, Object> voiceCuesStyle = styleBlocks.getStyleForTag(VttStyle.VttTextTag.VOICE);
 
