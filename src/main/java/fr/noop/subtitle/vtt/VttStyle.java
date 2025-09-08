@@ -1,7 +1,6 @@
 package fr.noop.subtitle.vtt;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -25,11 +24,7 @@ public class VttStyle extends SubtitleStyle {
 
     private Map<VttTextTag, List<Map<Property, Object>>> styleBlocks = new HashMap<>();
 
-    public Map<VttTextTag, List<Map<Property, Object>>> getstyleBlocks() {
-        return styleBlocks;
-    }
-
-    public void setStyleBlocks(String styleBlock) {
+    public void addStyleBlock(String styleBlock) {
         // remove last '}' and split block into tag and css lists
         String[] parts = styleBlock.substring(0, styleBlock.length() - 1).split("\\{");
 
@@ -41,18 +36,21 @@ public class VttStyle extends SubtitleStyle {
         for (String tag : tagList) {
             // get each text tag
             tag = tag.trim();
-            VttTextTag textTag = getVttTextTag(tag);
+            VttTextTag textTag = fromStrToVttTextTag(tag);
 
             for (String css : cssList) {
                 // get each css property and value
                 String[] cssParts = css.split(":");
+                if (cssParts.length < 2) {
+                    throw new IllegalArgumentException("Invalid CSS declaration : " + css);
+                }
                 String property = cssParts[0].trim();
                 String value = cssParts[1].trim();
 
                 // check property and value then save
                 Map<Property, Object> style = new HashMap<>();
-                SubtitleStyle.Property prop = getProperty(property);
-                style.put(prop, checkProperty(prop, value));
+                SubtitleStyle.Property prop = fromStrToProperty(property);
+                style.put(prop, checkAndGetCSSValue(prop, value));
                 styleBlocks
                         .computeIfAbsent(textTag, k -> new ArrayList<>())
                         .add(style);
@@ -72,155 +70,98 @@ public class VttStyle extends SubtitleStyle {
         return props;
     }
 
-    private VttTextTag getVttTextTag(String tag) {
-        switch (tag) {
-            case "::cue(i)":
-                return VttTextTag.ITALIC;
-            case "::cue(b)":
-                return VttTextTag.BOLD;
-            case "::cue(u)":
-                return VttTextTag.UNDERLINE;
-            case "::cue(c)":
-                return VttTextTag.CLASS;
-            case "::cue(ruby)":
-                return VttTextTag.RUBY;
-            case "::cue(rt)":
-                return VttTextTag.RUBY_TEXT;
-            case "::cue(v)":
-                return VttTextTag.VOICE;
-            case "::cue(lang)":
-                return VttTextTag.LANG;
-            case "::cue":
-                return VttTextTag.ALL;
-            default:
-                throw new IllegalArgumentException(
-                        "Unknown VTT text tag or not supported yet (feel free to contribute !) : " + tag);
-        }
+    private VttTextTag fromStrToVttTextTag(String tag) {
+        return switch (tag) {
+            case "::cue(i)" -> VttTextTag.ITALIC;
+            case "::cue(b)" -> VttTextTag.BOLD;
+            case "::cue(u)" -> VttTextTag.UNDERLINE;
+            case "::cue(c)" -> VttTextTag.CLASS;
+            case "::cue(ruby)" -> VttTextTag.RUBY;
+            case "::cue(rt)" -> VttTextTag.RUBY_TEXT;
+            case "::cue(v)" -> VttTextTag.VOICE;
+            case "::cue(lang)" -> VttTextTag.LANG;
+            case "::cue" -> VttTextTag.ALL;
+            default -> throw new IllegalArgumentException(
+                    "Unknown VTT text tag or not supported yet : " + tag);
+        };
     }
 
-    private SubtitleStyle.Property getProperty(String property) {
-        switch (property) {
-            case "direction":
-                return Property.DIRECTION;
-            case "text-align":
-                return Property.TEXT_ALIGN;
-            case "color":
-                return Property.COLOR;
-            case "font-style":
-                return Property.FONT_STYLE;
-            case "font-weight":
-                return Property.FONT_WEIGHT;
-            case "text-decoration":
-                return Property.TEXT_DECORATION;
-            case "effect":
-                return Property.EFFECT;
-            default:
-                throw new IllegalArgumentException(
-                        "Unknown CSS property or not supported yet (feel free to contribute !) : " + property);
-        }
+    private SubtitleStyle.Property fromStrToProperty(String property) {
+        return switch (property) {
+            case "direction" -> Property.DIRECTION;
+            case "text-align" -> Property.TEXT_ALIGN;
+            case "color" -> Property.COLOR;
+            case "font-style" -> Property.FONT_STYLE;
+            case "font-weight" -> Property.FONT_WEIGHT;
+            case "text-decoration" -> Property.TEXT_DECORATION;
+            case "effect" -> Property.EFFECT;
+            default -> throw new IllegalArgumentException(
+                    "Unknown CSS property or not supported yet : " + property);
+        };
     }
 
-    private Object checkProperty(SubtitleStyle.Property property, String value) {
-        switch (property) {
-            case DIRECTION:
-                return mapDirection(value);
-            case TEXT_ALIGN:
-                return mapTextAlign(value);
-            case COLOR:
-                return value;
-            case FONT_STYLE:
-                return mapFontStyle(value);
-            case FONT_WEIGHT:
-                return mapFontWeight(value);
-            case TEXT_DECORATION:
-                return mapTextDecoration(value);
-            case EFFECT:
-                return mapEffect(value);
-            default:
-                throw new IllegalArgumentException(
-                        "Unknown CSS property or not supported yet : " + property);
-        }
+    private Object checkAndGetCSSValue(SubtitleStyle.Property property, String value) {
+        return switch (property) {
+            case DIRECTION -> checkAndGetDirection(value);
+            case TEXT_ALIGN -> checkAndGetTextAlign(value);
+            case COLOR -> value;
+            case FONT_STYLE -> checkAndGetFontStyle(value);
+            case FONT_WEIGHT -> checkAndGetFontWeight(value);
+            case TEXT_DECORATION -> checkAndGetTextDecoration(value);
+            case EFFECT -> checkAndGetEffect(value);
+            default -> throw new IllegalArgumentException("Unknown CSS property or not supported yet : " + property);
+        };
     }
 
-    private TextDecoration mapTextDecoration(String css) {
-        css = css.trim().toLowerCase();
-        switch (css) {
-            case "underline":
-                return TextDecoration.UNDERLINE;
-            case "overline":
-                return TextDecoration.OVERLINE;
-            case "line-through":
-                return TextDecoration.LINE_THROUGH;
-            default:
-                throw new IllegalArgumentException(
-                        "Unknown CSS property or not supported yet : " + css);
-        }
+    private Direction checkAndGetDirection(String css) {
+        return switch (css.trim().toLowerCase()) {
+            case "rtl" -> Direction.RTL;
+            case "ltr" -> Direction.LTR;
+            default -> throw new IllegalArgumentException("Unknown CSS direction value or not supported yet : " + css);
+        };
     }
 
-    private Direction mapDirection(String css) {
-        css = css.trim().toLowerCase();
-        switch (css) {
-            case "rtl":
-                return Direction.RTL;
-            case "ltr":
-                return Direction.LTR;
-            default:
-                throw new IllegalArgumentException(
-                        "Unknown CSS property or not supported yet : " + css);
-        }
+    private TextAlign checkAndGetTextAlign(String css) {
+        return switch (css.trim().toLowerCase()) {
+            case "center" -> TextAlign.CENTER;
+            case "right" -> TextAlign.RIGHT;
+            case "left" -> TextAlign.LEFT;
+            default -> throw new IllegalArgumentException("Unknown CSS text-align value or not supported yet : " + css);
+        };
     }
 
-    private TextAlign mapTextAlign(String css) {
-        css = css.trim().toLowerCase();
-        switch (css) {
-            case "center":
-                return TextAlign.CENTER;
-            case "right":
-                return TextAlign.RIGHT;
-            case "left":
-                return TextAlign.LEFT;
-            default:
-                throw new IllegalArgumentException(
-                        "Unknown CSS property or not supported yet : " + css);
-        }
+    private FontStyle checkAndGetFontStyle(String css) {
+        return switch (css.trim().toLowerCase()) {
+            case "italic" -> FontStyle.ITALIC;
+            case "oblique" -> FontStyle.OBLIQUE;
+            case "normal" -> FontStyle.NORMAL;
+            default -> throw new IllegalArgumentException("Unknown CSS font-style value or not supported yet : " + css);
+        };
     }
 
-    private FontStyle mapFontStyle(String css) {
-        css = css.trim().toLowerCase();
-        switch (css) {
-            case "italic":
-                return FontStyle.ITALIC;
-            case "oblique":
-                return FontStyle.OBLIQUE;
-            case "normal":
-                return FontStyle.NORMAL;
-            default:
-                throw new IllegalArgumentException(
-                        "Unknown CSS property or not supported yet : " + css);
-        }
+    private FontWeight checkAndGetFontWeight(String css) {
+        return switch (css.trim().toLowerCase()) {
+            case "bold" -> FontWeight.BOLD;
+            case "normal" -> FontWeight.NORMAL;
+            default ->
+                throw new IllegalArgumentException("Unknown CSS font-weight value or not supported yet : " + css);
+        };
     }
 
-    private FontWeight mapFontWeight(String css) {
-        css = css.trim().toLowerCase();
-        switch (css) {
-            case "bold":
-                return FontWeight.BOLD;
-            case "normal":
-                return FontWeight.NORMAL;
-            default:
-                throw new IllegalArgumentException(
-                        "Unknown CSS property or not supported yet : " + css);
-        }
+    private TextDecoration checkAndGetTextDecoration(String css) {
+        return switch (css.trim().toLowerCase()) {
+            case "underline" -> TextDecoration.UNDERLINE;
+            case "overline" -> TextDecoration.OVERLINE;
+            case "line-through" -> TextDecoration.LINE_THROUGH;
+            default ->
+                throw new IllegalArgumentException("Unknown CSS text decoration value or not supported yet : " + css);
+        };
     }
 
-    private Effect mapEffect(String css) {
-        css = css.trim().toLowerCase();
-        switch (css) {
-            case "box":
-                return Effect.BOX;
-            default:
-                throw new IllegalArgumentException(
-                        "Unknown CSS property or not supported yet : " + css);
-        }
+    private Effect checkAndGetEffect(String css) {
+        return switch (css.trim().toLowerCase()) {
+            case "box" -> Effect.BOX;
+            default -> throw new IllegalArgumentException("Unknown CSS effect value or not supported yet : " + css);
+        };
     }
 }

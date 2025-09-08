@@ -22,8 +22,8 @@ import fr.noop.subtitle.model.SubtitleLine;
 import fr.noop.subtitle.model.SubtitleParser;
 import fr.noop.subtitle.model.SubtitleParsingException;
 import fr.noop.subtitle.util.SubtitleRegion;
-import fr.noop.subtitle.util.SubtitleStyle;
 import fr.noop.subtitle.util.SubtitlePlainText;
+import fr.noop.subtitle.util.SubtitleStyle;
 import fr.noop.subtitle.util.SubtitleStyledText;
 import fr.noop.subtitle.util.SubtitleTimeCode;
 
@@ -120,7 +120,7 @@ public class VttParser implements SubtitleParser {
                     styleBLock.add(nextLine);
                 }
 
-                style.setStyleBlocks(String.join("", styleBLock));
+                style.addStyleBlock(String.join("", styleBLock));
                 cursorStatus = CursorStatus.EMPTY_LINE;
                 continue;
             }
