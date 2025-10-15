@@ -338,6 +338,11 @@ public class StlParser implements SubtitleParser {
         byte[] tfBytes = new byte[112];
         dis.readFully(tfBytes, 0, 112);
         tti.setTf(new String(tfBytes, charset));
+        
+        if (gsi.getCct() == StlGsi.Cct.LATIN && tti.getTf().contains("¤")) {
+            System.out.printf("Latin alphabet is used, confusion between ¤ and $ might appear :: %s\n",
+                    tti.getTci().formatWithFramerate(frameRate));
+        }
 
         // TTI is fully parsed
         return tti;
