@@ -41,13 +41,13 @@ public class VttStyle extends SubtitleStyle {
                 if (cssParts.length < 2) {
                     throw new IllegalArgumentException("Invalid CSS declaration : " + css);
                 }
-                String property = cssParts[0].trim();
-                String value = cssParts[1].trim();
+                String cssProperty = cssParts[0].trim();
+                String cssValue = cssParts[1].trim();
 
                 // check property and value then save
                 Map<Property, Object> style = new HashMap<>();
-                SubtitleStyle.Property prop = fromStrToProperty(property);
-                style.put(prop, checkAndGetCSSValue(prop, value));
+                SubtitleStyle.Property subtitleStylePropery = fromStrToProperty(cssProperty);
+                style.put(subtitleStylePropery, checkAndGetCSSValue(subtitleStylePropery, cssValue));
                 styleBlocks
                         .computeIfAbsent(textTag, k -> new ArrayList<>())
                         .add(style);
@@ -87,8 +87,7 @@ public class VttStyle extends SubtitleStyle {
             case "color" -> Property.COLOR;
             case "font-style" -> Property.FONT_STYLE;
             case "font-weight" -> Property.FONT_WEIGHT;
-            case "text-decoration" -> Property.TEXT_DECORATION;
-            case "effect" -> Property.EFFECT;
+            case "text-decoration-line" -> Property.TEXT_DECORATION;
             default -> throw new IllegalArgumentException(
                     "Unknown CSS property or not supported yet : " + property);
         };
@@ -102,7 +101,6 @@ public class VttStyle extends SubtitleStyle {
             case FONT_STYLE -> checkAndGetFontStyle(value);
             case FONT_WEIGHT -> checkAndGetFontWeight(value);
             case TEXT_DECORATION -> checkAndGetTextDecoration(value);
-            case EFFECT -> checkAndGetEffect(value);
             default -> throw new IllegalArgumentException("Unknown CSS property or not supported yet : " + property);
         };
     }
