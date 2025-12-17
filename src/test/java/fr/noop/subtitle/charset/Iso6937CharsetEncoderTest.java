@@ -267,7 +267,7 @@ public class Iso6937CharsetEncoderTest {
 
     @Test
     public void testSpecialChars() throws UnsupportedEncodingException {
-        assertTrue(Arrays.equals(DatatypeConverter.parseHexBinary("a8"), encodeToBytes("¤")));
+        assertTrue(Arrays.equals(DatatypeConverter.parseHexBinary("24"), encodeToBytes("¤")));
         assertTrue(Arrays.equals(DatatypeConverter.parseHexBinary("d2"), encodeToBytes("®")));
         assertTrue(Arrays.equals(DatatypeConverter.parseHexBinary("d3"), encodeToBytes("©")));
         assertTrue(Arrays.equals(DatatypeConverter.parseHexBinary("d6"), encodeToBytes("¬")));
