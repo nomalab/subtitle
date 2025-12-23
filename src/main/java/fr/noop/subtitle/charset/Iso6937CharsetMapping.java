@@ -20,8 +20,12 @@ public class Iso6937CharsetMapping {
     private static HashMap<Integer, Integer> decodingMapping = new HashMap();
 
     static {
-        // use ISO Standard 6937-2:1983/Add.1:1989 as defined in EBU Specification
+        // from CCIT T.61 recommendation, for interworking with Teletex
+        add(0x23, 0xa6);
         add(0xa4, 0xa8);
+    }
+    static {
+        // use ISO Standard 6937-2:1983/Add.1:1989 as defined in EBU Specification for subtitling data exchange format
         add(0xa4, 0x24);
         add(0x24, 0xa4);
         add(0x2018, 0xa9);
