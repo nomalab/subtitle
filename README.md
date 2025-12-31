@@ -180,6 +180,7 @@ Parse file and report if present :
 - frame rate (numerator and denominator)
 - start timecode
 - first cue timecode
+- last cue timecode
 
 Usage :
 

@@ -24,5 +24,6 @@ public class AnalyseTest {
         Assertions.assertEquals(25, report.get("frame_rate_numerator"));
         Assertions.assertEquals("10:00:00:00", report.get("start_timecode"));
         Assertions.assertEquals("10:00:06:08", report.get("first_cue"));
+        Assertions.assertEquals("10:00:45:21", report.get("last_cue"));
     }
 }
