@@ -25,13 +25,12 @@ public class VttStyle extends SubtitleStyle {
         // remove last '}' and split block into tag and css lists
         String[] parts = styleBlock.substring(0, styleBlock.length() - 1).split("\\{");
 
-        // clean tag list
+        // clean lists
         String[] tagList = parts[0].split(",");
-        // clean css list
         String[] cssList = parts[1].trim().substring(0, parts[1].length() - 1).split(";");
 
         for (String tag : tagList) {
-            // get each text tag
+            // get each vtt text tag
             tag = tag.trim();
             VttTextTag textTag = fromStrToVttTextTag(tag);
 
@@ -46,8 +45,12 @@ public class VttStyle extends SubtitleStyle {
 
                 // check property and value then save
                 Map<Property, Object> style = new HashMap<>();
-                SubtitleStyle.Property subtitleStylePropery = fromStrToProperty(cssProperty);
-                style.put(subtitleStylePropery, checkAndGetCSSValue(subtitleStylePropery, cssValue));
+                try {
+                    SubtitleStyle.Property subtitleStylePropery = fromStrToProperty(cssProperty);
+                    style.put(subtitleStylePropery, checkAndGetCSSValue(subtitleStylePropery, cssValue));
+                } catch (Exception e) {
+                    System.out.println(e.getMessage());
+                }
                 styleBlocks
                         .computeIfAbsent(textTag, k -> new ArrayList<>())
                         .add(style);
@@ -75,8 +78,7 @@ public class VttStyle extends SubtitleStyle {
             case "::cue(c)" -> VttTextTag.CLASS;
             case "::cue(v)" -> VttTextTag.VOICE;
             case "::cue" -> VttTextTag.ALL;
-            default -> throw new IllegalArgumentException(
-                    "Unknown VTT text tag or not supported yet : " + tag);
+            default -> throw new IllegalArgumentException("Unknown VTT text tag or not supported yet : " + tag);
         };
     }
 
@@ -88,8 +90,7 @@ public class VttStyle extends SubtitleStyle {
             case "font-style" -> Property.FONT_STYLE;
             case "font-weight" -> Property.FONT_WEIGHT;
             case "text-decoration-line" -> Property.TEXT_DECORATION;
-            default -> throw new IllegalArgumentException(
-                    "Unknown CSS property or not supported yet : " + property);
+            default -> throw new IllegalArgumentException("Unknown CSS property or not supported yet : " + property);
         };
     }
 
@@ -147,13 +148,6 @@ public class VttStyle extends SubtitleStyle {
             case "line-through" -> TextDecoration.LINE_THROUGH;
             default ->
                 throw new IllegalArgumentException("Unknown CSS text decoration value or not supported yet : " + css);
-        };
-    }
-
-    private Effect checkAndGetEffect(String css) {
-        return switch (css.trim().toLowerCase()) {
-            case "box" -> Effect.BOX;
-            default -> throw new IllegalArgumentException("Unknown CSS effect value or not supported yet : " + css);
         };
     }
 }
