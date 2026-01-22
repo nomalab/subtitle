@@ -22,7 +22,8 @@ public class VttStyle extends SubtitleStyle {
     private Map<VttTextTag, List<Map<Property, Object>>> styleBlocks = new HashMap<>();
 
     public void addStyleBlock(String styleBlock) {
-        styleBlock = removeCssComments(styleBlock);
+        // remove /* */ comments
+        styleBlock = styleBlock.replaceAll("/\\*[\\s\\S]*?\\*/", "");
         // remove last '}' and split block into tag and css lists
         String[] parts = styleBlock.substring(0, styleBlock.length() - 1).split("\\{");
 
@@ -57,30 +58,6 @@ public class VttStyle extends SubtitleStyle {
                         .add(style);
             }
         }
-    }
-
-    private String removeCssComments(String str) {
-        while (str.contains("/*") && str.contains("*/") && str.indexOf("/*") < str.indexOf("*/")) {
-            int startIndex = 0, endIndex = 0, i = 0;
-            char lastC = 'a';
-            for (char c : str.toCharArray()) {
-                // if there is '/*' and start is not set
-                if (c == '*' && lastC == '/' && startIndex == 0) {
-                    startIndex = i - 1;
-                }
-                // if there is '*/' and start is set
-                if (c == '/' && lastC == '*' && startIndex != 0) {
-                    endIndex = i + 1;
-                    str = str.substring(0, startIndex) + str.substring(endIndex);
-                    // as css block is less longer than before, we must decresease index by the comment size
-                    i = i - (endIndex - startIndex);
-                    startIndex = 0;
-                }
-                i = i + 1;
-                lastC = c;
-            }
-        }
-        return str;
     }
 
     public Map<Property, Object> getStyleForTag(VttTextTag tag) {
