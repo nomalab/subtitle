@@ -24,38 +24,46 @@ public class VttStyle extends SubtitleStyle {
     public void addStyleBlock(String styleBlock) {
         // remove /* */ comments
         styleBlock = styleBlock.replaceAll("/\\*[\\s\\S]*?\\*/", "");
-        // remove last '}' and split block into tag and css lists
-        String[] parts = styleBlock.substring(0, styleBlock.length() - 1).split("\\{");
+        // split block into rules list
+        String[] rules = styleBlock.split("\\}");
 
-        // clean lists
-        String[] tagList = parts[0].split(",");
-        String[] cssList = parts[1].trim().substring(0, parts[1].length() - 1).split(";");
+        for (String rule : rules) {
+            // split rule into tags and css list
+            String[] parts = rule.split("\\{");
+            String[] tags = parts[0].split(",");
+            String[] csss = parts[1].split(";");
 
-        for (String tag : tagList) {
-            // get each vtt text tag
-            tag = tag.trim();
-            VttTextTag textTag = fromStrToVttTextTag(tag);
-
-            for (String css : cssList) {
-                // get each css property and value
-                String[] cssParts = css.split(":");
-                if (cssParts.length < 2) {
-                    throw new IllegalArgumentException("Invalid CSS declaration : " + css);
-                }
-                String cssProperty = cssParts[0].trim();
-                String cssValue = cssParts[1].trim();
-
-                // check property and value then save
-                Map<Property, Object> style = new HashMap<>();
+            for (String tag : tags) {
+                // get each vtt text tag
+                tag = tag.trim();
+                VttTextTag textTag = null;
                 try {
-                    SubtitleStyle.Property subtitleStylePropery = fromStrToProperty(cssProperty);
-                    style.put(subtitleStylePropery, checkAndGetCSSValue(subtitleStylePropery, cssValue));
+                    textTag = fromStrToVttTextTag(tag);
                 } catch (Exception e) {
                     System.out.println(e.getMessage());
                 }
-                styleBlocks
-                        .computeIfAbsent(textTag, k -> new ArrayList<>())
-                        .add(style);
+
+                for (String css : csss) {
+                    // remove trailing comma, get each css property and value
+                    String[] cssParts = css.split(":");
+                    if (cssParts.length != 2) {
+                        throw new IllegalArgumentException("Invalid CSS declaration : " + css);
+                    }
+                    String cssProperty = cssParts[0].trim();
+                    String cssValue = cssParts[1].trim();
+
+                    // check property and value then save
+                    Map<Property, Object> style = new HashMap<>();
+                    try {
+                        SubtitleStyle.Property subtitleStylePropery = fromStrToProperty(cssProperty);
+                        style.put(subtitleStylePropery, checkAndGetCSSValue(subtitleStylePropery, cssValue));
+                        if (textTag != null) {
+                            styleBlocks.computeIfAbsent(textTag, k -> new ArrayList<>()).add(style);
+                        }
+                    } catch (Exception e) {
+                        System.out.println(e.getMessage());
+                    }
+                }
             }
         }
     }
