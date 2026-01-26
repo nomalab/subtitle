@@ -20,8 +20,14 @@ public class Iso6937CharsetMapping {
     private static HashMap<Integer, Integer> decodingMapping = new HashMap();
 
     static {
-
+        // from CCIT T.61 recommendation, for interworking with Teletex
+        add(0x23, 0xa6);
         add(0xa4, 0xa8);
+    }
+    static {
+        // use ISO Standard 6937-2:1983/Add.1:1989 as defined in EBU Specification for subtitling data exchange format
+        add(0xa4, 0x24);
+        add(0x24, 0xa4);
         add(0x2018, 0xa9);
         add(0x201C, 0xaa);
         add(0x2190, 0xac);
@@ -29,7 +35,7 @@ public class Iso6937CharsetMapping {
         add(0x2192, 0xae);
         add(0x2193, 0xaf);
         add(0xd7, 0xb4);
-        add(0xf7, 0xb7);
+        add(0xf7, 0xb8);
         add(0x2019, 0xb9);
         add(0x201d, 0xba);
         add(0x300, 0xc1);
@@ -42,6 +48,7 @@ public class Iso6937CharsetMapping {
         add(0x308, 0xc8);
         add(0x30a, 0xca);
         add(0x327, 0xcb);
+        add(0x332, 0xcc);
         add(0x30b, 0xcd);
         add(0x328, 0xce);
         add(0x30c, 0xcf);
@@ -59,11 +66,11 @@ public class Iso6937CharsetMapping {
         add(0x215e, 0xdf);
         add(0x2126, 0xe0);
         add(0xc6, 0xe1);
-        add(0x110, 0xe2);
+        add(0xd0, 0xe2);
         add(0xaa, 0xe3);
         add(0x126, 0xe4);
         add(0x132, 0xe6);
-        add(0x13d, 0xe7);
+        add(0x13f, 0xe7);
         add(0x141, 0xe8);
         add(0xd8, 0xe9);
         add(0x152, 0xea);
@@ -86,7 +93,7 @@ public class Iso6937CharsetMapping {
         add(0xdf, 0xfb);
         add(0xfe, 0xfc);
         add(0x167, 0xfd);
-        add(0x14B, 0xfe);
+        add(0x14b, 0xfe);
         add(0xad, 0xff);
     }
 
