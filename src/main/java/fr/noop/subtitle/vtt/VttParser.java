@@ -37,6 +37,7 @@ public class VttParser implements SubtitleParser {
         NONE,
         SIGNATURE,
         HEADER,
+        NOTE,
         EMPTY_LINE,
         CUE_ID,
         CUE_TIMECODE,
@@ -92,6 +93,23 @@ public class VttParser implements SubtitleParser {
             // Optional X-TIMESTAMP-MAP header (HLS)
             if (cursorStatus == CursorStatus.SIGNATURE && textLine.startsWith("X-TIMESTAMP-MAP")) {
                 cursorStatus = CursorStatus.HEADER;
+                continue;
+            }
+
+            // Optional NOTE blocks
+            if ((cursorStatus == CursorStatus.SIGNATURE ||
+                    cursorStatus == CursorStatus.HEADER ||
+                    cursorStatus == CursorStatus.EMPTY_LINE) &&
+                    textLine.startsWith("NOTE")) {
+                cursorStatus = CursorStatus.NOTE;
+                continue;
+            }
+
+            // Skip NOTE blocks
+            if (cursorStatus == CursorStatus.NOTE) {
+                if (textLine.isBlank()) {
+                    cursorStatus = CursorStatus.EMPTY_LINE;
+                }
                 continue;
             }
 
