@@ -105,11 +105,14 @@ public class VttParser implements SubtitleParser {
                     cursorStatus == CursorStatus.EMPTY_LINE) &&
                     textLine.startsWith("NOTE")) {
                 cursorStatus = CursorStatus.NOTE;
-                continue;
             }
 
             // Skip NOTE blocks
             if (cursorStatus == CursorStatus.NOTE) {
+                if (textLine.contains("-->")) {
+                    throw new SubtitleParsingException(
+                            String.format("NOTE block sequence contains unhautorized \"-->\" substring: %s", textLine));
+                }
                 if (textLine.isBlank()) {
                     cursorStatus = CursorStatus.EMPTY_LINE;
                 }
