@@ -16,6 +16,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import fr.noop.subtitle.model.SubtitleLine;
 import fr.noop.subtitle.model.SubtitleParser;
@@ -37,6 +38,7 @@ public class VttParser implements SubtitleParser {
         NONE,
         SIGNATURE,
         HEADER,
+        STYLE,
         NOTE,
         EMPTY_LINE,
         CUE_ID,
@@ -72,6 +74,7 @@ public class VttParser implements SubtitleParser {
         String textLine = "";
         CursorStatus cursorStatus = CursorStatus.NONE;
         VttCue cue = null;
+        VttStyle style = new VttStyle();
         String cueText = ""; // Text of the cue
         SubtitleTimeCode previousIn = new SubtitleTimeCode(0);
         SubtitleTimeCode previousOut = new SubtitleTimeCode(0);
@@ -102,14 +105,44 @@ public class VttParser implements SubtitleParser {
                     cursorStatus == CursorStatus.EMPTY_LINE) &&
                     textLine.startsWith("NOTE")) {
                 cursorStatus = CursorStatus.NOTE;
-                continue;
             }
 
             // Skip NOTE blocks
             if (cursorStatus == CursorStatus.NOTE) {
+                if (textLine.contains("-->")) {
+                    throw new SubtitleParsingException(
+                            String.format("NOTE block sequence contains unhautorized \"-->\" substring: %s", textLine));
+                }
                 if (textLine.isBlank()) {
                     cursorStatus = CursorStatus.EMPTY_LINE;
                 }
+                continue;
+            }
+
+            // Optional STYLE blocks
+            if ((cursorStatus == CursorStatus.HEADER ||
+                    cursorStatus == CursorStatus.SIGNATURE ||
+                    cursorStatus == CursorStatus.EMPTY_LINE) &&
+                    vttObject.getCues().isEmpty() &&
+                    textLine.startsWith("STYLE")) {
+                cursorStatus = CursorStatus.STYLE;
+                continue;
+            }
+
+            // Parse STYLE block
+            if (cursorStatus == CursorStatus.STYLE) {
+                List<String> styleBLock = new ArrayList<>();
+                String nextLine = "";
+                styleBLock.add(textLine);
+
+                // read until the end of the style block
+                while ((nextLine = br.readLine()) != null && !nextLine.isBlank()) {
+                    nextLine = nextLine.trim();
+                    styleBLock.add(nextLine);
+                }
+
+                style.addStyleBlock(String.join("", styleBLock));
+                cursorStatus = CursorStatus.EMPTY_LINE;
                 continue;
             }
 
@@ -208,7 +241,7 @@ public class VttParser implements SubtitleParser {
                 // End of cue
                 // Process multilines text in one time
                 // A class or a style can be applied for more than one line
-                cue.setLines(parseCueText(cueText));
+                cue.setLines(parseCueText(cueText, style));
                 vttObject.addCue(cue);
                 cue = null;
                 cueText = "";
@@ -239,14 +272,14 @@ public class VttParser implements SubtitleParser {
 
         // Add last line
         if (cursorStatus == CursorStatus.CUE_TEXT && !cueText.isEmpty()) {
-            cue.setLines(parseCueText(cueText));
+            cue.setLines(parseCueText(cueText, style));
             vttObject.addCue(cue);
         }
 
         return vttObject;
     }
 
-    private List<SubtitleLine> parseCueText(String cueText) {
+    private List<SubtitleLine> parseCueText(String cueText, VttStyle styleBlocks) {
         String text = "";
         String color = null;
         List<String> tags = new ArrayList<>();
@@ -269,6 +302,14 @@ public class VttParser implements SubtitleParser {
 
             // Last characters (3 characters max)
             String textEnd = text.substring(Math.max(0, text.length()-3), text.length());
+
+            // Get style blocks
+            Map<VttStyle.Property, Object> allCuesStyle = styleBlocks.getStyleForTag(VttStyle.VttTextTag.ALL);
+            Map<VttStyle.Property, Object> boldCuesStyle = styleBlocks.getStyleForTag(VttStyle.VttTextTag.BOLD);
+            Map<VttStyle.Property, Object> classCuesStyle = styleBlocks.getStyleForTag(VttStyle.VttTextTag.CLASS);
+            Map<VttStyle.Property, Object> italicCuesStyle = styleBlocks.getStyleForTag(VttStyle.VttTextTag.ITALIC);
+            Map<VttStyle.Property, Object> underlineCuesStyle = styleBlocks.getStyleForTag(VttStyle.VttTextTag.UNDERLINE);
+            Map<VttStyle.Property, Object> voiceCuesStyle = styleBlocks.getStyleForTag(VttStyle.VttTextTag.VOICE);
 
             if (textEnd.equals("<b>") || textEnd.equals("<u>") || textEnd.equals("<i>") ||
                     textEnd.equals("<v ") || textEnd.equals("<c.") || textEnd.equals("<c ")) {
@@ -336,8 +377,12 @@ public class VttParser implements SubtitleParser {
                 analyzedTags.remove(tags.size() - 1);
             }
 
+            // Apply styles from all cues block
+            allCuesStyle.forEach((k, v) -> style.setProperty(k, v));
+
             for (String analyzedTag: analyzedTags) {
                 if (analyzedTag.equals("v")) {
+                    voiceCuesStyle.forEach((k, v) -> style.setProperty(k, v));
                     cueLine.setVoice(text);
                     text = "";
                     break;
@@ -345,19 +390,22 @@ public class VttParser implements SubtitleParser {
 
                 // Bold characters
                 if (analyzedTag.equals("b")) {
-                    style.setProperty(SubtitleStyle.Property.FONT_WEIGHT, SubtitleStyle.FontWeight.BOLD);
+                    boldCuesStyle.forEach((k, v) -> style.setProperty(k, v));
+                    style.setProperty(VttStyle.Property.FONT_WEIGHT, VttStyle.FontWeight.BOLD);
                     continue;
                 }
 
                 // Italic characters
                 if (analyzedTag.equals("i")) {
-                    style.setProperty(SubtitleStyle.Property.FONT_STYLE, SubtitleStyle.FontStyle.ITALIC);
+                    italicCuesStyle.forEach((k, v) -> style.setProperty(k, v));
+                    style.setProperty(VttStyle.Property.FONT_STYLE, VttStyle.FontStyle.ITALIC);
                     continue;
                 }
 
                 // Underline characters
                 if (analyzedTag.equals("u")) {
-                    style.setProperty(SubtitleStyle.Property.TEXT_DECORATION, SubtitleStyle.TextDecoration.UNDERLINE);
+                    underlineCuesStyle.forEach((k, v) -> style.setProperty(k, v));
+                    style.setProperty(VttStyle.Property.TEXT_DECORATION, VttStyle.TextDecoration.UNDERLINE);
                     continue;
                 }
 
@@ -372,6 +420,7 @@ public class VttParser implements SubtitleParser {
                         tags.add(tag);
                     }
                     if (color != null) {
+                        classCuesStyle.forEach((k, v) -> style.setProperty(k, v));
                         style.setColor(color);
                     }
 
