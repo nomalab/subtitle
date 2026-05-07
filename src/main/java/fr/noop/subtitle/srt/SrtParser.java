@@ -68,6 +68,7 @@ public class SrtParser implements SubtitleParser {
         SubtitleRegion region = null;
         SubtitleTimeCode previousIn = new SubtitleTimeCode(0);
         SubtitleTimeCode previousOut = new SubtitleTimeCode(0);
+        SubtitleStyle textStyle = null;
 
         while ((textLine = br.readLine()) != null) {
             textLine = textLine.trim();
@@ -80,6 +81,7 @@ public class SrtParser implements SubtitleParser {
                 // New cue
                 cue = new SrtCue();
                 region = new SubtitleRegion(0, 0);
+                textStyle = new SubtitleStyle();
 
                 // First textLine is the cue number
                 try {
@@ -122,7 +124,6 @@ public class SrtParser implements SubtitleParser {
             if (!textLine.isEmpty() && (cursorStatus == CursorStatus.CUE_TIMECODE ||
                     cursorStatus == CursorStatus.CUE_TEXT)) {
                 SubtitleTextLine line = new SubtitleTextLine();
-                SubtitleStyle textStyle = new SubtitleStyle();
 
                 if (textLine.contains("{\\an1}")) {
                     region.setVerticalAlign(SubtitleRegion.VerticalAlign.BOTTOM);
@@ -190,10 +191,10 @@ public class SrtParser implements SubtitleParser {
                     textLine = textLine.replaceAll("</font>", "");
                 }
 
-                if (textLine.contains("<i>") || textLine.contains("<b>") || textLine.contains("<u>")) {
+                if (textLine.contains("<i>") || textLine.contains("<b>") || textLine.contains("<u>")
+                || textLine.contains("</i>") || textLine.contains("</b>") || textLine.contains("</u>")) {
                     int cIndex = 0;
                     String newText = new String();
-                    SubtitleStyle newStyle = new SubtitleStyle(textStyle);
                     while (cIndex < textLine.length()) {
                         char cc = textLine.charAt(cIndex);
                         if (cc == '<') {
@@ -203,29 +204,29 @@ public class SrtParser implements SubtitleParser {
                             }
                             String tag = textLine.substring(cIndex, cIndex+tagLength);
                             if (!newText.isEmpty()) {
-                                if (newStyle.hasProperties()) {
-                                    line.addText(new SubtitleStyledText(newText, new SubtitleStyle(newStyle)));
+                                if (textStyle.hasProperties()) {
+                                    line.addText(new SubtitleStyledText(newText, new SubtitleStyle(textStyle)));
                                 } else {
                                     line.addText(new SubtitlePlainText(newText));
                                 }
                             }
                             if (tag.equals("<i>")) {
-                                newStyle.setFontStyle(FontStyle.ITALIC);
+                                textStyle.setFontStyle(FontStyle.ITALIC);
                             }
                             if (tag.equals("<b>")) {
-                                newStyle.setFontWeight(FontWeight.BOLD);
+                                textStyle.setFontWeight(FontWeight.BOLD);
                             }
                             if (tag.equals("<u>")) {
-                                newStyle.setTextDecoration(TextDecoration.UNDERLINE);
+                                textStyle.setTextDecoration(TextDecoration.UNDERLINE);
                             }
                             if (tag.equals("</i>")) {
-                                newStyle.setFontStyle(FontStyle.NORMAL);
+                                textStyle.setFontStyle(FontStyle.NORMAL);
                             }
                             if (tag.equals("</b>")) {
-                                newStyle.setFontWeight(FontWeight.NORMAL);
+                                textStyle.setFontWeight(FontWeight.NORMAL);
                             }
                             if (tag.equals("</u>")) {
-                                newStyle.setTextDecoration(TextDecoration.NONE);
+                                textStyle.setTextDecoration(TextDecoration.NONE);
                             }
 
                             newText = new String();
@@ -236,8 +237,8 @@ public class SrtParser implements SubtitleParser {
                         }
                     }
                     if (!newText.isEmpty()) {
-                        if (newStyle.hasProperties()) {
-                            line.addText(new SubtitleStyledText(newText, newStyle));
+                        if (textStyle.hasProperties()) {
+                            line.addText(new SubtitleStyledText(newText, new SubtitleStyle(textStyle)));
                         } else {
                             line.addText(new SubtitlePlainText(newText));
                         }
@@ -251,7 +252,7 @@ public class SrtParser implements SubtitleParser {
 
                 if (line.isEmpty() && !textLine.isEmpty()) {
                     if (textStyle.hasProperties()) {
-                        line.addText(new SubtitleStyledText(textLine, textStyle));
+                        line.addText(new SubtitleStyledText(textLine, new SubtitleStyle(textStyle)));
                     } else {
                         line.addText(new SubtitlePlainText(textLine));
                     }

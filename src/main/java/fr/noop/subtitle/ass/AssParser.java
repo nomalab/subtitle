@@ -221,6 +221,7 @@ public class AssParser implements SubtitleParser {
                     String nameFormat = null;
                     SubtitleTimeCode startTime = new SubtitleTimeCode(0);
                     SubtitleTimeCode endTime = new SubtitleTimeCode(0);
+                    SubtitleStyle textStyle = null;
 
                     if (line.split(":").length > 1) {
                         List<String> dialogue = Arrays.asList(line.split(":", 2)[1].trim().split(",", dialoguesFormat.size()));
@@ -239,6 +240,7 @@ public class AssParser implements SubtitleParser {
                         if (dialoguesFormat.contains("Style")) {
                             int index = dialoguesFormat.indexOf("Style");
                             nameFormat = dialogue.get(index);
+                            textStyle = new SubtitleStyle(styles.get(nameFormat));
                         }
                         if (dialoguesFormat.contains("MarginV")) {
                             int index = dialoguesFormat.indexOf("MarginV");
@@ -254,9 +256,10 @@ public class AssParser implements SubtitleParser {
 
                             for (String textPart: text.split("\\\\N")) {
                                 SubtitleTextLine textLine = new SubtitleTextLine();
-                                SubtitleStyle textStyle = new SubtitleStyle(styles.get(nameFormat));
+                                textPart = textPart.replaceAll("\\{", "");
+                                textPart = textPart.replaceAll("\\}", "");
 
-                                if (textPart.contains("{\\pos")) {
+                                if (textPart.contains("\\pos")) {
                                     Pattern pattern = Pattern.compile("(?<=\\()[^\\)]+");
                                     Matcher matcher = pattern.matcher(textPart);
                                     if (matcher.find()) {
@@ -274,63 +277,62 @@ public class AssParser implements SubtitleParser {
                                             region.setVerticalAlign(VerticalAlign.TOP);
                                         }
                                     }
-                                    textPart = textPart.replaceAll("\\{\\\\pos\\([^)]*\\)\\}", "");
+                                    textPart = textPart.replaceAll("\\\\pos\\([^)]*\\)", "");
                                 }
-                                if (textPart.contains("{\\an8}")) {
+                                if (textPart.contains("\\an8")) {
                                     region.setVerticalAlign(VerticalAlign.TOP);
-                                    textPart = textPart.replaceAll("\\{\\\\an8\\}", "");
+                                    textPart = textPart.replaceAll("\\\\an8", "");
                                 }
 
-                                if (textPart.contains("{\\c")) {
+                                if (textPart.contains("\\c")) {
                                     Pattern pattern = Pattern.compile("&H(?:[A-F\\d]{3}){1,2}\\b&");
                                     Matcher matcher = pattern.matcher(textPart);
                                     if (matcher.find()) {
                                         String hexCode = matcher.group();
                                         textStyle.setColor(HexBGR.Color.getEnumFromHex(hexCode).getColorName());
                                     }
-                                    textPart = textPart.replaceAll("\\{\\\\c&H(?:[A-F\\d]{3}){1,2}\\b&\\}", "");
+                                    textPart = textPart.replaceAll("\\\\c&H(?:[A-F\\d]{3}){1,2}\\b&", "");
                                 }
 
-                                if (textPart.contains("{\\i1}") || textPart.contains("{\\b1}") || textPart.contains("{\\u1}")) {
+                                if (textPart.contains("\\i") || textPart.contains("\\b") || textPart.contains("\\u")) {
                                     int cIndex = 0;
                                     String newText = new String();
-                                    SubtitleStyle newStyle = new SubtitleStyle(textStyle);
                                     while (cIndex < textPart.length()) {
                                         char cc = textPart.charAt(cIndex);
-                                        if (cc == '{') {
-                                            String styleCode = textPart.substring(cIndex, cIndex+5);
+                                        if (cc == '\\') {
+                                            String styleCode = textPart.substring(cIndex, cIndex+3);
                                             if (!newText.isEmpty()) {
-                                                if (newStyle.hasProperties()) {
-                                                    textLine.addText(new SubtitleStyledText(newText, new SubtitleStyle(newStyle)));
+                                                if (textStyle.hasProperties()) {
+                                                    textLine.addText(new SubtitleStyledText(newText, new SubtitleStyle(textStyle)));
                                                 } else {
                                                     textLine.addText(new SubtitlePlainText(newText));
                                                 }
                                             }
-                                            if (styleCode.contains("{\\i1}")) {
-                                                newStyle.setFontStyle(FontStyle.ITALIC);
-                                            } else if (styleCode.contains("{\\b1}")) {
-                                                newStyle.setFontWeight(FontWeight.BOLD);
-                                            } else if (styleCode.contains("{\\u1}")) {
-                                                newStyle.setTextDecoration(TextDecoration.UNDERLINE);
-                                            } else if (styleCode.contains("{\\i0}")) {
-                                                newStyle.setFontStyle(FontStyle.NORMAL);
-                                            } else if (styleCode.contains("{\\b0}")) {
-                                                newStyle.setFontWeight(FontWeight.NORMAL);
-                                            } else if (styleCode.contains("{\\u0}")) {
-                                                newStyle.setTextDecoration(TextDecoration.NONE);
+                                            if (styleCode.contains("\\i1")) {
+                                                textStyle.setFontStyle(FontStyle.ITALIC);
+                                            } else if (styleCode.contains("\\b1")) {
+                                                textStyle.setFontWeight(FontWeight.BOLD);
+                                            } else if (styleCode.contains("\\u1")) {
+                                                textStyle.setTextDecoration(TextDecoration.UNDERLINE);
+                                            } else if (styleCode.contains("\\i0")) {
+                                                textStyle.setFontStyle(FontStyle.NORMAL);
+                                            } else if (styleCode.contains("\\b0")) {
+                                                textStyle.setFontWeight(FontWeight.NORMAL);
+                                            } else if (styleCode.contains("\\u0")) {
+                                                textStyle.setTextDecoration(TextDecoration.NONE);
                                             } else {
                                                 System.err.println("Unknown style code");
                                             }
                                             newText = new String();
-                                            cIndex += 5;
+                                            cIndex += 3;
                                         } else {
                                             newText += cc;
                                             cIndex++;
                                         }
                                     }
                                     if (!newText.isEmpty()) {
-                                        if (newStyle.hasProperties()) {
-                                            textLine.addText(new SubtitleStyledText(newText, newStyle));
+                                        if (textStyle.hasProperties()) {
+                                            textLine.addText(new SubtitleStyledText(newText, new SubtitleStyle(textStyle)));
                                         } else {
                                             textLine.addText(new SubtitlePlainText(newText));
                                         }
@@ -339,7 +341,7 @@ public class AssParser implements SubtitleParser {
 
                                 if (textLine.isEmpty()) {
                                     if (textStyle.hasProperties()) {
-                                        textLine.addText(new SubtitleStyledText(textPart, textStyle));
+                                        textLine.addText(new SubtitleStyledText(textPart, new SubtitleStyle(textStyle)));
                                     } else {
                                         textLine.addText(new SubtitlePlainText(textPart));
                                     }
