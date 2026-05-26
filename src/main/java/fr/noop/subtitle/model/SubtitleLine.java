@@ -17,6 +17,7 @@ import java.util.List;
  */
 public interface SubtitleLine {
     public List<SubtitleText> getTexts();
+    public String getVoice();
 
     /**
      *
