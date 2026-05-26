@@ -24,7 +24,6 @@ import fr.noop.subtitle.util.SubtitleStyle.FontWeight;
 import fr.noop.subtitle.util.SubtitleStyle.TextAlign;
 import fr.noop.subtitle.util.SubtitleStyle.TextDecoration;
 import fr.noop.subtitle.util.SubtitleStyledText;
-import fr.noop.subtitle.util.SubtitleTextLine;
 import fr.noop.subtitle.util.SubtitleTimeCode;
 import fr.noop.subtitle.util.SubtitleRegion.VerticalAlign;
 
@@ -255,7 +254,7 @@ public class AssParser implements SubtitleParser {
                             String text = dialogue.get(index);
 
                             for (String textPart: text.split("\\\\N")) {
-                                SubtitleTextLine textLine = new SubtitleTextLine();
+                                AssLine textLine = new AssLine();
                                 textPart = textPart.replaceAll("\\{", "");
                                 textPart = textPart.replaceAll("\\}", "");
 

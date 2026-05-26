@@ -18,7 +18,6 @@ import java.io.InputStreamReader;
 import fr.noop.subtitle.model.SubtitleParser;
 import fr.noop.subtitle.model.SubtitleParsingException;
 import fr.noop.subtitle.util.SubtitlePlainText;
-import fr.noop.subtitle.util.SubtitleTextLine;
 import fr.noop.subtitle.util.SubtitleTimeCode;
 
 /**
@@ -140,7 +139,7 @@ public class SamiParser implements SubtitleParser {
                 }
 
                 // Add new text line
-                SubtitleTextLine line = new SubtitleTextLine();
+                SamiLine line = new SamiLine();
                 line.addText(new SubtitlePlainText(text));
                 cue.addLine(line);
                 cursorStatus = CursorStatus.CUE_TEXT;

@@ -24,7 +24,6 @@ import fr.noop.subtitle.util.SubtitlePlainText;
 import fr.noop.subtitle.util.SubtitleRegion;
 import fr.noop.subtitle.util.SubtitleStyle;
 import fr.noop.subtitle.util.SubtitleStyledText;
-import fr.noop.subtitle.util.SubtitleTextLine;
 import fr.noop.subtitle.util.SubtitleTimeCode;
 import fr.noop.subtitle.util.SubtitleStyle.TextAlign;
 import fr.noop.subtitle.util.SubtitleStyle.FontStyle;
@@ -123,7 +122,7 @@ public class SrtParser implements SubtitleParser {
             // Following lines are the cue lines
             if (!textLine.isEmpty() && (cursorStatus == CursorStatus.CUE_TIMECODE ||
                     cursorStatus == CursorStatus.CUE_TEXT)) {
-                SubtitleTextLine line = new SubtitleTextLine();
+                SrtLine line = new SrtLine();
 
                 if (textLine.contains("{\\an1}")) {
                     region.setVerticalAlign(SubtitleRegion.VerticalAlign.BOTTOM);
