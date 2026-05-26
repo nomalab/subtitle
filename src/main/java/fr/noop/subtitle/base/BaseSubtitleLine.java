@@ -18,7 +18,7 @@ import java.util.List;
 
 
 /**
- * Created by clebeaupin on 09/10/15.
+ * Created by clebeaupin on 06/10/15.
  */
 public abstract class BaseSubtitleLine implements SubtitleLine {
     List<SubtitleText> texts;
