@@ -16,11 +16,10 @@ import fr.noop.subtitle.model.SubtitleText;
 import java.util.ArrayList;
 import java.util.List;
 
-
 /**
  * Created by clebeaupin on 06/10/15.
  */
-public abstract class BaseSubtitleLine implements SubtitleLine {
+public class BaseSubtitleLine implements SubtitleLine {
     List<SubtitleText> texts;
     String voice;
 
