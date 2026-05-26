@@ -10,16 +10,16 @@
 
 package fr.noop.subtitle.base;
 
-/**
- * Created by clebeaupin on 09/10/15.
- */
-
 import fr.noop.subtitle.model.SubtitleLine;
 import fr.noop.subtitle.model.SubtitleText;
 
 import java.util.ArrayList;
 import java.util.List;
 
+
+/**
+ * Created by clebeaupin on 09/10/15.
+ */
 public abstract class BaseSubtitleLine implements SubtitleLine {
     List<SubtitleText> texts;
     String voice;
