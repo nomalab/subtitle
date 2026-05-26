@@ -10,7 +10,6 @@
 
 package fr.noop.subtitle.model;
 
-import fr.noop.subtitle.util.SubtitleTextLine;
 import fr.noop.subtitle.util.SubtitleTimeCode;
 
 import java.util.List;

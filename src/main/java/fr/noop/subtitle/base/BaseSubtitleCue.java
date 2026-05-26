@@ -16,7 +16,6 @@ package fr.noop.subtitle.base;
 
 import fr.noop.subtitle.model.SubtitleCue;
 import fr.noop.subtitle.model.SubtitleLine;
-import fr.noop.subtitle.util.SubtitleTextLine;
 import fr.noop.subtitle.util.SubtitleTimeCode;
 
 import java.util.ArrayList;
