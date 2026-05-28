@@ -88,7 +88,7 @@ public class VttWriter implements SubtitleWriterWithHeader, SubtitleWriterWithTi
                 //String text = String.format("%s\n", cue.getText());
 
                 String text = "";
-                for (SubtitleLine line : cue.getLines()) {
+                for (SubtitleLine line : cue.getLines()) {                   
                     for (SubtitleText inText : line.getTexts()) {
                         String textString = inText.toString();
                         textString = textString.replace("amp;", "&lrm;amp;").replace("&", "&amp;"); // put lrm escape sequence between & and amp; to fully display "&amp;"
@@ -108,6 +108,9 @@ public class VttWriter implements SubtitleWriterWithHeader, SubtitleWriterWithTi
                             if (style.getColor() != null){
                                 textString = String.format("<c.%s>%s</c>", style.getColor(), textString);
                             }
+                        }
+                        if (line instanceof VttLine vttLine) {
+                            textString = String.format("<v %s>%s", vttLine.getVoice(), textString);
                         }
                         text += textString;
                     }
