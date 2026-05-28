@@ -19,18 +19,15 @@ import java.util.List;
 /**
  * Created by clebeaupin on 06/10/15.
  */
-public class BaseSubtitleLine implements SubtitleLine {
+public abstract class BaseSubtitleLine implements SubtitleLine {
     List<SubtitleText> texts;
-    String voice;
 
     public BaseSubtitleLine() {
         this.texts = new ArrayList<>();
-        this.voice = new String();
     }
 
     public BaseSubtitleLine(List<SubtitleText> texts, String voice) {
         this.texts = texts;
-        this.voice = voice;
     }
 
     public List<SubtitleText> getTexts() {
@@ -39,14 +36,6 @@ public class BaseSubtitleLine implements SubtitleLine {
 
     public void addText(SubtitleText text) {
         this.texts.add(text);
-    }
-
-    public String getVoice() {
-        return this.voice;
-    }
-
-    public void setVoice(String voice) {
-        this.voice = voice;
     }
 
     public boolean isEmpty() {
