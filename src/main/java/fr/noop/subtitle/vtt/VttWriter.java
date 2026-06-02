@@ -109,6 +109,9 @@ public class VttWriter implements SubtitleWriterWithHeader, SubtitleWriterWithTi
                                 textString = String.format("<c.%s>%s</c>", style.getColor(), textString);
                             }
                         }
+                        if (line instanceof VttLine vttLine && vttLine.getVoice() != null) {
+                            textString = String.format("<v %s>%s</v>", vttLine.getVoice(), textString);
+                        }
                         text += textString;
                     }
                     text += "\n";
