@@ -16,13 +16,4 @@ import fr.noop.subtitle.util.SubtitleTextLine;
  * Created by clebeaupin on 14/10/15.
  */
 public class VttLine extends SubtitleTextLine {
-    private String voice;
-
-    public String getVoice() {
-        return this.voice;
-    }
-
-    public void setVoice(String voice) {
-        this.voice = voice;
-    }
 }
