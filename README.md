@@ -26,7 +26,7 @@ Parser
 
 Supported advanced features:
 
-- voices
+- voices (partial voice tag are not supported)
 - styles
 - classes
 
@@ -40,7 +40,11 @@ Usage:
 Writer
 ======
 
-No advanced features implemented.
+Supported advanced features:
+
+- voices (partial voice tag are not supported)
+- styles
+- classes
 
 Usage:
 
