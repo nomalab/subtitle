@@ -393,7 +393,7 @@ public class VttParser implements SubtitleParser {
                         voiceCuesStyle.forEach((k, v) -> style.setProperty(k, v));
                     }
 
-                    break;
+                    continue;
                 }
 
                 // Bold characters
