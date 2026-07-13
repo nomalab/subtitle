@@ -382,10 +382,18 @@ public class VttParser implements SubtitleParser {
 
             for (String analyzedTag: analyzedTags) {
                 if (analyzedTag.equals("v")) {
-                    voiceCuesStyle.forEach((k, v) -> style.setProperty(k, v));
-                    cueLine.setVoice(text);
-                    text = "";
-                    break;
+                    if (tagStatus == TagStatus.CLOSE && tag.equals("v") && !textEnd.equals("/v>")) {
+                        // This is not a real close tag
+                        // so push it again
+                        cueLine.setVoice(text);
+                        text = "";
+                        tags.add(tag);
+                    }
+                    if (cueLine.getVoice() != null) {
+                        voiceCuesStyle.forEach((k, v) -> style.setProperty(k, v));
+                    }
+
+                    continue;
                 }
 
                 // Bold characters
